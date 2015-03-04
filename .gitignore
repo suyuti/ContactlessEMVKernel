@@ -1,0 +1,10 @@
+.metadata/*
+build/
+Debug/
+*.o
+*~
+doc/*
+
+.cproject
+.project
+.settings/
