@@ -6,6 +6,8 @@
 #include<gtest/gtest.h>
 #include<gmock/gmock.h>
 
+#include "EntryPoint_Test/entryPointTest.h"
+
 
 using namespace std;
 

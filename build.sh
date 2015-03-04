@@ -7,5 +7,8 @@ rm -rf CMakeCache.txt CMakeFiles/
 #cmake -DCMAKE_TOOLCHAIN_FILE=./cmake/toolchain/clang.cmake ..
 cmake ..
 
+
 make lint 
-cmake --build .
+make
+ctest
+#cmake --build .

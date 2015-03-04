@@ -4,6 +4,7 @@ add_executable(testKernel main.cpp)
 target_link_libraries(testKernel    ${GTEST_BOTH_LIBRARIES}
                                     ${GMOCK_LIBRARIES} 
                                     pthread
+                                    entryPoint
                                     )
 
 

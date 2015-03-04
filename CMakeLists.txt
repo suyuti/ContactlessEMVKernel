@@ -9,6 +9,8 @@ set(${PROJECT_NAME}_VERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_M
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 
+add_subdirectory(src)
+
 enable_testing()
 find_package(GTest REQUIRED)
 find_package(GMock REQUIRED)
