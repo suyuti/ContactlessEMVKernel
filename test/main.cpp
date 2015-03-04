@@ -1,7 +1,7 @@
 /*
     Copyright 2015
 */
-    
+
 #include <iostream>
 #include<gtest/gtest.h>
 #include<gmock/gmock.h>
