@@ -7,7 +7,7 @@
 #include<gmock/gmock.h>
 
 #include "EntryPoint_Test/entryPointTest.h"
-
+#include "Base_Test/selectTests.h"
 
 using namespace std;
 

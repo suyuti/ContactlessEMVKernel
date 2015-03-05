@@ -20,3 +20,18 @@ if(GMOCK_FOUND AND GTEST_FOUND)
     add_subdirectory(test)
 endif()
 
+################################################################################
+#
+# CPP lint check target
+#
+################################################################################
+
+file(GLOB_RECURSE 
+     ALL_SOURCE_FILES 
+     src/*.c 
+     src/*.h
+     test/*.cpp
+     test/*.h)
+
+INCLUDE( CppLint )
+ADD_STYLE_CHECK_TARGET(lint ${ALL_SOURCE_FILES})

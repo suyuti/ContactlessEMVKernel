@@ -71,7 +71,7 @@ function(add_style_check_target TARGET_NAME SOURCES_LIST)
             "${CMAKE_SOURCE_DIR}/cpplint.py"
             "--filter=${STYLE_FILTER}"
             "--counting=detailed"
-            "--extensions=cpp,hpp,h"
+            "--extensions=c,cpp,hpp,h"
             "--linelength=250"
             ${SOURCES_LIST}
     DEPENDS ${SOURCES_LIST}

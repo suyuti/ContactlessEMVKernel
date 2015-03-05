@@ -1,3 +1,5 @@
+include_directories(../src)
+
 set(testSources main.cpp)
 add_executable(testKernel main.cpp)
 
@@ -16,5 +18,5 @@ add_test(testKernel testKernel)
 #
 ################################################################################
 
-INCLUDE( CppLint )
-ADD_STYLE_CHECK_TARGET(lint ${testSources})
+#INCLUDE( CppLint )
+#ADD_STYLE_CHECK_TARGET(lint ${testSources})
