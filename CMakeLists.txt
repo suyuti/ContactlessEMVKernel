@@ -1,37 +1,64 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-project(SmartSoftEmvKernel C CXX)
-
-set(${PROJECT_NAME}_MAJOR_VERSION 0)
-set(${PROJECT_NAME}_MINOR_VERSION 0)
-set(${PROJECT_NAME}_PATCH_VERSION 0)
-set(${PROJECT_NAME}_VERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_VERSION})
+project(SSKernel C CXX)
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 
+
+#-----------------------------------------------------------------------
+#      Options
+Option(BUILD_DOC            " Create doxygen documentation for developers "     OFF)
+Option(BUILD_WITH_COVERAGE  " Build with coverage analysis support "            OFF)
+Option(BUILD_CODE_STYLE     " Build with code style checking "                  OFF)
+Option(BUILD_PROFILING      " Build with profiling "                            OFF)
+Option(BUILD_MEMCHECK       " Build with memory check "                         OFF)
+Option(BUILD_SLOC           " Build with line counting "                        OFF)
+Option(BUILD_TESTING        " Build with testing "                              ON)
+
+
 add_subdirectory(src)
 
-enable_testing()
-find_package(GTest REQUIRED)
-find_package(GMock REQUIRED)
 
-if(GMOCK_FOUND AND GTEST_FOUND)
-    add_custom_target(build_and_test ${CMAKE_CTEST_COMMAND} -V)
-    add_subdirectory(test)
+#-----------------------------------------------------------------------
+#      Document
+if (BUILD_DOC)
+    include(EnableDoxygen)
 endif()
 
-################################################################################
-#
-# CPP lint check target
-#
-################################################################################
+#-----------------------------------------------------------------------
+#      Test coverage
+if (BUILD_WITH_COVERAGE)
+    include(EnableCoverage)
+    setup_target_for_coverage(coverage testKernel coverage)
+endif()
 
-file(GLOB_RECURSE 
-     ALL_SOURCE_FILES 
-     src/*.c 
-     src/*.h
-     test/*.cpp
-     test/*.h)
+#-----------------------------------------------------------------------
+#      Profiling
+if (BUILD_PROFILING)
+    include(EnableProfiling)
+endif()
 
-INCLUDE( CppLint )
-ADD_STYLE_CHECK_TARGET(lint ${ALL_SOURCE_FILES})
+#-----------------------------------------------------------------------
+#      Memory Leakage Check
+if (BUILD_MEMCHECK)
+    include(EnableMemCheck)
+endif()
+
+#-----------------------------------------------------------------------
+#      Coding Style Checking
+if (BUILD_CODE_STYLE)
+    include(EnableCodeStyle)
+endif()
+
+
+#-----------------------------------------------------------------------
+#      Testing
+if (BUILD_TESTING)
+    include(EnableTesting)
+endif()
+
+#-----------------------------------------------------------------------
+#      Static code reporting (SLOC)
+if (BUILD_SLOC)
+    include(EnableSlocCount)
+endif()
