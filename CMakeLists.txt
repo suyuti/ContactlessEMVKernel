@@ -12,7 +12,7 @@ Option(BUILD_WITH_COVERAGE  " Build with coverage analysis support "            
 Option(BUILD_CODE_STYLE     " Build with code style checking "                  OFF)
 Option(BUILD_PROFILING      " Build with profiling "                            OFF)
 Option(BUILD_MEMCHECK       " Build with memory check "                         OFF)
-Option(BUILD_SLOC           " Build with line counting "                        OFF)
+Option(BUILD_SLOC           " Build with line counting "                        ON)
 Option(BUILD_TESTING        " Build with testing "                              ON)
 
 
@@ -60,5 +60,7 @@ endif()
 #-----------------------------------------------------------------------
 #      Static code reporting (SLOC)
 if (BUILD_SLOC)
+    include(ParseArguments)
     include(EnableSlocCount)
+    ENABLE_SLOCCOUNT(FOLDERS src)
 endif()

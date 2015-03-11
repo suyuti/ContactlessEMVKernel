@@ -16,6 +16,7 @@ Dependencies:
         sudo apt-get install valgrind
   - Uncrustify
   - SLOCCounter
+        sudo apt-get install sloccount
 
 Building
 
@@ -33,3 +34,20 @@ Test Coverage
 
 Profiling
 
+
+
+Usage:
+------
+
+mkdir build
+cd build
+cmake ..
+make help
+make <target>
+
+
+to see opitons
+cmake .. -i
+
+you may need compile in Debug mode
+cmake -DCMAKE_BUILD_TYPE=Debug ..
