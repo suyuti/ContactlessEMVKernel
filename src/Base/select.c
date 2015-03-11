@@ -27,7 +27,7 @@ int _buildSelect(const char* aid, int size, unsigned char* pBuffer, int* pSize)
     pBuffer[4] = (unsigned char)size;
     memcpy(pBuffer+5, (unsigned char*)aid, size);
     *pSize = size + 5;
-    
+
     return 0;
 }
 
@@ -44,7 +44,3 @@ int _resolveSelectPpse()
 {
 
 }
-
-//-----------------------------------------------------------------------
-//-----------------------------------------------------------------------
-//-----------------------------------------------------------------------
