@@ -3,12 +3,13 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 project(SSKernel C CXX)
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
+SET(CMAKE_COLOR_MAKEFILE ON)
 
 
 #-----------------------------------------------------------------------
 #      Options
-Option(BUILD_DOC            " Create doxygen documentation for developers "     OFF)
-Option(BUILD_WITH_COVERAGE  " Build with coverage analysis support "            OFF)
+Option(BUILD_DOC            " Create doxygen documentation for developers "     ON)
+Option(BUILD_WITH_COVERAGE  " Build with coverage analysis support "            ON)
 Option(BUILD_CODE_STYLE     " Build with code style checking "                  ON)
 Option(BUILD_PROFILING      " Build with profiling "                            OFF)
 Option(BUILD_MEMCHECK       " Build with memory check "                         OFF)

@@ -1,5 +1,7 @@
 set(sources_EntryPoint  EntryPoint/entryPoint.c
-                        Base/select.c)
+                        Base/select.c
+                        Base/tlv.c
+                        Base/utils.c)
 
 if(BUILD_WITH_COVERAGE)
     add_definitions(--coverage)

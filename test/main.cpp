@@ -8,6 +8,8 @@
 
 #include "EntryPoint_Test/entryPointTest.h"
 #include "Base_Test/selectTests.h"
+#include "Base_Test/utilsTests.h"
+#include "Base_Test/tlvTests.h"
 
 using namespace std;
 

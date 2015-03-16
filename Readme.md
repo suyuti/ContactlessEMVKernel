@@ -17,6 +17,16 @@ Dependencies:
   - Uncrustify
   - SLOCCounter
         sudo apt-get install sloccount
+  - BDD, cucumber-cpp
+  - debugging, gdb
+  - opaque pointer
+  - colorful output:
+      sudo apt-get install colorgcc
+      cd /usr/local/bin
+      sudo ln -s /usr/bin/colorgcc gcc
+      sudo ln -s /usr/bin/colorgcc g++
+      sudo ln -s /usr/bin/colorgcc cc
+      sudo ln -s /usr/bin/colorgcc c++
 
 Building
 
