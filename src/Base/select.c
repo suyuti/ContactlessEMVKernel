@@ -2,6 +2,7 @@
     Copyright 2015
 */
 
+#include <string.h>
 #include "./select.h"
 
 #define PPSE        "2PAY.SYS.DDF01"
