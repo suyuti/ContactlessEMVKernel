@@ -1,3 +1,7 @@
+/*
+    Copyright 2015
+*/
+
 #include "entryPoint.h"
 
 int ep_process()

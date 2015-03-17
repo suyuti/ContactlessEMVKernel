@@ -1,5 +1,9 @@
-#ifndef _SELECT_TEST_H_
-#define _SELECT_TEST_H_
+/*
+    Copyright 2015
+*/
+
+#ifndef TEST_BASE_TEST_SELECTTESTS_H_
+#define TEST_BASE_TEST_SELECTTESTS_H_
 
 #include "gtest/gtest.h"
 #include "../testUtils.h"
@@ -48,7 +52,7 @@ TEST_F(TestSelect, _buildSelectPPSE)
 {
     int             ret             = 0;
     unsigned char   actual[255]     = {0x00};
-    unsigned char   expected[255]   = {0x00, 0xA4, 0x04, 0x00, 0x0E, 
+    unsigned char   expected[255]   = {0x00, 0xA4, 0x04, 0x00, 0x0E,
                     '2','P','A','Y','.','S','Y','S','.','D','D','F','0','1'};
     int             expectedSize    = 19;
     int             size            = 0;
@@ -120,4 +124,4 @@ TEST_F(TestSelect, resolveSelectPpse)
 
 //-----------------------------------------------------------------------------------
 
-#endif// _SELECT_TEST_H_
+#endif// TEST_BASE_TEST_SELECTTESTS_H_

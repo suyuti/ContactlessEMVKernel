@@ -1,5 +1,9 @@
-#ifndef _HAL_H_
-#define _HAL_H_
+/*
+    Copyright 2015
+*/
+
+#ifndef SRC_HAL_HAL_H_
+#define SRC_HAL_HAL_H_
 
 #define CR_OPEN()
 #define CR_CLOSE()
@@ -10,4 +14,4 @@ int cr_open();
 int cr_close();
 int cr_sendRecv();
 
-#endif// _HAL_H_
+#endif// SRC_HAL_HAL_H_

@@ -1,5 +1,9 @@
-#include "tlv.h"
-#include "err.h"
+/*
+    Copyright 2015
+*/
+
+#include "./tlv.h"
+#include "./err.h"
 
 int _tag(const unsigned char* pData, int* pTagLen, int* pConstructed)
 {
@@ -32,10 +36,10 @@ int _len(const unsigned char* pData, int* pLenLen)
 
 //-----------------------------------------------------------------------
 
-int _parse( const unsigned char* data, 
-            int size, 
-            OnTag onTag, 
-            void* target) 
+int _parse( const unsigned char* data,
+            int size,
+            OnTag onTag,
+            void* target)
 {
     int tagLen = 0;
     int lenLen = 0;
@@ -50,15 +54,14 @@ int _parse( const unsigned char* data,
     tag = _tag(data, &tagLen, &constructed);
     len = _len(data+tagLen, &lenLen);
 
-    if (len+tagLen+lenLen > size) { 
+    if (len+tagLen+lenLen > size) {
         return INCORRECT_DATA;}
 
     //gTagList[gTagListIndex++] = tag;
     if (constructed == 1) {
         err = _parse(data+tagLen+lenLen, len, onTag, target);
         if (err != SUCCESS) return err;
-    }
-    else {
+    } else {
         err = onTag(tag, len, data+tagLen+lenLen, target);
         if (err != SUCCESS) return err;
     }

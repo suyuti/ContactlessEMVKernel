@@ -1,4 +1,4 @@
-file(GLOB_RECURSE 
+file(GLOB_RECURSE
      ALL_SOURCE_FILES 
      src/*.c 
      src/*.h
@@ -6,4 +6,4 @@ file(GLOB_RECURSE
      test/*.h)
 
 INCLUDE( CppLint )
-ADD_STYLE_CHECK_TARGET(style ${ALL_SOURCE_FILES})
+ADD_STYLE_CHECK_TARGET(style "${ALL_SOURCE_FILES}")

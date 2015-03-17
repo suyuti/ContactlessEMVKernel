@@ -1,5 +1,9 @@
-#ifndef _ENTRY_POINT_H_
-#define _ENTRY_POINT_H_
+/*
+    Copyright 2015
+*/
+
+#ifndef SRC_ENTRYPOINT_ENTRYPOINT_H_
+#define SRC_ENTRYPOINT_ENTRYPOINT_H_
 
 /**
 * Functionality
@@ -32,4 +36,4 @@ int _ep_startA(int amount, int otherAmount);
 int _ep_startB();
 int _ep_startC();
 
-#endif// _ENTRY_POINT_H_
+#endif// SRC_ENTRYPOINT_ENTRYPOINT_H_

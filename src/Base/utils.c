@@ -1,6 +1,10 @@
-#include "utils.h"
+/*
+    Copyright 2015
+*/
 
-int toInt(const unsigned char* ptag, int size) 
+#include "./utils.h"
+
+int toInt(const unsigned char* ptag, int size)
 {
     if (!ptag || size==0) return -1;
 

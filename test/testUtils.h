@@ -1,5 +1,9 @@
-#ifndef _TEST__UTILS_H_
-#define _TEST__UTILS_H_
+/*
+    Copyright 2015
+*/
+
+#ifndef TEST_TESTUTILS_H_
+#define TEST_TESTUTILS_H_
 
 #include <string>
 
@@ -17,23 +21,19 @@ static inline int str2bcd(string str, unsigned char* pOut) {
         c = str[i];
         if (c>='0' && c<='9') {
             c -= '0';
-        }
-        else if (c>='a' && c<='f') {
+        } else if (c>='a' && c<='f') {
             c -= 'a';
             c+=0x0A;
-        }
-        else if (c>='A' && c<='F') {
+        } else if (c>='A' && c<='F') {
             c -= 'A';
             c+=0x0A;
-        }
-        else {
+        } else {
             return 0;
         }
 
         if ((i%2) == 0) {
             pOut[j] = c << 4;
-        }
-        else {
+        } else {
             pOut[j] |= c & 0x0f;
             j++;
         }
@@ -49,8 +49,7 @@ static inline string bcd2str(unsigned char* pIn, int size) {
         c = pIn[i] >> 4;
         if (c >= 0x00 && c <= 0x09) {
             c += '0';
-        }
-        else if (c>=0x0A && c <= 0x0F) {
+        } else if (c>=0x0A && c <= 0x0F) {
             c += 'A' - 0x0a;
         }
         s += c;
@@ -58,8 +57,7 @@ static inline string bcd2str(unsigned char* pIn, int size) {
         c = pIn[i] & 0x0F;
         if (c >= 0x00 && c <= 0x09) {
             c += '0';
-        }
-        else if (c>=0x0A && c <= 0x0F) {
+        } else if (c>=0x0A && c <= 0x0F) {
             c += 'A' - 0x0A;
         }
         s += c;
@@ -69,7 +67,7 @@ static inline string bcd2str(unsigned char* pIn, int size) {
 
 static inline void log(const unsigned char* pData, int size) {
 
-    for(int i = 0; i < size; ++i) {
+    for (int i = 0; i < size; ++i) {
         printf("%02X ", pData[i]);
         if ((i!=0) && ((i%16) == 0)) {
             printf("\n");
@@ -78,6 +76,6 @@ static inline void log(const unsigned char* pData, int size) {
     printf("\n");
 }
 };
-}
+} //namespace EmvTest
 
-#endif //_TEST_UTILS_H_
+#endif //TEST_TESTUTILS_H_

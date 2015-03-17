@@ -1,5 +1,9 @@
-#ifndef _TLV_TESTS_H_
-#define _TLV_TESTS_H_
+/*
+    Copyright 2015
+*/
+
+#ifndef TEST_BASE_TEST_TLVTESTS_H_
+#define TEST_BASE_TEST_TLVTESTS_H_
 
 #include "gtest/gtest.h"
 
@@ -12,7 +16,7 @@ using namespace std;
 class TestTlv : public ::testing::Test {
 };
 
-TEST_F(TestTlv, _tag_negative) 
+TEST_F(TestTlv, _tag_negative)
 {
     unsigned char d[] = {0x00};
     int len = 0;
@@ -20,7 +24,7 @@ TEST_F(TestTlv, _tag_negative)
 
     int actual = _tag(NULL, NULL, NULL);
     EXPECT_EQ(-1, actual);
-    
+
     actual = _tag(d, NULL, NULL);
     EXPECT_EQ(-1, actual);
 
@@ -40,7 +44,7 @@ TEST_F(TestTlv, _tag_negative)
     EXPECT_EQ(-1, actual);
 }
 
-TEST_F(TestTlv, _tag) 
+TEST_F(TestTlv, _tag)
 {
     unsigned char data1[] = {0x01, 0x01, 0x01};
 
@@ -86,9 +90,7 @@ TEST_F(TestTlv, _tag)
     //EXPECT_EQ(expectedTagLen, actualTagLen);
     //EXPECT_EQ(expectedConstructed, actualConstructed);
 
-    unsigned char data4[] = {0x20, 0x03, 
-                                 0x01, 0x01, 0xAA,
-                            };
+    unsigned char data4[] = {0x20, 0x03, 0x01, 0x01, 0xAA};
     actual              = 0;
     expected            = 0x20;
     actualTagLen        = 0;
@@ -102,7 +104,7 @@ TEST_F(TestTlv, _tag)
     EXPECT_EQ(expectedConstructed, actualConstructed);
 }
 
-TEST_F(TestTlv, _len_negative) 
+TEST_F(TestTlv, _len_negative)
 {
     unsigned char d[] = {0x00};
     int len = 0;
@@ -117,7 +119,7 @@ TEST_F(TestTlv, _len_negative)
     EXPECT_EQ(-1, actual);
 }
 
-TEST_F(TestTlv, _len) 
+TEST_F(TestTlv, _len)
 {
     unsigned char data1[] = {0x01, 0x02, 0x01, 0x02};
 
@@ -161,13 +163,13 @@ int onTag_Test_False(int tag, int len, const unsigned char* val, void* target)
 }
 
 
-TEST_F(TestTlv, _parse_negative) 
+TEST_F(TestTlv, _parse_negative)
 {
     char target;
 
-    EXPECT_EQ(INVALID_PARAMETER, _parse(NULL, 0, NULL, NULL)); 
-    EXPECT_EQ(INVALID_PARAMETER, _parse(NULL, 1, NULL, NULL)); 
-    EXPECT_EQ(INVALID_PARAMETER, _parse(NULL, 0, NULL, (void*)&target)); 
+    EXPECT_EQ(INVALID_PARAMETER, _parse(NULL, 0, NULL, NULL));
+    EXPECT_EQ(INVALID_PARAMETER, _parse(NULL, 1, NULL, NULL));
+    EXPECT_EQ(INVALID_PARAMETER, _parse(NULL, 0, NULL, reinterpret_cast<int*>(&target)));
 
     unsigned char data[1024] = {0x00};
     int size = EmvTest::TestUtils::str2bcd( "6FFF840E325041592E53"
@@ -182,13 +184,11 @@ TEST_F(TestTlv, _parse_negative)
                                             "07", data);
     // 6F FF (invalid size)
     int actual = _parse(data, size, onTag_Test, &target);
-    EXPECT_EQ(INCORRECT_DATA, actual); 
+    EXPECT_EQ(INCORRECT_DATA, actual);
 
 }
 
-
-
-TEST_F(TestTlv, _parse) 
+TEST_F(TestTlv, _parse)
 {
     DummyTestTarget target;
     unsigned char data[1024] = {0x00};
@@ -203,10 +203,10 @@ TEST_F(TestTlv, _parse)
                                             "07B01234567810308701"
                                             "07", data);
     int actual = _parse(data, size, onTag_Test, &target);
-    EXPECT_EQ(SUCCESS, actual); 
-    
+    EXPECT_EQ(SUCCESS, actual);
+
     actual = _parse(data, size, onTag_Test_False, &target);
-    EXPECT_EQ(-99, actual); 
+    EXPECT_EQ(-99, actual);
 }
 
-#endif// _TLV_TESTS_H_
+#endif// TEST_BASE_TEST_TLVTESTS_H_
