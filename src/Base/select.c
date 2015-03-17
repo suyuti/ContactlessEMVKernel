@@ -40,36 +40,6 @@ int _buildSelectPpse(unsigned char* pBuffer, int* pSize)
 
 //-----------------------------------------------------------------------
 
-int tag(const unsigned char* pData, int* pLen, int* pConstructed)
-{
-    if ((pData[0] & 0x20) == 0x20) {
-        *pConstructed = 1;
-    }
-    *pLen = 1;
-    return (int)pData;
-}
-
-int len(const unsigned char* pData, int* pLen)
-{
-    *pLen = 1;
-    return (int)pData;
-}
-
-int resolve(const unsigned char* pData, int size) 
-{
-    int tagLen = 0;
-    int lenLen = 0;
-    int constructed = 0;
-    int _tag = tag(pData, &tagLen, &constructed);
-    pData += tagLen;
-    int _len = len(pData, &lenLen);
-    pData += lenLen;
-    if (constructed == 1) {
-        resolve(pData, size - tagLen - lenLen);
-    }
-}
-
-
 int _resolveSelectPpse(const unsigned char* pData, int size, T6FPtr t6F)
 {
     if (!pData || size == 0 || !t6F) return -1;

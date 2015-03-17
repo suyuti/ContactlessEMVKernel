@@ -114,7 +114,7 @@ TEST_F(TestSelect, resolveSelectPpse)
     ret = _resolveSelectPpse(answer, size, &_6f);
     EXPECT_EQ(0, ret);
 
-    EmvTest::TestUtils::log(_6f._84, sizeof(_6f._84));
+    //EmvTest::TestUtils::log(_6f._84, sizeof(_6f._84));
     EXPECT_MEMEQ("325041592E5359532E4444463031", _6f._84);
 }
 
