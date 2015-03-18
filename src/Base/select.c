@@ -55,17 +55,6 @@ int _resolveSelectPpse(const unsigned char* pData, int size, FciPtr fci)
 
 int OnTag_resolvePpse(int tag, int len, int constructed, const unsigned char* val, FciPtr target)
 {
-    /*
-    printf("Tag: %X[%d] %s\n", tag, len, constructed ? " CONST " : "");
-    int i = 0;
-    if (constructed == 0) {
-        for (i = 0; i < len; ++i) {
-            printf("%02X ", val[i]);
-        }
-        printf("\n");
-    }
-    */
-
     switch(tag) {
         case 0x6F: // check mandatory
         break;

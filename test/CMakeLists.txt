@@ -1,3 +1,5 @@
+file(COPY App/terminal.py DESTINATION .)
+
 include_directories(../src)
 
 set(testSources main.cpp)

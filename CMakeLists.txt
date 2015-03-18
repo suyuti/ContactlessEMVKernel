@@ -15,9 +15,8 @@ Option(BUILD_PROFILING      " Build with profiling "                            
 Option(BUILD_MEMCHECK       " Build with memory check "                         OFF)
 Option(BUILD_SLOC           " Build with line counting "                        ON)
 Option(BUILD_TESTING        " Build with testing "                              ON)
+Option(BUILD_FOR_PYTHON     " Build for Python "                                ON)
 
-
-add_subdirectory(src)
 
 
 #-----------------------------------------------------------------------
@@ -59,9 +58,18 @@ if (BUILD_TESTING)
 endif()
 
 #-----------------------------------------------------------------------
+#      Python
+if (BUILD_FOR_PYTHON)
+    include(EnablePython)
+endif()
+
+#-----------------------------------------------------------------------
 #      Static code reporting (SLOC)
 if (BUILD_SLOC)
     include(ParseArguments)
     include(EnableSlocCount)
     ENABLE_SLOCCOUNT(FOLDERS src)
 endif()
+
+
+add_subdirectory(src)
