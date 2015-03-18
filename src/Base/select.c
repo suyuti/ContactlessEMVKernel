@@ -4,6 +4,8 @@
 
 #include <string.h>
 #include "./select.h"
+#include "./tlv.h"
+#include "./err.h"
 
 #define PPSE        "2PAY.SYS.DDF01"
 
@@ -41,20 +43,46 @@ int _buildSelectPpse(unsigned char* pBuffer, int* pSize)
 
 //-----------------------------------------------------------------------
 
-int _resolveSelectPpse(const unsigned char* pData, int size, T6FPtr t6F)
+int _resolveSelectPpse(const unsigned char* pData, int size, FciPtr fci)
 {
-    if (!pData || size == 0 || !t6F) return -1;
-    int pos = 0;
-    int len = 0;
+    if (!pData || size == 0 || !fci) return INVALID_PARAMETER;
 
-    if (pData[pos++] != 0x6F) return -2;
-    len = pData[pos++];
+    int res =  _parse(pData, size, (OnTag)OnTag_resolvePpse, fci);
+    return res;
+}
 
-    if (pData[pos++] != 0x84) return -3;
-    len = pData[pos++];
-    memcpy(t6F->_84, &pData[pos], len); pos += len;
+//-----------------------------------------------------------------------
 
-    if (pData[pos++] != 0xA5) return -4;
-    len = pData[pos++];
-    return 0;
+int OnTag_resolvePpse(int tag, int len, int constructed, const unsigned char* val, FciPtr target)
+{
+    /*
+    printf("Tag: %X[%d] %s\n", tag, len, constructed ? " CONST " : "");
+    int i = 0;
+    if (constructed == 0) {
+        for (i = 0; i < len; ++i) {
+            printf("%02X ", val[i]);
+        }
+        printf("\n");
+    }
+    */
+
+    switch(tag) {
+        case 0x6F: // check mandatory
+        break;
+        case 0x84:
+            _set84(target, val, len);
+        break;
+        case 0xBF0C:
+        break;
+        case 0xA5:
+            // mandatory check
+        break;
+        case 0x61:
+            _incFciIssDataCounter(target);
+        break;
+        default:
+            _setFciIssData(target, tag, val, len);
+        break;
+    }
+    return SUCCESS;
 }

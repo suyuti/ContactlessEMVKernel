@@ -152,12 +152,12 @@ typedef struct {
     unsigned char dfName[32];
 } DummyTestTarget;
 
-int onTag_Test(int tag, int len, const unsigned char* val, void* target)
+int onTag_Test(int tag, int len, int constructed, const unsigned char* val, void* target)
 {
     return SUCCESS;
 }
 
-int onTag_Test_False(int tag, int len, const unsigned char* val, void* target)
+int onTag_Test_False(int tag, int len, int constructed, const unsigned char* val, void* target)
 {
     return -99;
 }

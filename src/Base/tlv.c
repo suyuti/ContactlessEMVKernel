@@ -2,6 +2,7 @@
     Copyright 2015
 */
 
+#include <stdlib.h>
 #include "./tlv.h"
 #include "./err.h"
 
@@ -59,10 +60,12 @@ int _parse( const unsigned char* data,
 
     //gTagList[gTagListIndex++] = tag;
     if (constructed == 1) {
+        err = onTag(tag, len, constructed, NULL, target);
+        if (err != SUCCESS) return err;
         err = _parse(data+tagLen+lenLen, len, onTag, target);
         if (err != SUCCESS) return err;
     } else {
-        err = onTag(tag, len, data+tagLen+lenLen, target);
+        err = onTag(tag, len, constructed, data+tagLen+lenLen, target);
         if (err != SUCCESS) return err;
     }
     if (tagLen+lenLen+len < size) {
