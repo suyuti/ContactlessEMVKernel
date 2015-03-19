@@ -10,6 +10,7 @@
 #include "Base_Test/selectTests.h"
 #include "Base_Test/utilsTests.h"
 #include "Base_Test/tlvTests.h"
+#include "Mockups/mockup_tests.h"
 
 using namespace std;
 

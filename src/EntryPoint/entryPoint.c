@@ -3,9 +3,11 @@
 */
 
 #include "entryPoint.h"
+#include "../Base/kernel.h"
 
 int ep_process()
 {
+    gCrOpen();
     return 0;
 }
 

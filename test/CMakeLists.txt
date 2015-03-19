@@ -3,10 +3,21 @@ file(COPY App/tester.py DESTINATION .)
 
 include_directories(../src)
 
-set(testSources main.cpp)
-add_executable(testKernel main.cpp)
+set(srcTest main.cpp
+            Mockups/mockReader.cpp)
+add_executable(testKernel ${srcTest})
 
 target_link_libraries(testKernel    ${GTEST_BOTH_LIBRARIES}
+                                    ${GMOCK_LIBRARIES} 
+                                    pthread
+                                    entryPoint
+                                    )
+
+#----------------------------------------------------------------
+set(srcMock main.cpp
+            Mockups/mockReader.cpp)
+add_executable(mockKernel ${srcMock})
+target_link_libraries(mockKernel    ${GTEST_BOTH_LIBRARIES}
                                     ${GMOCK_LIBRARIES} 
                                     pthread
                                     entryPoint

@@ -10,8 +10,8 @@
 #define CR_SENDRECV(o, os, i, is)   0
 
 
-int cr_open();
-int cr_close();
-int cr_sendRecv();
+typedef int (*cr_open)(void);
+typedef int (*cr_close)(void);
+typedef int (*cr_sendRecv)(const unsigned char* out, int outSize, unsigned char* in, int* pInSize);
 
 #endif// SRC_HAL_HAL_H_
