@@ -1,4 +1,5 @@
 file(COPY App/terminal.py DESTINATION .)
+file(COPY App/tester.py DESTINATION .)
 
 include_directories(../src)
 

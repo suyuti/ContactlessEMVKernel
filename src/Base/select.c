@@ -6,15 +6,26 @@
 #include "./select.h"
 #include "./tlv.h"
 #include "./err.h"
+#include "../Hal/hal.h"
 
 #define PPSE        "2PAY.SYS.DDF01"
 
+static unsigned char gTmp1[1024];
+static unsigned char gTmp2[1024];
+static int gSize = 0;
 
 //-----------------------------------------------------------------------
 
-int selectPpse()
+int selectPpse(FciPtr pFci)
 {
-    return 0;
+    int err = _buildSelectPpse(gTmp1, &gSize);
+    if (err != SUCCESS) return err;
+
+    err = CR_SENDRECV(ggprofTmp1, gSize, gTmp2, &gSize);
+    if (err != SUCCESS) return err;
+
+    err = _resolveSelectPpse(gTmp2, gSize, pFci);
+    return err;
 }
 
 //-----------------------------------------------------------------------

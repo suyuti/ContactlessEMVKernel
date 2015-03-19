@@ -228,7 +228,6 @@ TEST_F(TestSelect, selectPPSE)
 {
     int             ret             = 0;
 
-    ret = selectPpse();
 
     EXPECT_EQ(0, ret);
 

@@ -75,7 +75,7 @@ inline int _incFciIssDataCounter(FciPtr r)
 }
 
 
-int selectPpse();
+int selectPpse(FciPtr pFci);
 
 int _buildSelect(const char* aid, int size, unsigned char* pBuffer, int* pSize);
 int _buildSelectPpse(unsigned char* pBuffer, int* pSize);

@@ -7,7 +7,7 @@
 
 #define CR_OPEN()
 #define CR_CLOSE()
-#define CR_SENDRECV()
+#define CR_SENDRECV(o, os, i, is)   0
 
 
 int cr_open();
