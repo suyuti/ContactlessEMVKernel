@@ -27,7 +27,7 @@ class MockReaderFunctions : public testing::MockerC<MockReaderFunctions> {
 public:
     MOCK_CONST_METHOD0(reset,       int(void));
     MOCK_CONST_METHOD0(close,       int(void));
-    MOCK_CONST_METHOD4(sendrecv,    int(const unsigned char*  pIn, 
+    MOCK_CONST_METHOD4(sendRecv,    int(const unsigned char*  pIn, 
                                         int                   inSize, 
                                         unsigned char*        pOut, 
                                         unsigned long*        pOutSize));

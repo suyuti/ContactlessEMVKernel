@@ -4,10 +4,15 @@
 
 #include "entryPoint.h"
 #include "../Base/kernel.h"
+#include "../Base/select.h"
 
 int ep_process()
 {
+
+    Fci f;
     gCrOpen();
+
+    selectPpse(&f);
     return 0;
 }
 

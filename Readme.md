@@ -8,6 +8,8 @@ Dependencies:
   - doxygen
         sudo apt-get install doxygen
   - gprof
+  - google perf tools
+  - google log
   - google-test
   - google-mock
   - clang

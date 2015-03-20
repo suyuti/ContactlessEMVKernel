@@ -32,5 +32,5 @@ int sendrecv_Mock(const unsigned char*   p1,
                   unsigned char*         p3,
                   unsigned long*         p4)
 {
-    return MockReaderFunctions::instance().sendrecv(p1, p2, p3, p4);
+    return MockReaderFunctions::instance().sendRecv(p1, p2, p3, p4);
 }
