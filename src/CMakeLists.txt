@@ -14,6 +14,10 @@ if(BUILD_WITH_COVERAGE)
     set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} " --coverage")
 endif()
 
+#if (BUILD_PROFILING)
+    set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} " -pg ")
+#endif()
+
 #-------------------------------------------------------------
 #   Entry point library
 

@@ -103,7 +103,7 @@ TEST_F(TestMockups, _2EA_001_00_01)
     initialize();    
     ep_process();
 }
-
+/*
 TEST_F(TestMockups, xxxx)
 {
     unsigned char c1[] = {0xAA};
@@ -141,6 +141,7 @@ TEST_F(TestMockups, xxxx)
     initialize();    
     ep_process();
 }
+*/
 
 
 #endif// _TEST_MOCKUPS_H_

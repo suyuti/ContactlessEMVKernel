@@ -29,6 +29,8 @@ Dependencies:
       sudo ln -s /usr/bin/colorgcc g++
       sudo ln -s /usr/bin/colorgcc cc
       sudo ln -s /usr/bin/colorgcc c++
+  - gource
+  - asciidoc
 
 Building
 
