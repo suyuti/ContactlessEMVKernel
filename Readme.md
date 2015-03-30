@@ -65,3 +65,6 @@ cmake .. -i
 
 you may need compile in Debug mode
 cmake -DCMAKE_BUILD_TYPE=Debug ..
+
+
+valgrind --tool=callgrind ./test/testKernelkcachegrind profile.callgrind
