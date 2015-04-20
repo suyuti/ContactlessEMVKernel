@@ -4,7 +4,8 @@ set(srcEntryPoint   EntryPoint/entryPoint.c
                     Base/utils.c
                     Base/kernel.c
                     Utils/_vector.c
-                    EntryPoint/epIndicators.c)
+                    EntryPoint/epIndicators.c
+                    EntryPoint/epPreProcessing.c)
 
 set(srcPcsc         Hal/linux/scard.c)
 

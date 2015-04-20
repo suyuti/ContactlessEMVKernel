@@ -5,6 +5,10 @@
 #ifndef SRC_ENTRYPOINT_ENTRYPOINT_H_
 #define SRC_ENTRYPOINT_ENTRYPOINT_H_
 
+#include "epConfig.h"
+#include "epIndicators.h"
+#include "epOutcome.h"
+
 /**
 * Functionality
 * 1. PreProcessing
@@ -14,26 +18,6 @@
 * 5. Outcome processing
 */
 
-//--------------------------------------------------------------------
-// Book A, Table 5-2
-
-typedef struct {
-    unsigned char   statusCheck;
-    unsigned char   zeroAmountAllowed;
-    int             clessTrnxLimit;
-    int             clessFloorLimit;
-    int             termFloorLimit;
-    int             cvmRequiredLimit;
-    // Terminal Transaction Qualifiers
-    unsigned char   extendedSelectionSupport;
-} EpConfig, *EpConfigPtr;
-
-
-
-typedef struct {
-    int outcomeType;
-} EpOutcome, *EpOutcomePtr;
-
 int ep_process();
 int ep_init();
 
@@ -41,15 +25,6 @@ int ep_init();
 //--------------------------------------------------------------------
 //  private
 
-//--------------------------------------------------------------------
-// Outcome types
-#define SELECT_NEXT                 1
-#define TRY_AGAIN                   2
-#define APPROVED                    3
-#define DECLINED                    4
-#define ONLINE_REQUEST              5
-#define TRY_ANOTHER_INTERFACE       6
-#define END_APPLICATION             7
 
 
 //--------------------------------------------------------------------

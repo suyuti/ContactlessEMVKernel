@@ -6,6 +6,7 @@
 #include "../Base/kernel.h"
 #include "../Base/select.h"
 #include "../Base/err.h"
+#include "epPreProcessing.h"
 
 // TODO
 
@@ -25,7 +26,7 @@ int ep_process()
     for (;;) {
         switch(gEpState) {
             case EP_START_STATE_A:
-                err = _ep_startA();
+                err = epPreProcessing();
             break;
             case EP_START_STATE_B:
                 err = _ep_startB();
