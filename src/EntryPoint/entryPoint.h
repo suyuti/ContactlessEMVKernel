@@ -28,6 +28,8 @@ typedef struct {
     unsigned char   extendedSelectionSupport;
 } EpConfig, *EpConfigPtr;
 
+
+
 typedef struct {
     int outcomeType;
 } EpOutcome, *EpOutcomePtr;
@@ -65,7 +67,8 @@ int _ep_startA(/*int amount, int otherAmount*/);
 int _ep_startB();
 int _ep_startC();
 int _ep_startD();
-int _outcomeProcessing();
+int _outcomeProcessing(EpOutcomePtr pOutcome);
+int _readConfigData();
 
 
 

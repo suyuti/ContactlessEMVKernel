@@ -7,9 +7,13 @@
 #include<gmock/gmock.h>
 
 #include "EntryPoint_Test/entryPointTest.h"
+#include "EntryPoint_Test/epIndicatorsTests.h"
+
 #include "Base_Test/selectTests.h"
 #include "Base_Test/utilsTests.h"
 #include "Base_Test/tlvTests.h"
+#include "Base_Test/vectorTests.h"
+
 #include "Mockups/mockup_tests.h"
 
 using namespace std;

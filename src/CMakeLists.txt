@@ -2,7 +2,9 @@ set(srcEntryPoint   EntryPoint/entryPoint.c
                     Base/select.c
                     Base/tlv.c
                     Base/utils.c
-                    Base/kernel.c)
+                    Base/kernel.c
+                    Utils/_vector.c
+                    EntryPoint/epIndicators.c)
 
 set(srcPcsc         Hal/linux/scard.c)
 
