@@ -11,6 +11,7 @@ target_link_libraries(testKernel    ${GTEST_BOTH_LIBRARIES}
                                     ${GMOCK_LIBRARIES} 
                                     pthread
                                     entryPoint
+                                    halLinuxDefaultImpl
                                     )
 
 #----------------------------------------------------------------
@@ -21,6 +22,7 @@ target_link_libraries(mockKernel    ${GTEST_BOTH_LIBRARIES}
                                     ${GMOCK_LIBRARIES} 
                                     pthread
                                     entryPoint
+                                    halLinuxDefaultImpl
                                     )
 
 

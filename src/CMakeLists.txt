@@ -5,12 +5,29 @@ set(srcEntryPoint   EntryPoint/entryPoint.c
                     Base/kernel.c
                     Utils/_vector.c
                     EntryPoint/epIndicators.c
-                    EntryPoint/epPreProcessing.c)
+                    EntryPoint/epPreProcessing.c
+                    EntryPoint/epTrnxParameters.c
+                    )
 
 set(srcPcsc         Hal/linux/scard.c)
 
 set(srcPy           Py/emvclessmodule.cpp)
 
+
+set(srcHal                      Hal/halInjection.c
+                                Hal/hal.c)
+
+set(srcHalLinuxDefaultImpl      Hal/linux/scard.c
+                                Hal/linux/unPredNumGen.c)
+
+
+
+
+
+
+
+#-------------------------------------------------------------
+# Build flags
 
 if(BUILD_WITH_COVERAGE)
     add_definitions(--coverage)
@@ -21,10 +38,16 @@ endif()
     set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} " -pg ")
 #endif()
 
+
+
+
+
+
 #-------------------------------------------------------------
 #   Entry point library
 
-add_library(entryPoint ${srcEntryPoint})
+add_library(entryPoint  ${srcEntryPoint}
+                        ${srcHal})
 
 
 #-------------------------------------------------------------
@@ -36,7 +59,10 @@ add_library(emvClessPy  ${srcEntryPoint} ${srcPy} )
 target_link_libraries(emvClessPy    pcsclite)
 
 #-------------------------------------------------------------
-
+# HAL linux default Impl
+include_directories(/usr/include/PCSC)
+add_library(halLinuxDefaultImpl  ${srcHalLinuxDefaultImpl})
+target_link_libraries(halLinuxDefaultImpl    pcsclite)
 
 #-------------------------------------------------------------
 

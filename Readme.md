@@ -68,3 +68,13 @@ cmake -DCMAKE_BUILD_TYPE=Debug ..
 
 
 valgrind --tool=callgrind ./test/testKernelkcachegrind profile.callgrind
+
+
+
+Tum make targetleri icin:
+make help
+
+
+Coverage raporu icin:
+make coverage
+open ./coverage/index.html

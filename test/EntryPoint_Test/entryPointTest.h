@@ -12,14 +12,22 @@ using namespace std;
 extern "C" {
     #include "EntryPoint/entryPoint.h"
     #include "Base/err.h"
+    #include "Hal/halInjection.h"
+    #include "Hal/linux/unPredNumGen.h"
 }
 
 class TestEntryPoint : public ::testing::Test {
+protected:
+    HalInterfaces hal;
+
+    virtual void SetUp() {
+        injectInterface(&hal, RandomNumberGenerator, (void*)&generateUnpredictableNumberDefaultImpl);
+    }
 };
 
 TEST_F(TestEntryPoint, ep_init)
 {
-    int err             = ep_init();
+    int err             = ep_init(&hal);
     int expectedState   = EP_START_STATE_A;
     int actualState     = t_getEpState();
 

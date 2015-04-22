@@ -10,11 +10,13 @@
 
 // TODO
 
+static Ep gEp;
 static int gEpState;
 
-int ep_init() 
+int ep_init(HalInterfacesPtr pHal) 
 {
     gEpState = EP_START_STATE_A;
+    gEp.pHal = pHal;
     return SUCCESS;
 }
 

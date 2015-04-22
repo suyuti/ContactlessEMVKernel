@@ -17,4 +17,22 @@ typedef int (*cr_sendRecv)(const unsigned char*  pIn,
                            unsigned char*        pOut, 
                            unsigned long*        pOutSize);
 
+typedef int (*genUnPredNum)(unsigned char* pOut, unsigned long* pOutSize);
+
+#define GENERATE_UNPREDICT_NUMBER(p, n,l)  (p)->_genUnPredNum((n), (l))
+
+typedef struct {
+    cr_open         _cr_open;
+    genUnPredNum    _genUnPredNum;
+} HalInterfaces, *HalInterfacesPtr;
+
+typedef enum {
+    RandomNumberGenerator,
+    CardReaderOpen,
+    CardReaderClose,
+} HalInterfaceTypes;
+
+
+
+
 #endif// SRC_HAL_HAL_H_

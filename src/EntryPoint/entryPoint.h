@@ -8,6 +8,7 @@
 #include "epConfig.h"
 #include "epIndicators.h"
 #include "epOutcome.h"
+#include "../Hal/hal.h"
 
 /**
 * Functionality
@@ -18,8 +19,13 @@
 * 5. Outcome processing
 */
 
+typedef struct {
+    HalInterfacesPtr pHal;
+} Ep, EpPtr;
+
+
 int ep_process();
-int ep_init();
+int ep_init(HalInterfacesPtr);
 
 
 //--------------------------------------------------------------------
