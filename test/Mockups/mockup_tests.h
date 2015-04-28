@@ -74,9 +74,10 @@ TEST_F(TestMockups, f)
     ep_process();
 }
 */
-/*
 TEST_F(TestMockups, _2EA_001_00_01)
 {
+    // case 01:
+  
     unsigned char c1[] = {0x00, 0xA4, 0x04, 0x00, 0x0E, 0x32, 0x50, 
                           0x41, 0x59, 0x2E, 0x53, 0x59, 0x53, 0x2E, 
                           0x44, 0x44, 0x46, 0x30, 0x31};
@@ -103,7 +104,6 @@ TEST_F(TestMockups, _2EA_001_00_01)
     initialize();    
     ep_process();
 }
-*/
 /*
 TEST_F(TestMockups, xxxx)
 {
