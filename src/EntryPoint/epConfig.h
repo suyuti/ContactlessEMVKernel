@@ -12,6 +12,7 @@ typedef struct {
     int             termFloorLimit;
     int             cvmRequiredLimit;
     // Terminal Transaction Qualifiers
+    unsigned char   ttq[4];
     unsigned char   extendedSelectionSupport;
 } EpConfig, *EpConfigPtr;
 
