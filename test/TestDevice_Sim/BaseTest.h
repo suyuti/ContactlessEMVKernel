@@ -2,6 +2,9 @@
 #define _BASE_TEST_H_
 
 #include <string>
+#include <vector>
+#include <utility>
+#include <gtest/gtest.h>
 
 using namespace std; 
 
@@ -10,11 +13,11 @@ typedef vector<Command_Response>    Command_Response_Pairs;
 
 class BaseTest : public ::testing::Test {
 private:
-    string                  name:
+    string                  name;
     Command_Response_Pairs  cr_pairs;
 protected:
     BaseTest() {};
-    BaseTest(string& name) {
+    BaseTest(string name) {
         setName(name);
     };
     virtual ~BaseTest() {};
