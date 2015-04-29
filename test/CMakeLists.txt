@@ -30,6 +30,8 @@ set(srcTest2      TestDevice_Sim/BaseTest.cpp
                   TestDevice_Sim/main.cpp
                   TestDevice_Sim/ConfigFactory/configFactory.cpp
                   TestDevice_Sim/ConfigFactory/termConfig02.cpp
+                  TestDevice_Sim/ConfigFactory/termConfig03.cpp
+                  TestDevice_Sim/ConfigFactory/termConfig04.cpp
                   )
 add_executable(test2    ${srcTest2})
 target_link_libraries(test2   ${GTEST_BOTH_LIBRARIES}
