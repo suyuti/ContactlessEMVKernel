@@ -1,7 +1,12 @@
 #ifndef _TEST_2EA_001_00_01_H_
-#define 2EA_001_00_01
+#define _TEST_2EA_001_00_01_H_
 
 #include "BaseTest.h"
+#include "ConfigFactory/configFactory.h"
+
+extern "C" {
+    #include "../../src/Base/general.h"
+}
 
 class Test_2EA_001_00_01 : public BaseTest {
 public:
@@ -11,6 +16,9 @@ public:
 };
 
 TEST_F(Test_2EA_001_00_01, case01) {
+    TerminalConfigs config = TerminalConfigs::TerminalConfigBuilder()
+                            .WithStatusCheck(YES)
+                            .Build();
     addCommandResponse("","");
     executeTest();
     EXPECT_EQ(0,0);
