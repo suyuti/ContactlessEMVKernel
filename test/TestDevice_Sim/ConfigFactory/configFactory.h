@@ -1,6 +1,7 @@
 #ifndef _TEST_CONFIG_FACTORY_H_
 #define _TEST_CONFIG_FACTORY_H_
 #include <string>
+#include <string.h> // memset
 using namespace std;
 extern "C" {
     #include "../../../src/EntryPoint/epConfig.h"
@@ -9,7 +10,9 @@ class TerminalConfigs {
 private:
     class TerminalConfigProperties {
     private:
-        TerminalConfigProperties() {}
+        TerminalConfigProperties() {
+            memset(&config, 0x00, sizeof(EpConfig));
+        }
         EpConfig        config;
 
         friend class TerminalConfigs;
