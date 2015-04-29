@@ -3,7 +3,13 @@
 
 TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithStatusCheck(unsigned char v) 
 {
-    fProperties.config.statusCheck = v;
+    //fProperties.config.statusCheck = v;
+    if (v == YES) {
+        SET_STATUS_CHECK(fProperties.config);
+    }
+    else { 
+        RESET_STATUS_CHECK(fProperties.config);
+    }
     return *this;
 }
 
