@@ -1,11 +1,11 @@
-#ifndef _TERM_CONFIG_02_H_
-#define _TERM_CONFIG_02_H_
+#ifndef _TERM_CONFIG_03_H_
+#define _TERM_CONFIG_03_H_
 
-#include "configFactory.h"
+#include "termConfigDefault.h"
 
-class TerminalConfig02 : public TerminalConfigs {
-public:
-    TerminalConfigs generate(string kid, string aid);
+class TerminalConfig03 : public TerminalConfigDefault {
+//public:
+//   TerminalConfigs generate(string kid, string aid);
 protected:
     virtual TerminalConfigs generateSet1();
     virtual TerminalConfigs generateSet2();
@@ -18,4 +18,4 @@ protected:
     virtual TerminalConfigs generateSet9();
 };
 
-#endif// _TERM_CONFIG_02_H_
+#endif// _TERM_CONFIG_03_H_

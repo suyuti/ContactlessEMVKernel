@@ -36,26 +36,13 @@ public:
     private:
         TerminalConfigProperties fProperties;
     };
+public:
+//    virtual TerminalConfigs generate(string kid, string aid, string trnx = "");
+
 private:
     TerminalConfigs(const TerminalConfigProperties& properties) : fProperties(properties) {}
 
 protected:
-    TerminalConfigs generateTerminalConfig01();
-
-    TerminalConfigs generateTerminalConfig02(string kernelId, string aid);
-
-    TerminalConfigs generateTerminalConfig02();
-    TerminalConfigs generateTerminalConfig03();
-    TerminalConfigs generateTerminalConfig04();
-    TerminalConfigs generateTerminalConfig05();
-    TerminalConfigs generateTerminalConfig06();
-    TerminalConfigs generateTerminalConfig07();
-    TerminalConfigs generateTerminalConfig08();
-    TerminalConfigs generateTerminalConfig09();
-    TerminalConfigs generateTerminalConfig10();
-    TerminalConfigs generateTerminalConfig11();
-    TerminalConfigs generateTerminalConfig12();
-    TerminalConfigs generateTerminalConfig13();
 
     TerminalConfigProperties fProperties;
 };

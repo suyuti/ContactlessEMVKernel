@@ -6,7 +6,7 @@
 #include<gtest/gtest.h>
 #include<gmock/gmock.h>
 
-#include "Hal_Test/halTests.h"
+/*#include "Hal_Test/halTests.h"
 
 #include "EntryPoint_Test/entryPointTest.h"
 #include "EntryPoint_Test/epIndicatorsTests.h"
@@ -18,7 +18,7 @@
 #include "Base_Test/vectorTests.h"
 
 #include "Mockups/mockup_tests.h"
-
+*/
 using namespace std;
 
 int main(int argc, char** argv)

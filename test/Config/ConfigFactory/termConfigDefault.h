@@ -1,11 +1,19 @@
-#ifndef _TERM_CONFIG_03_H_
-#define _TERM_CONFIG_03_H_
+#ifndef _TERM_CONFIG_DEFAULT_H_
+#define _TERM_CONFIG_DEFAULT_H_
 
+/*
+Ref:
+    EMVCo Type Approval Book A Book B Test Cases
+    Annex A
+    Terminal Settings Definitions 
+*/
 #include "configFactory.h"
-
-class TerminalConfig03 : public TerminalConfigs {
-//public:
-//   TerminalConfigs generate(string kid, string aid);
+extern "C" {
+    #include "../../../src/Base/base.h"
+}
+class TerminalConfigDefault {
+public:
+    virtual TerminalConfigs generate(string kid = "", string aid = "", TrnxTypes trnx = None) = 0;
 protected:
     virtual TerminalConfigs generateSet1();
     virtual TerminalConfigs generateSet2();
@@ -18,4 +26,4 @@ protected:
     virtual TerminalConfigs generateSet9();
 };
 
-#endif// _TERM_CONFIG_03_H_
+#endif// _TERM_CONFIG_DEFAULT_H_
