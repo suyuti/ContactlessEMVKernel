@@ -17,7 +17,6 @@ public:
 
 TEST_F(Test_2EA_001_00_01, case01) {
     TerminalConfigs config = TerminalConfigs::TerminalConfigBuilder()
-                            .WithStatusCheck(YES)
                             .Build();
     addCommandResponse("","");
     executeTest();

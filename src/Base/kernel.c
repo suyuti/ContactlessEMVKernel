@@ -38,9 +38,10 @@ int getVersion()
 
 //------------------------------------------------------------------------------------
 
-int setCrOpen(cr_open f)
+int setCrOpen(void* /*cr_open*/ f)
 {
     gCrOpen = f;
+    printf("SetCrOpen\n");
     return SUCCESS;
 }
 

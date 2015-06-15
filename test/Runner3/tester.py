@@ -173,6 +173,10 @@ class EmvTest(object):
 
 #----------------------------------------------------------------------------------
 
+def CardOpen():
+    print "Hello"
+
+
 def main(argv):
 
     inputFile = ''
@@ -196,6 +200,10 @@ def main(argv):
         content = json.load(testFile)
     emvTests = EmvTest(content)
     emvTests.run()
+
+    emvclessmodule.setCardOpen(CardOpen)
+
+
 
 if __name__ == '__main__':
     main(sys.argv[1:])

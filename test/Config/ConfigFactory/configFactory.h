@@ -6,6 +6,7 @@ using namespace std;
 extern "C" {
     #include "../../../src/EntryPoint/epConfig.h"
 }
+
 class TerminalConfigs {
 private:
     class TerminalConfigProperties {
@@ -19,6 +20,21 @@ private:
         friend class TerminalConfigBuilder;
     };
 public:
+    typedef enum {
+        Config01,
+        Config02,
+        Config03,
+        Config04,
+        Config05,
+        Config06,
+        Config07,
+        Config08,
+        Config10,
+        Config13,
+    } Configurations;
+
+    TerminalConfigs() {}
+
     class TerminalConfigBuilder {
     public:
         TerminalConfigBuilder() {}
@@ -38,6 +54,7 @@ public:
     };
 public:
 //    virtual TerminalConfigs generate(string kid, string aid, string trnx = "");
+    string toString();
 
 private:
     TerminalConfigs(const TerminalConfigProperties& properties) : fProperties(properties) {}

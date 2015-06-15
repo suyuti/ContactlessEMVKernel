@@ -5,7 +5,7 @@
 
 class TerminalConfig02 : public TerminalConfigDefault {
 public:
-    virtual TerminalConfigs generate(string kid, string aid, TrnxTypes trnx = None);
+    virtual TerminalConfigs generate(string kid = "", string aid = "", TrnxTypes trnx = None);
 protected:
 /*    virtual TerminalConfigs generateSet1();
     virtual TerminalConfigs generateSet2();
