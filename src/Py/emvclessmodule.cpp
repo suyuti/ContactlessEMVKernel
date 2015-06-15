@@ -7,6 +7,7 @@ BOOST_PYTHON_MODULE(emvclessmodule)
 {
     using namespace boost::python;
     def("initialize",   initialize);
+    def("release",      release);
     def("start",        start);
     def("version",      getVersion);
 }

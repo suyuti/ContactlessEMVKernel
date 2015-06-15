@@ -78,3 +78,6 @@ make help
 Coverage raporu icin:
 make coverage
 open ./coverage/index.html
+
+
+Python module usage:

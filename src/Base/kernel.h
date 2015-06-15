@@ -4,6 +4,7 @@
 #include "../Hal/hal.h"
 
 int initialize();
+int release();
 int start();
 int getVersion();
 

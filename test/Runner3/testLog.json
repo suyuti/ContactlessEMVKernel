@@ -1,0 +1,39 @@
+[
+    {
+        "TestNo": "2Ea.001",
+        "Objective": "To ensure that when Autorun is 'No', or Autorun option not supported, and a single type of transaction is supported, the Amount Authorized entered in the terminal is correctly retrieved in the kernel data.",
+        "Ref Book": "",
+        "TerminalConfig": "",
+        "Conditions": [
+            {
+                "Name": "Case00",
+                "TransactionType": null,
+                "AmountAuthorized": 10,
+                "Amount": 0,
+                "TerminalConfig": "TermSetting1",
+                "Responses": {
+                    "SELECT_PPSE": "",
+                    "SELECT_AID": "",
+                    "GET_PROCESSING_OPTIONS": ""
+                }
+            },
+            {
+                "Name": "Case01",
+                "TransactionType": null,
+                "AmountAuthorized": 75,
+                "Amount": 0,
+                "TerminalConfig": "TermSetting1",
+                "Responses": {
+                    "SELECT_PPSE": "",
+                    "SELECT_AID": "",
+                    "GET_PROCESSING_OPTIONS": ""
+                }
+            }
+        ],
+        "Action": null,
+        "Procedure": "Entry Point transactions are performed for [Termsetting2] with different LT settings",
+        "PassCriteria": {
+            "Case00": {}
+        }
+    }
+]
