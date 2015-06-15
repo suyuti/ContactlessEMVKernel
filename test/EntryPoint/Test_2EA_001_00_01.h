@@ -3,6 +3,7 @@
 
 #include "../BaseTest.h"
 
+
 /**
     Objective:
         To ensure that when Autorun is ‘No’, or Autorun option not supported, 
@@ -34,8 +35,20 @@ public:
         Case01: The LT shall receive in the GET PROCESSING OPTIONS data field: Transaction Type = value supported for the configuration 
         Case01: The LT shall receive in the GET PROCESSING OPTIONS data field: Amount Other = 0
 **/
+
 TEST_F(Test_2EA_001_00, case01) {
+
+    EXPECT_CALL(halApi, cardOpen()).Times(Exactly(1));
+    EXPECT_CALL(halApi, cardReset()).Times(Exactly(1)).WillOnce(Return(SUCCESS));
+    EXPECT_CALL(halApi, cardTransmit(isSelectPPSE(_), Ge(5), _, _)).Times(Exactly(1)).WillOnce(
+        Return(SUCCESS));
+    ON_CALL(halApi, cardTransmit(isSelectAIP(_), Ge(5), _, _)).WillByDefault(
+        Return(SUCCESS));
+
+    initialize();
+
 }
+
 
 //-------------------------------------------------------------------------------------------------
 /**

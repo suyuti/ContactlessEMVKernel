@@ -2,15 +2,28 @@
 #include "./kernel.h"
 #include "./err.h"
 
-cr_open     gCrOpen     = NULL;
-cr_close    gCrClose    = NULL;
-cr_sendRecv gCrSendRecv = NULL;
+card_open       gCardOpen       = NULL;
+card_close      gCardClose      = NULL;
+card_reset      gCardReset      = NULL;
+card_transmit   gCardTransmit   = NULL;
 
 //------------------------------------------------------------------------------------
 
 int initialize()
 {
     // 1. Set terminal parameters
+    gCardOpen();
+    gCardReset();
+    unsigned char cmd[] = {0x00, 0xA4, 0x04, 0x00,
+                                    0x0D,
+                                    '2', 'P', 'A', 'Y', '.', 'S', 'Y', 'S', '.', 'D', 'D', 'F', '0', '1', };
+    unsigned char resp[10] = {0x00};
+    unsigned long len = 0;
+    gCardTransmit(cmd, sizeof(cmd), resp, &len);
+
+    unsigned char cmd2[] = {0x00, 0xA4, 0x04, 0x00};
+    gCardTransmit(cmd2, sizeof(cmd2), resp, &len);
+    //gCardTransmit(cmd2, sizeof(cmd2), resp, &len);
     // 2. Set HAL interfaces
     return 0;
 }
@@ -38,25 +51,32 @@ int getVersion()
 
 //------------------------------------------------------------------------------------
 
-int setCrOpen(void* /*cr_open*/ f)
+int setCardOpen(card_open f)
 {
-    gCrOpen = f;
-    printf("SetCrOpen\n");
+    gCardOpen = f;
     return SUCCESS;
 }
 
 //------------------------------------------------------------------------------------
 
-int setCrClose(cr_close f)
+int setCardReset(card_reset f)
 {
-    gCrClose = f;
+    gCardReset = f;
     return SUCCESS;
 }
 
 //------------------------------------------------------------------------------------
 
-int setCrSendRecv(cr_sendRecv f)
+int setCardClose(card_close f)
 {
-    gCrSendRecv = f;
+    gCardClose = f;
+    return SUCCESS;
+}
+
+//------------------------------------------------------------------------------------
+
+int setCardTransmit(card_transmit f)
+{
+    gCardTransmit = f;
     return SUCCESS;
 }

@@ -10,7 +10,6 @@ public:
 };
 
 TEST_F(Test_2EA_003_00, case01) {
-    cout << getName() << " case 01" << endl;
 }
 
 

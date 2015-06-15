@@ -8,12 +8,14 @@ int release();
 int start();
 int getVersion();
 
-int setCrOpen(void* /*cr_open*/ f);
-int setCrClose(cr_close f);
-int setCrSendRecv(cr_sendRecv f);
+int setCardOpen(card_open f);
+int setCardClose(card_close f);
+int setCardReset(card_reset f);
+int setCardTransmit(card_transmit f);
 
-extern cr_open     gCrOpen;
-extern cr_close    gCrClose;
-extern cr_sendRecv gCrSendRecv;
+extern card_open        gCardOpen;
+extern card_close       gCardClose;
+extern card_reset       gCardReset;
+extern card_transmit    gCardTransmit;
 
 #endif// SRC_BASE_KERNEL_H_

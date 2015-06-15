@@ -10,5 +10,5 @@ BOOST_PYTHON_MODULE(emvclessmodule)
     def("release",      release);
     def("start",        start);
     def("version",      getVersion);
-    def("setCardOpen",    setCrOpen);
+    //def("setCardOpen",    setCardOpen);
 }

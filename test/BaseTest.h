@@ -7,20 +7,44 @@
 #include <gtest/gtest.h>
 
 #include "Config/ConfigFactory/configFactory.h"
+#include "Mockups/mockHal.h"
 extern "C" {
     #include "../src/Base/kernel.h"
+    #include "../src/Base/err.h"
 }
 
+#include "matchers.h"
+
 using namespace std; 
+using ::testing::Return;
+using ::testing::Exactly;
+using ::testing::_;
+using ::testing::AtLeast;
+using ::testing::DoAll;
+using ::testing::Invoke;
+using ::testing::SetArgPointee;
+using ::testing::SetArrayArgument;
+using ::testing::WithArg;
+using ::testing::Args;
+using ::testing::ElementsAre;
+using ::testing::ElementsAreArray;
+using ::testing::NotNull;
+using ::testing::Gt;
+using ::testing::Ge;
+using ::testing::InSequence;
+using ::testing::MakeMatcher;
+using ::testing::Matcher;
+using ::testing::MatcherInterface;
+using ::testing::MatchResultListener;
+
 
 typedef pair<string, string>        Command_Response;
 typedef vector<Command_Response>    Command_Response_Pairs;
 
 class BaseTest : public ::testing::Test {
 private:
-    string                  name;
-    string                  objective;
-
+    string                      name;
+    string                      objective;
 
 
 
@@ -29,16 +53,28 @@ private:
 
 protected:
     TerminalConfigs         terminalConfig;
+    StrictMockHalFunctions      halApi;
 
 protected:
-    BaseTest() {};
-    BaseTest(string name)   { setName(name); };
+    BaseTest() {
+        init();
+    };
+    BaseTest(string name)  { 
+        setName(name); 
+        init();
+    };
+    void init() {
+        setCardOpen(&mockCardOpen);
+        setCardReset(&mockCardReset);
+        setCardClose(&mockCardClose);
+        setCardTransmit(&mockCardTransmit);
+    }
     virtual ~BaseTest()     {};
 
     virtual void SetUp()    { 
-        initializeEmvKernel();
-        int kernelVersion = getVersion();
-        cout << "Kernel version: " << kernelVersion << endl;
+        //initializeEmvKernel();
+        //int kernelVersion = getVersion();
+        //cout << "Kernel version: " << kernelVersion << endl;
         clearCommandResponse();   
     }
     virtual void TearDown() {}

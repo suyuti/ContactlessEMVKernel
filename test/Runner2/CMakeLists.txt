@@ -7,9 +7,12 @@ set(srcTest main.cpp
             ../Config/ConfigFactory/termConfig02.cpp
             ../Config/ConfigFactory/termConfig03.cpp
             ../Config/ConfigFactory/termConfig04.cpp
-            ../Config/ConfigFactory/termConfig05.cpp)
+            ../Config/ConfigFactory/termConfig05.cpp
+            ../Mockups/mockHal.cpp)
 add_executable(test2 ${srcTest})
+
 target_link_libraries(test2 
                             ${GTEST_BOTH_LIBRARIES}
+                            ${GMOCK_LIBRARIES} 
                             pthread
                             entryPoint)
