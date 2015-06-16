@@ -36,6 +36,7 @@ using ::testing::MakeMatcher;
 using ::testing::Matcher;
 using ::testing::MatcherInterface;
 using ::testing::MatchResultListener;
+using ::testing::InSequence;
 
 
 typedef pair<string, string>        Command_Response;

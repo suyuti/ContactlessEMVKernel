@@ -37,16 +37,38 @@ public:
 **/
 
 TEST_F(Test_2EA_001_00, case01) {
-
+    InSequence s1;
     EXPECT_CALL(halApi, cardOpen()).Times(Exactly(1));
     EXPECT_CALL(halApi, cardReset()).Times(Exactly(1)).WillOnce(Return(SUCCESS));
-    EXPECT_CALL(halApi, cardTransmit(isSelectPPSE(_), Ge(5), _, _)).Times(Exactly(1)).WillOnce(
+
+    // From Kernel: 00A404000E325041592E5359532E444446303100
+    char selectPPSEResponse[]   = "6F2D840E325041592E5359532E4444463031A51BBF0C1861164F07A00000000100015004415050319F2A0123870101";
+    EXPECT_CALL(halApi, cardTransmit(isApdu("00A404000E325041592E5359532E4444463031"), Ge(5), _, _))
+                        .Times(Exactly(1))
+                        .WillOnce(
+                            DoAll(
+                                SetArrayArgument<2>(selectPPSEResponse, selectPPSEResponse+sizeof(selectPPSEResponse)),
+                                SetArgPointee<3>((unsigned long)sizeof(selectPPSEResponse)),
+                                Return(SUCCESS)
+                            )
+                        );
+
+    // From Kernel: 00A4040007A000000001000100
+    char selectAIPResponse[]    = "6F2A8407A0000000010001A51F5004415050318701019F3813D1029F66049F02069F03069C019F37049F2A08";
+    EXPECT_CALL(halApi, cardTransmit(isSelectAIP("A0000000010001"), Ge(5), _, _))
+                        .Times(Exactly(1))
+                        .WillOnce(
         Return(SUCCESS));
-    ON_CALL(halApi, cardTransmit(isSelectAIP(_), Ge(5), _, _)).WillByDefault(
+
+    // From Kernel : Gpo: 80A8000021831F0100000000000000000000100000000000000030326449000000000000000000
+    char gpoResponse[] = "771DD40A030000000000FFFF0000D50F030500000000000000000000000000";
+    EXPECT_CALL(halApi, cardTransmit(isApdu("80A8000021831F0100000000000000000000100000000000000030326449000000000000000000"), Ge(5), _, _))
+                        .Times(Exactly(1))
+                        .WillOnce(
         Return(SUCCESS));
+
 
     initialize();
-
 }
 
 
