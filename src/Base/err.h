@@ -15,6 +15,7 @@
 #define INCORRECT_DATA              (ERR_BASE - 5)
 #define FILE_NOT_FOUND              (ERR_BASE - 6)
 #define CRYPTO_FAILURE              (ERR_BASE - 7)
+#define INDEX_OUT_OF_RANGE          (ERR_BASE - 8)
 
 #define ERR_EMV_BASE                (-100)
 #define SW_NOT_SUCCESS              (ERR_EMV_BASE - 1)
