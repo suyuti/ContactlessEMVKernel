@@ -17,7 +17,18 @@ typedef struct {
     unsigned char   extendedSelectionSupport;
 } EpConfig, *EpConfigPtr;
 
+#define MAX_EP_CONFIG   20
+typedef struct {
+    int         count;
+    EpConfig    configs[MAX_EP_CONFIG]; // TODO define MAX
+} EpConfigs, *EpConfigsPtr;
+
+int addEpConfig(EpConfigsPtr configs, EpConfig config);
+int resetEpConfigs(EpConfigsPtr configs);
+int fillEpConfigs();
+
 int resetEpConfig(EpConfigPtr p);
+int readEpConfig(const char configName, EpConfigPtr pConfig);
 
 #define IS_EXIST_STATUS_CHECK(p)                ((p).bitmap && 0x01)        
 #define IS_EXIST_ZERO_AMOUNT_ALLOWED(p)         ((p).bitmap && 0x02)

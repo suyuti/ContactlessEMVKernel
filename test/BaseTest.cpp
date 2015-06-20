@@ -29,3 +29,17 @@ void BaseTest::executeTest()
 {
 
 }
+
+void BaseTest::init() {
+    setCardOpen(&mockCardOpen);
+    setCardReset(&mockCardReset);
+    setCardClose(&mockCardClose);
+    setCardTransmit(&mockCardTransmit);
+    //setReadConfig(&mockReadConfig);
+    setFileOpen(&defaultFileOpen);
+    setFileClose(&defaultFileClose);
+    setFileRead(&defaultFileRead);
+    setGetFileSize(&defaultGetFileSize);
+    setAllocate(&defaultAllocate);
+    setRelease(&defaultRelease);
+}

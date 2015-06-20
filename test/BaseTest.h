@@ -11,6 +11,7 @@
 extern "C" {
     #include "../src/Base/kernel.h"
     #include "../src/Base/err.h"
+    #include "./defaultHalImpl.h"
 }
 
 #include "matchers.h"
@@ -64,15 +65,14 @@ protected:
         setName(name); 
         init();
     };
-    void init() {
-        setCardOpen(&mockCardOpen);
-        setCardReset(&mockCardReset);
-        setCardClose(&mockCardClose);
-        setCardTransmit(&mockCardTransmit);
-    }
+
+    void init();
     virtual ~BaseTest()     {};
 
     virtual void SetUp()    { 
+        ON_CALL(halApi, readConfig(isConfig("A000101_22"), _)).WillByDefault(Return(SUCCESS));
+        ON_CALL(halApi, readConfig(isConfig("A000101_23"), _)).WillByDefault(Return(SUCCESS));
+
         //initializeEmvKernel();
         //int kernelVersion = getVersion();
         //cout << "Kernel version: " << kernelVersion << endl;
@@ -81,7 +81,7 @@ protected:
     virtual void TearDown() {}
 
     void initializeEmvKernel() {
-        initialize();
+        initialize(".");
     }
 
 

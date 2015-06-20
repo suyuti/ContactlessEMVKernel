@@ -67,8 +67,7 @@ TEST_F(Test_2EA_001_00, case01) {
                         .WillOnce(
         Return(SUCCESS));
 
-
-    initialize();
+    initialize("./test/Runner2/termsetting1");
 }
 
 
@@ -82,6 +81,40 @@ TEST_F(Test_2EA_001_00, case01) {
         Case02: The LT shall receive in the GET PROCESSING OPTIONS data field: Amount Other = 0
 **/
 TEST_F(Test_2EA_001_00, case02) {
+    /*
+    InSequence s1;
+    EXPECT_CALL(halApi, cardOpen()).Times(Exactly(1));
+    EXPECT_CALL(halApi, cardReset()).Times(Exactly(1)).WillOnce(Return(SUCCESS));
+
+    // From Kernel: 00A404000E325041592E5359532E4444463031
+    char selectPPSEResponse[]   = "6F2D840E325041592E5359532E4444463031A51BBF0C1861164F07A00000000200025004415050329F2A0122870101";
+    EXPECT_CALL(halApi, cardTransmit(isApdu("00A404000E325041592E5359532E4444463031"), Ge(5), _, _))
+                        .Times(Exactly(1))
+                        .WillOnce(
+                            DoAll(
+                                SetArrayArgument<2>(selectPPSEResponse, selectPPSEResponse+sizeof(selectPPSEResponse)),
+                                SetArgPointee<3>((unsigned long)sizeof(selectPPSEResponse)),
+                                Return(SUCCESS)
+                            )
+                        );
+
+    // From Kernel: 00A4040007A0000000020002
+    char selectAIPResponse[]    = "6F2A8407A0000000020002A51F5004415050328701019F3813D1029F66049F02069F03069C019F37049F2A08";
+    EXPECT_CALL(halApi, cardTransmit(isSelectAIP("A0000000020002"), Ge(5), _, _))
+                        .Times(Exactly(1))
+                        .WillOnce(
+        Return(SUCCESS));
+
+    // From Kernel : Gpo: 80A8000021831F0100000000000000000000750000000000000075769326000000000000000000
+    char gpoResponse[] = "771DD40A030000000000FFFF0000D50F030500000000000000000000000000";
+    EXPECT_CALL(halApi, cardTransmit(isApdu("80A8000021831F0100000000000000000000750000000000000075769326000000000000000000"), Ge(5), _, _))
+                        .Times(Exactly(1))
+                        .WillOnce(
+        Return(SUCCESS));
+
+
+    initialize();
+    */
 }
 
 //-------------------------------------------------------------------------------------------------

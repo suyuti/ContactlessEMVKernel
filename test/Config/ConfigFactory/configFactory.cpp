@@ -1,6 +1,10 @@
 #include <string.h> // memcpy
 #include <stdio.h> // sprintf
+#include <iostream>
+#include <fstream>
 #include "configFactory.h"
+
+using namespace std;
 
 TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithStatusCheck(unsigned char v) 
 {
@@ -101,4 +105,11 @@ string TerminalConfigs::toString()
     str.append(tmp);
 
     return str;
+}
+
+void TerminalConfigs::save(string name)
+{
+    ofstream file;
+    file.open(name.c_str());
+    file.close();
 }

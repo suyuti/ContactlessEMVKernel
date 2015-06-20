@@ -55,6 +55,7 @@ public:
 public:
 //    virtual TerminalConfigs generate(string kid, string aid, string trnx = "");
     string toString();
+    void save(string name);
 
 private:
     TerminalConfigs(const TerminalConfigProperties& properties) : fProperties(properties) {}

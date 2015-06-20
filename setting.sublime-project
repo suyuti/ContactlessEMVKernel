@@ -1,0 +1,31 @@
+{
+    "folders":
+    [
+        {
+            "path": "."
+        }
+    ],
+    "build_systems":
+    [
+        {
+            "name": "make",
+            "cmd": [ "make", "-C", "build" ],
+            "file_regex": "/([^/:]+):(\\d+):(\\d+): ",
+
+            "variants": [
+                {
+                    "name": "cmake",
+                    "cmd": [ "cmake", 
+                        ".."],
+                    "working_dir": "${project_path}/build"
+                }
+            ]
+        }
+    ],
+    "settings":
+    {
+        "tab_size": 4,
+        "font_size": 14,
+        "translate_tabs_to_spaces": true
+    }
+}

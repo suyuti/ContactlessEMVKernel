@@ -7,16 +7,31 @@
 #include "../Base/select.h"
 #include "../Base/err.h"
 #include "epPreProcessing.h"
+#include "../Hal/hal.h"
 
 // TODO
 
-static Ep gEp;
+Ep gEp;
 static int gEpState;
 
-int ep_init(HalInterfacesPtr pHal) 
+int ep_init(HalInterfacesPtr pHal, const char* configFolder) 
 {
     gEpState = EP_START_STATE_A;
-    gEp.pHal = pHal;
+
+    SET_DELEGATE_CARD_OPEN      (&gEp.hal,  pHal->card_open);
+    SET_DELEGATE_CARD_RESET     (&gEp.hal,  pHal->card_reset);
+    SET_DELEGATE_CARD_CLOSE     (&gEp.hal,  pHal->card_close);
+    SET_DELEGATE_CARD_TRANSMIT  (&gEp.hal,  pHal->card_transmit);
+
+    SET_DELEGATE_FILE_OPEN      (&gEp.hal,  pHal->fileOpen);
+    SET_DELEGATE_FILE_CLOSE     (&gEp.hal,  pHal->fileClose);
+    SET_DELEGATE_FILE_READ      (&gEp.hal,  pHal->fileRead);
+    SET_DELEGATE_GET_FILE_SIZE  (&gEp.hal,  pHal->getFileSize);
+    SET_DELEGATE_ALLOCATE       (&gEp.hal,  pHal->allocate);
+    SET_DELEGATE_RELEASE        (&gEp.hal,  pHal->release);
+
+    sprintf(gEp.configFolder, "%s", configFolder);
+
     return SUCCESS;
 }
 
@@ -28,7 +43,7 @@ int ep_process()
     for (;;) {
         switch(gEpState) {
             case EP_START_STATE_A:
-                err = epPreProcessing();
+                err = _ep_startA();
             break;
             case EP_START_STATE_B:
                 err = _ep_startB();
@@ -43,6 +58,8 @@ int ep_process()
                 return err;
             break;
         }
+        if (err != SUCCESS)
+            break;
     }
     return err;
 }
@@ -52,8 +69,9 @@ int ep_process()
 
 int _ep_startA(/*int amount, int otherAmount*/)
 {
+    int err = epPreProcessing(&gEp);
     gEpState = EP_START_STATE_B;
-    return SUCCESS;
+    return err;
 }
 
 //--------------------------------------------------------------------

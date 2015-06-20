@@ -39,3 +39,30 @@ int mockCardTransmit(const unsigned char*   p1,
 {
     return MockHalFunctions::instance().cardTransmit(p1, p2, p3, p4);
 }
+
+//-------------------------------------------------------------------------
+int mockFileOpen(const char* fileName, const char* mode)
+{
+    return MockHalFunctions::instance().fileOpen(fileName, mode);
+}
+//-------------------------------------------------------------------------
+int mockFileClose(int file)
+{
+    return MockHalFunctions::instance().fileClose(file);
+}
+//-------------------------------------------------------------------------
+int mockFileRead(int file, char* buffer, int size)
+{
+    return MockHalFunctions::instance().fileRead(file, buffer, size);
+}
+//-------------------------------------------------------------------------
+int mockReadConfig(const char* configName, EpConfigPtr pConfig)
+{
+    return MockHalFunctions::instance().readConfig(configName, pConfig);
+}
+
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------

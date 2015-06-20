@@ -4,7 +4,7 @@
 
 #ifndef SRC_ENTRYPOINT_ENTRYPOINT_H_
 #define SRC_ENTRYPOINT_ENTRYPOINT_H_
-
+#include "epCommon.h"
 #include "epConfig.h"
 #include "epIndicators.h"
 #include "epOutcome.h"
@@ -19,13 +19,10 @@
 * 5. Outcome processing
 */
 
-typedef struct {
-    HalInterfacesPtr pHal;
-} Ep, EpPtr;
 
 
 int ep_process();
-int ep_init(HalInterfacesPtr);
+int ep_init(HalInterfacesPtr, const char* configFolder);
 
 
 //--------------------------------------------------------------------

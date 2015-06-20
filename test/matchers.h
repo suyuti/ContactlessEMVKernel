@@ -73,5 +73,10 @@ MATCHER_P(isApdu, expected, "") {
     return false;
 }
 
+MATCHER_P(isConfig, name, "") {
+    cout << arg << endl;
+    return true;
+}
+
 
 #endif// _MATCHERS_H_
