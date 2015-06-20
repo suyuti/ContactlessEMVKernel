@@ -10,7 +10,6 @@
 #define BIT_6 0x40  // 01000000
 #define BIT_7 0x80  // 10000000
 
-//#define CHECK_BIT(var,pos) ((var) & (1<<(pos)))
 #define CHECK_BIT(var, bit) (((var) & (bit)) == (bit))
 #define SET_BIT(var, bit) ((var) |= (bit))
 

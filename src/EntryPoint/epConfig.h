@@ -2,6 +2,7 @@
 #define _EP_CONFIG_H_
 
 #include "../Base/general.h"
+
 //--------------------------------------------------------------------
 // Book A, Table 5-2
 
@@ -16,16 +17,6 @@ typedef struct {
     unsigned char   ttq[4];
     unsigned char   extendedSelectionSupport;
 } EpConfig, *EpConfigPtr;
-
-#define MAX_EP_CONFIG   20
-typedef struct {
-    int         count;
-    EpConfig    configs[MAX_EP_CONFIG]; // TODO define MAX
-} EpConfigs, *EpConfigsPtr;
-
-int addEpConfig(EpConfigsPtr configs, EpConfig config);
-int resetEpConfigs(EpConfigsPtr configs);
-int fillEpConfigs();
 
 int resetEpConfig(EpConfigPtr p);
 int readEpConfig(const char configName, EpConfigPtr pConfig);
@@ -60,5 +51,20 @@ int readEpConfig(const char configName, EpConfigPtr pConfig);
 #define IS_STATUS_CHECK(p)                      ((p).statusCheck                == SET)
 #define IS_ZERO_AMOUT_ALLOWED(p)                ((p).zeroAmountAllowed          == SET)
 #define IS_EXTENDED_SELECTION_SUPP(p)           ((p).extendedSelectionSupport   == SET)
+
+
+//--------------------------------------------------------------------
+
+#define MAX_EP_CONFIG   20
+typedef struct {
+    int         count;
+    EpConfig    configs[MAX_EP_CONFIG];
+} EpConfigs, *EpConfigsPtr;
+
+int addEpConfig(EpConfigsPtr configs, EpConfig config);
+int resetEpConfigs(EpConfigsPtr configs);
+int fillEpConfigs();
+
+
 
 #endif// _EP_CONFIG_H_

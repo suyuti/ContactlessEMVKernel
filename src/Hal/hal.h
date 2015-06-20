@@ -7,26 +7,30 @@
 
 
 //- SmartCard IO
-typedef int (*_card_open)(void);
-typedef int (*_card_reset)(void);
-typedef int (*_card_close)(void);
-typedef int (*_card_transmit)(const unsigned char*  pIn, 
-                           int                   inSize, 
-                           unsigned char*        pOut, 
-                           unsigned long*        pOutSize);
+typedef int     (*_card_open)(void);
+typedef int     (*_card_reset)(void);
+typedef int     (*_card_close)(void);
+typedef int     (*_card_transmit)(  const unsigned char*  pIn, 
+                                    int                   inSize, 
+                                    unsigned char*        pOut, 
+                                    unsigned long*        pOutSize);
 
 //- File IO
-typedef int (*_fileOpen)(const char* fileName, const char* mode);
-typedef int (*_fileClose)(int file);
-typedef int (*_getFileSize)(int file);
-typedef int (*_fileRead)(int file, char* buffer, int size);
+typedef int     (*_fileOpen)(const char* fileName, 
+                             const char* mode);
+typedef int     (*_fileClose)(int file);
+typedef int     (*_getFileSize)(int file);
+typedef int     (*_fileRead)(int    file, 
+                             char*  buffer, 
+                             int    size);
 
 //- Memory management
-typedef void* (*_allocate)(int size);
-typedef int (*_release)(void* p);
+typedef void*   (*_allocate)(int size);
+typedef int     (*_release)(void* p);
 
 //- Generating unpredictable number
-typedef int (*genUnPredNum)(unsigned char* pOut, unsigned long* pOutSize);
+typedef int (*genUnPredNum)(unsigned char* pOut, 
+                            unsigned long* pOutSize);
 
 #define GENERATE_UNPREDICT_NUMBER(p, n,l)  (p)->_genUnPredNum((n), (l))
 

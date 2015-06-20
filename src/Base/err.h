@@ -5,7 +5,7 @@
 #ifndef SRC_BASE_ERR_H_
 #define SRC_BASE_ERR_H_
 
-#define SUCCESS             0
+#define SUCCESS                     0
 
 #define ERR_BASE                    0
 #define NULL_PARAMETER              (ERR_BASE - 1)

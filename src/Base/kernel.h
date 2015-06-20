@@ -9,11 +9,10 @@ int release();
 int start();
 int getVersion();
 
-int setCardOpen(_card_open f);
+int setCardOpen (_card_open f);
 int setCardClose(_card_close f);
 int setCardReset(_card_reset f);
 int setCardTransmit(_card_transmit f);
-int setReadConfig(fReadConfig readConfig);
 int setFileOpen(_fileOpen fileOpen);
 int setFileClose(_fileClose fileClose);
 int setFileRead(_fileRead fileRead);
@@ -23,10 +22,5 @@ int setAllocate(_allocate allocate);
 int setRelease(_release release);
 
 extern HalInterfaces    gHal;
-/*
-extern card_open        gCardOpen;
-extern card_close       gCardClose;
-extern card_reset       gCardReset;
-extern card_transmit    gCardTransmit;
-*/
+
 #endif// SRC_BASE_KERNEL_H_

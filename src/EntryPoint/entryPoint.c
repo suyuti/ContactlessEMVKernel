@@ -1,7 +1,8 @@
 /*
     Copyright 2015
 */
-
+#include <stdlib.h>
+#include <stdio.h>
 #include "entryPoint.h"
 #include "../Base/kernel.h"
 #include "../Base/select.h"
