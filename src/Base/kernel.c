@@ -2,16 +2,19 @@
 #include "./kernel.h"
 #include "./err.h"
 
-card_open       gCardOpen       = NULL;
-card_close      gCardClose      = NULL;
-card_reset      gCardReset      = NULL;
-card_transmit   gCardTransmit   = NULL;
+HalInterfaces gHal;
 
 //------------------------------------------------------------------------------------
 
-int initialize()
+int initialize(const char *configFolder)
 {
     // 1. Set terminal parameters
+    int retVal = 0;
+
+    retVal = ep_init(&gHal, configFolder);
+    retVal = ep_process();
+
+/*    
     gCardOpen();
     gCardReset();
     unsigned char cmd[] = {0x00, 0xA4, 0x04, 0x00,
@@ -33,6 +36,7 @@ int initialize()
     gCardTransmit(cmd3, sizeof(cmd3), resp, &len);
     //gCardTransmit(cmd2, sizeof(cmd2), resp, &len);
     // 2. Set HAL interfaces
+    */
     return 0;
 }
 
@@ -59,32 +63,76 @@ int getVersion()
 
 //------------------------------------------------------------------------------------
 
-int setCardOpen(card_open f)
+int setCardOpen(_card_open f)
 {
-    gCardOpen = f;
+    SET_DELEGATE_CARD_OPEN(&gHal, f);
     return SUCCESS;
 }
 
 //------------------------------------------------------------------------------------
 
-int setCardReset(card_reset f)
+int setCardReset(_card_reset f)
 {
-    gCardReset = f;
+    SET_DELEGATE_CARD_RESET(&gHal, f);
     return SUCCESS;
 }
 
 //------------------------------------------------------------------------------------
 
-int setCardClose(card_close f)
+int setCardClose(_card_close f)
 {
-    gCardClose = f;
+    SET_DELEGATE_CARD_CLOSE(&gHal, f);
     return SUCCESS;
 }
 
 //------------------------------------------------------------------------------------
 
-int setCardTransmit(card_transmit f)
+int setCardTransmit(_card_transmit f)
 {
-    gCardTransmit = f;
+    SET_DELEGATE_CARD_TRANSMIT(&gHal, f);
+    return SUCCESS;
+}
+
+//------------------------------------------------------------------------------------
+
+int setReadConfig(fReadConfig readConfig)
+{
+    SET_DELEGATE_READ_CONFIG(&gEp, readConfig);    
+    return SUCCESS;
+}
+
+int setFileOpen(_fileOpen f)
+{
+    SET_DELEGATE_FILE_OPEN(&gHal, f);
+    return SUCCESS;
+}
+
+int setFileClose(_fileClose f)
+{
+    SET_DELEGATE_FILE_CLOSE(&gHal, f);
+    return SUCCESS;
+}
+
+int setFileRead(_fileRead f)
+{
+    SET_DELEGATE_FILE_READ(&gHal, f);
+    return SUCCESS;
+}
+
+int setGetFileSize(_getFileSize f)
+{
+    SET_DELEGATE_GET_FILE_SIZE(&gHal, f);
+    return SUCCESS;
+}
+
+int setAllocate(_allocate f)
+{
+    SET_DELEGATE_ALLOCATE(&gHal, f);
+    return SUCCESS;
+}
+
+int setRelease(_release f)
+{
+    SET_DELEGATE_RELEASE(&gHal, f);
     return SUCCESS;
 }
