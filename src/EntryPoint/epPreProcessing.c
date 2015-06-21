@@ -8,6 +8,9 @@
 int epPreProcessing(EpPtr epObj)
 {
     int err;
+
+    err = 
+
     err = _3_1_1_1(&epObj->epConfigs, epObj->configFolder);
     err = _3_1_1_2();
     err = _3_1_1_3();
@@ -40,9 +43,10 @@ int epPreProcessing(EpPtr epObj)
 int _3_1_1_1(EpConfigsPtr epConfigs, const char* configFolder) 
 { 
     int err;// = resetEpConfig(epConfigs);
-    char configFileName[120] = {0x00};
-    sprintf(configFileName, "%s/config.txt", configFolder);
-    readConfig(configFileName, (EpConfigPtr)0);
+   // char configFileName[120] = {0x00};
+    //sprintf(configFileName, "%s/config.txt", configFolder);
+    //loadConfigs(configFileName);
+    //readConfig(configFileName, (EpConfigPtr)0);
 
     return err;
 }

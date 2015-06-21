@@ -7,7 +7,9 @@ file(COPY ../Config/Configurations/termsetting8/config.txt DESTINATION ./termset
 file(COPY ../Config/Configurations/termsetting13/config.txt DESTINATION ./termsetting13)
 
 
+
 include_directories(..)
+include_directories(../../src)
 set(srcTest main.cpp
             ../BaseTest.cpp
             ../Config/ConfigFactory/configFactory.cpp

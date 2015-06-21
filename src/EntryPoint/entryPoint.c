@@ -31,7 +31,11 @@ int ep_init(HalInterfacesPtr pHal, const char* configFolder)
     SET_DELEGATE_ALLOCATE       (&gEp.hal,  pHal->allocate);
     SET_DELEGATE_RELEASE        (&gEp.hal,  pHal->release);
 
-    sprintf(gEp.configFolder, "%s", configFolder);
+    sprintf(gEp.configFolder, "%s/config.txt", configFolder);
+
+    int err;
+    err = resetAllConfigs();
+    err = loadConfigs(gEp.configFolder);
 
     return SUCCESS;
 }

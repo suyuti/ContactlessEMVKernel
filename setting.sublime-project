@@ -24,8 +24,30 @@
     ],
     "settings":
     {
+        "auto_complete":true,
         "tab_size": 4,
         "font_size": 14,
-        "translate_tabs_to_spaces": true
+        "translate_tabs_to_spaces": true,
+
+        // The maximum file size where auto complete will be automatically triggered.
+        "auto_complete_size_limit": 4194304,
+
+        // The delay, in ms, before the auto complete window is shown after typing
+        "auto_complete_delay": 50,
+
+       // Controls what scopes auto complete will be triggered in
+        "auto_complete_selector": "source - comment",
+        // Additional situations to trigger auto complete
+        "auto_complete_triggers": [ {"selector": "text.html", "characters": "<"} ],
+
+        // By default, auto complete will commit the current completion on enter.
+        // This setting can be used to make it complete on tab instead.
+        // Completing on tab is generally a superior option, as it removes
+        // ambiguity between committing the completion and inserting a newline.
+        //"auto_complete_commit_on_tab": true,
+
+        // Controls if auto complete is shown when snippet fields are active.
+        // Only relevant if auto_complete_commit_on_tab is true.
+        "auto_complete_with_fields": false,
     }
 }

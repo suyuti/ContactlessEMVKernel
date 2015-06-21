@@ -54,6 +54,7 @@ private:
     Command_Response_Pairs  cr_pairs;
 
 protected:
+    HalInterfaces               hal;
     TerminalConfigs         terminalConfig;
     StrictMockHalFunctions      halApi;
 

@@ -10,6 +10,8 @@
 #include "EntryPoint/Test_2EA_005_00.h"
 #include "EntryPoint/Test_2EA_005_01.h"
 
+#include "EntryPoint/epConfigTests.h"
+
 using namespace std;
 
 int main(int argc, char** argv)

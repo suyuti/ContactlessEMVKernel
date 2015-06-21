@@ -55,6 +55,33 @@ int readEpConfig(const char configName, EpConfigPtr pConfig);
 
 //--------------------------------------------------------------------
 
+typedef struct {
+    char    aid[16];
+    char    kid;
+    int     configIndex;
+} Aid_Kid, *Aid_KidPtr;
+
+
+EpConfigPtr findConfigByAidKid(const char* aid, char kid);
+int addConfigByAidKid(const char* aid, unsigned char kid, EpConfig);
+int resetAllConfigs();
+int loadConfigs(const char* configFolder);
+
+//- Testing purposes
+// TODO
+int t_getAidKidCount();
+int t_getEpConfigCount();
+Aid_KidPtr t_getAidKid();
+EpConfigPtr t_getEpConfig();
+
+//--------------------------------------------------------------------
+
+
+
+
+
+
+
 #define MAX_EP_CONFIG   20
 typedef struct {
     int         count;

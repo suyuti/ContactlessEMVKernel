@@ -1,0 +1,1081 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Ep",
+				"EpConfigPtr"
+			],
+			[
+				"co",
+				"configName"
+			],
+			[
+				"con",
+				"configFolder"
+			],
+			[
+				"ep",
+				"epObj"
+			],
+			[
+				"ter",
+				"Termsetting2"
+			],
+			[
+				"m",
+				"missedFiles"
+			],
+			[
+				"re",
+				"read"
+			],
+			[
+				"a",
+				"append"
+			],
+			[
+				"ai",
+				"aids"
+			],
+			[
+				"aid",
+				"aidName"
+			],
+			[
+				"pre",
+				"preapareAll"
+			],
+			[
+				"fil",
+				"filenames"
+			],
+			[
+				"i",
+				"include"
+			],
+			[
+				"MO",
+				"MOCK_CONST_METHOD2"
+			],
+			[
+				"b",
+				"buffer"
+			],
+			[
+				"file",
+				"fileName"
+			],
+			[
+				"Mo",
+				"MockHalFunctions"
+			],
+			[
+				"c",
+				"configName"
+			],
+			[
+				"car",
+				"card_open"
+			],
+			[
+				"EpC",
+				"EpConfigPtr"
+			],
+			[
+				"E",
+				"EpConfigsPtr"
+			],
+			[
+				"MA",
+				"MAX_EP_CONFIG"
+			],
+			[
+				"EpCo",
+				"EpConfig"
+			],
+			[
+				"_",
+				"_3_1_1_1"
+			],
+			[
+				"_ep",
+				"_ep_startA"
+			],
+			[
+				"p",
+				"pHal"
+			],
+			[
+				"_card_",
+				"_card_open"
+			],
+			[
+				"se",
+				"selectPPSEResponse"
+			],
+			[
+				"en",
+				"endl"
+			],
+			[
+				"str",
+				"strlen"
+			],
+			[
+				"is",
+				"isSelectPPSE"
+			],
+			[
+				"s",
+				"selectPPSE"
+			],
+			[
+				"0x0",
+				"0x04"
+			],
+			[
+				"gC",
+				"gCardTransmit"
+			],
+			[
+				"g",
+				"gCardReset"
+			],
+			[
+				"Base",
+				"BaseTest"
+			],
+			[
+				"gCr",
+				"gCrOpen"
+			],
+			[
+				"ker",
+				"kernelVersion"
+			],
+			[
+				"ini",
+				"initializeEmvKernel"
+			],
+			[
+				"Car",
+				"CardOpen"
+			],
+			[
+				"Res",
+				"Response"
+			],
+			[
+				"respo",
+				"response"
+			],
+			[
+				"_g",
+				"_goGpo"
+			],
+			[
+				"_goS",
+				"_goSelectAID"
+			],
+			[
+				"_i",
+				"_isSelectAID"
+			],
+			[
+				"_go",
+				"_goSelectPPSE"
+			],
+			[
+				"em",
+				"emvclessmodule"
+			],
+			[
+				"Con",
+				"Conditions"
+			],
+			[
+				"test",
+				"testNo"
+			],
+			[
+				"in",
+				"indent"
+			],
+			[
+				"am",
+				"amountAuth"
+			],
+			[
+				"tr",
+				"trnxType"
+			],
+			[
+				"emv",
+				"emvTests"
+			],
+			[
+				"pa",
+				"parseAllTests"
+			],
+			[
+				"obj",
+				"objective"
+			],
+			[
+				"t",
+				"testNo"
+			],
+			[
+				"js",
+				"json_to_data"
+			],
+			[
+				"json",
+				"json_to_data"
+			],
+			[
+				"__",
+				"__dict__"
+			],
+			[
+				"lo",
+				"loads"
+			],
+			[
+				"te",
+				"testFile"
+			],
+			[
+				"j",
+				"json_file"
+			],
+			[
+				"pr",
+				"print"
+			],
+			[
+				"op",
+				"opts"
+			],
+			[
+				"T",
+				"TerminalConfigs"
+			],
+			[
+				"ge",
+				"generateSet1"
+			],
+			[
+				"inc",
+				"include"
+			],
+			[
+				"SET_EX",
+				"SET_EXIST_EXTENDED_SELECTION_SUPP"
+			],
+			[
+				"SET_EXI",
+				"SET_EXIST_EXTENDED_SELECTION_SUPP"
+			],
+			[
+				"SET_E",
+				"SET_EXIST_STATUS_CHECK"
+			],
+			[
+				"de",
+				"define"
+			],
+			[
+				"Ter",
+				"TerminalConfigProperties"
+			],
+			[
+				"Com",
+				"Command_Response_Pairs"
+			],
+			[
+				"un",
+				"unpredictableNumber"
+			],
+			[
+				"L2",
+				"L2Ptr"
+			],
+			[
+				"cr_",
+				"cr_open"
+			],
+			[
+				"cl",
+				"clessAppNotAllowed"
+			],
+			[
+				"st",
+				"statusCheckRequested"
+			],
+			[
+				"EM",
+				"EMV_MODE_SUPP_BIT"
+			],
+			[
+				"EP",
+				"EP_START_STATE_B"
+			],
+			[
+				"EP_S",
+				"EP_START_STATE_C"
+			],
+			[
+				"EP_",
+				"EP_START_STATE_B"
+			],
+			[
+				"gT",
+				"gTmp2"
+			],
+			[
+				"_bu",
+				"_buildSelectPpse"
+			],
+			[
+				"EXP",
+				"EXPECT_MEMEQ"
+			],
+			[
+				"Te",
+				"TestSelect"
+			],
+			[
+				"ex",
+				"expected"
+			],
+			[
+				"v",
+				"val"
+			],
+			[
+				"Fci",
+				"FciPtr"
+			],
+			[
+				"ta",
+				"target"
+			],
+			[
+				"_fci",
+				"_fciIssDataCount"
+			],
+			[
+				"fc",
+				"_fciIssDataCount"
+			],
+			[
+				"Fc",
+				"FciPtr"
+			],
+			[
+				"T6",
+				"T6FPtr"
+			],
+			[
+				"TestT",
+				"TestTarget"
+			],
+			[
+				"le",
+				"lenLen"
+			],
+			[
+				"EXPE",
+				"EXPECT_EQ"
+			],
+			[
+				"TB",
+				"TBF0C"
+			],
+			[
+				"si",
+				"size"
+			],
+			[
+				"exp",
+				"expected"
+			],
+			[
+				"PARSE_",
+				"PARSE_END"
+			],
+			[
+				"mo",
+				"modulusLen"
+			],
+			[
+				"issP",
+				"issPubKeyLen"
+			],
+			[
+				"has",
+				"hashResult"
+			],
+			[
+				"ser",
+				"serialNo"
+			],
+			[
+				"he",
+				"headerSize"
+			],
+			[
+				"f",
+				"fprintf	fprintf …"
+			],
+			[
+				"ISS_PUBKEYCERT_EX",
+				"ISS_PUBKEYCERT_ISSPUBKEYEXPLEN_LEN"
+			],
+			[
+				"ISS_PUBKEYCERT_IS",
+				"ISS_PUBKEYCERT_ISSUERID_LEN"
+			],
+			[
+				"ISS_",
+				"ISS_PUBKEYCERT_HASHALGOID_LEN"
+			],
+			[
+				"ce",
+				"cert"
+			],
+			[
+				"iss",
+				"issuerId"
+			],
+			[
+				"for",
+				"format"
+			],
+			[
+				"cer",
+				"certLen"
+			],
+			[
+				"Oda",
+				"OdaDataPtr"
+			],
+			[
+				"pO",
+				"pOdaData"
+			],
+			[
+				"O",
+				"OdaData"
+			],
+			[
+				"Od",
+				"OdaDataPtr"
+			],
+			[
+				"ha",
+				"hashInput"
+			],
+			[
+				"ac",
+				"actualSize"
+			],
+			[
+				"pu",
+				"pubKeyCert"
+			],
+			[
+				"get",
+				"getValue"
+			],
+			[
+				"T_",
+				"T_MODULO"
+			],
+			[
+				"if",
+				"ifndef"
+			],
+			[
+				"da",
+				"dataSize"
+			],
+			[
+				"ca",
+				"caKeyPtr"
+			],
+			[
+				"caK",
+				"caKeyData"
+			],
+			[
+				"cak",
+				"cakeyPtr"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "test/BaseTest.h",
+			"settings":
+			{
+				"buffer_size": 2570,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test/BaseTest.cpp",
+			"settings":
+			{
+				"buffer_size": 1026,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test/EntryPoint/Test_2EA_001_00_01.h",
+			"settings":
+			{
+				"buffer_size": 6154,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test/defaultHalImpl.c",
+			"settings":
+			{
+				"buffer_size": 644,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test/Runner2/CMakeLists.txt",
+			"settings":
+			{
+				"buffer_size": 1369,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "make",
+	"command_palette":
+	{
+		"height": 96.0,
+		"selected_items":
+		[
+			[
+				"cma",
+				"Build: cmake"
+			],
+			[
+				"mak",
+				"Build: cmake"
+			],
+			[
+				"tes",
+				"Build: tesst"
+			],
+			[
+				"",
+				"Build: cmake"
+			],
+			[
+				"te",
+				"Build: test2"
+			],
+			[
+				"cm",
+				"Build: cmake"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/suyuti/projects/sil/sskernel/src/Base/bits.h",
+		"/home/suyuti/projects/sil/sskernel/src/Base/err.h",
+		"/home/suyuti/projects/sil/sskernel/src/Base/kernel.c",
+		"/home/suyuti/projects/sil/sskernel/src/Base/kernel.h",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epCommon.h",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epConfig.h",
+		"/home/suyuti/projects/sil/sskernel/src/Hal/hal.h",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/entryPoint.c",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epConfigHelper.c",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epPreProcessing.c",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epConfig.c",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/entryPoint.h",
+		"/home/suyuti/projects/sil/sskernel/setting.sublime-project",
+		"/home/suyuti/projects/sil/sskernel/build/CMakeCache.txt",
+		"/home/suyuti/projects/sil/sskernel/build/Makefile",
+		"/home/suyuti/projects/sil/sskernel/build/sloccount.cmake",
+		"/home/suyuti/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings",
+		"/home/suyuti/projects/sil/TerminalParameter/terminalConfigBuilder.py",
+		"/home/suyuti/projects/sil/TerminalParameter/out.txt",
+		"/home/suyuti/projects/sil/TerminalParameter/applist.txt",
+		"/home/suyuti/projects/sil/TerminalParameter/termsetting1/applist.txt",
+		"/home/suyuti/projects/sil/TerminalParameter/termsetting1/out.txt",
+		"/home/suyuti/projects/sil/TerminalParameter/termsetting2/applist.txt",
+		"/home/suyuti/projects/sil/TerminalParameter/termsetting2/out.txt",
+		"/home/suyuti/projects/sil/TerminalParameter/termsetting3/applist.txt",
+		"/home/suyuti/projects/sil/TerminalParameter/termsetting6/applist.txt",
+		"/home/suyuti/projects/sil/TerminalParameter/termsetting7/applist.txt",
+		"/home/suyuti/projects/sil/TerminalParameter/termsetting8/applist.txt",
+		"/home/suyuti/projects/sil/TerminalParameter/termsetting13/applist.txt",
+		"/home/suyuti/projects/sil/TerminalParameter/termsetting13/out.txt",
+		"/home/suyuti/projects/sil/TerminalParameter/termsetting13/config_ep.txt",
+		"/home/suyuti/projects/sil/TerminalParameter/termsetting8/out.txt",
+		"/home/suyuti/projects/sil/TerminalParameter/termsetting7/out.txt",
+		"/home/suyuti/projects/sil/TerminalParameter/termsetting6/out.txt",
+		"/home/suyuti/projects/sil/TerminalParameter/termsetting1/terminalConfigBuilder.py",
+		"/home/suyuti/projects/sil/TerminalParameter/termsetting1/config_ep.txt",
+		"/home/suyuti/projects/sil/terminalConfigBuilder.py",
+		"/home/suyuti/projects/sil/sskernel/test/EntryPoint/Test_2EA_001_00_01.h",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epConfigHelper.h",
+		"/home/suyuti/projects/sil/sskernel/src/CMakeLists.txt",
+		"/home/suyuti/projects/sil/sskernel/test/Mockups/mockHal.h",
+		"/home/suyuti/projects/sil/sskernel/test/Mockups/mockHal.cpp",
+		"/home/suyuti/projects/sil/sskernel/test/BaseTest.h",
+		"/home/suyuti/projects/sil/sskernel/test/matchers.h",
+		"/home/suyuti/projects/sil/sskernel/src/Hal/hal.c",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epIndicators.c",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epPreProcessing.h",
+		"/home/suyuti/projects/sil/sskernel/test/Mockups/mockup_tests.h",
+		"/home/suyuti/projects/sil/sskernel/test/BaseTest.cpp",
+		"/home/suyuti/projects/sil/sskernel/src/Base/select.c",
+		"/home/suyuti/projects/sil/sskernel/src/Base/utils.c",
+		"/home/suyuti/projects/sil/sskernel/src/Base/utils.h",
+		"/home/suyuti/projects/sil/sskernel/test/Runner4/main.cpp",
+		"/home/suyuti/projects/sil/sskernel/src/Py/emvclessmodule.cpp",
+		"/home/suyuti/projects/sil/sskernel/test/EntryPoint/Test_2EA_002_00.h",
+		"/home/suyuti/projects/sil/sskernel/test/EntryPoint/Test_2EA_002_01.h",
+		"/home/suyuti/projects/sil/sskernel/test/EntryPoint/Test_2EA_002_02.h",
+		"/home/suyuti/projects/sil/sskernel/test/EntryPoint/Test_2EA_003_00.h",
+		"/home/suyuti/projects/sil/sskernel/test/EntryPoint/Test_2EA_004_00.h",
+		"/home/suyuti/projects/sil/sskernel/test/EntryPoint/Test_2EA_005_00.h",
+		"/home/suyuti/projects/sil/sskernel/test/EntryPoint/Test_2EA_005_01.h",
+		"/home/suyuti/projects/sil/sskernel/test/Runner3/testLog.json",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/__Test_2EA_001_00_01.h",
+		"/home/suyuti/projects/sil/sskernel/test/Config/ConfigFactory/configFactory.h",
+		"/home/suyuti/projects/sil/sskernel/test/Config/ConfigFactory/termConfig01.h",
+		"/home/suyuti/projects/sil/sskernel/test/Runner2/CMakeLists.txt",
+		"/home/suyuti/projects/sil/sskernel/test/Config/ConfigFactory/termConfig02.h",
+		"/home/suyuti/projects/sil/sskernel/test/Config/ConfigFactory/configFactory.cpp",
+		"/home/suyuti/projects/sil/sskernel/test/Runner4/CMakeLists.txt",
+		"/home/suyuti/projects/sil/sskernel/test/CMakeLists.txt",
+		"/home/suyuti/projects/sil/sskernel/test/_XMakLsts.txt",
+		"/home/suyuti/projects/sil/sskernel/test/Runner3/tester.py",
+		"/home/suyuti/projects/sil/sskernel/src/Hal/linux/unPredNumGen.c",
+		"/home/suyuti/projects/sil/sskernel/buildTester.sh",
+		"/home/suyuti/projects/sil/sskernel/test/Runner3/test.json",
+		"/home/suyuti/projects/sil/sskernel/test/App/terminal.py",
+		"/home/suyuti/projects/sil/sskernel/Readme.md",
+		"/home/suyuti/projects/sil/sskernel/test/Runner3/CMakeLists.txt",
+		"/home/suyuti/projects/sil/sskernel/test/Runner1/CMakeLists.txt",
+		"/home/suyuti/projects/sil/sskernel/test/EntryPoint_Test/Test_2EA_001_00_01.h",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/BaseTest.h",
+		"/home/suyuti/projects/sil/sskernel/CMakeLists.txt",
+		"/home/suyuti/projects/sil/sskernel/test/Runner1/main.cpp",
+		"/home/suyuti/projects/sil/sskernel/test/Runner2/main.cpp",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/ConfigFactory/termConfig05.h",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/ConfigFactory/termConfig04.h",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/ConfigFactory/termConfig05.cpp",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/ConfigFactory/termConfig04.cpp",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/ConfigFactory/termConfig02.cpp",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/ConfigFactory/configFactory.h",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/ConfigFactory/configFactory.cpp",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/ConfigFactory/termConfig02.h",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/Test_2EA_001_00_01.h",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/ConfigFactory/termConfigDefault.h",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/ConfigFactory/termConfigDefault.cpp",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/ConfigFactory/termConfig01.h",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/ConfigFactory/termConfig01.cpp",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/ConfigFactory/termConfig03.h",
+		"/home/suyuti/projects/sil/sskernel/src/Base/base.h",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/ConfigFactory/termConfig03.cpp",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/main.cpp",
+		"/home/suyuti/projects/sil/sskernel/test/TestDevice_Sim/BaseTest.cpp",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epTrnxParameters.h",
+		"/home/suyuti/projects/sil/sskernel/src/Base/general.h",
+		"/home/suyuti/projects/sil/sskernel/test/EntryPoint_Test/epTrnxParametersTests.h",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epTrnxParameters.c",
+		"/home/suyuti/projects/sil/sskernel/config/EntryPoint/ep_2B_A0000000010001",
+		"/home/suyuti/projects/sil/sskernel/src/Hal/halInjection.c",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epIndicators.h",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/ttq.h",
+		"/home/suyuti/projects/sil/sskernel/src/L2/l2.h",
+		"/home/suyuti/projects/sil/sskernel/src/L2/l2.c",
+		"/home/suyuti/projects/sil/sskernel/src/Hal/halInjection.h",
+		"/home/suyuti/projects/sil/sskernel/test/main.cpp",
+		"/home/suyuti/projects/sil/sskernel/src/Hal/linux/unPredNumGen.h",
+		"/home/suyuti/projects/sil/sskernel/test/EntryPoint_Test/entryPointTest.h",
+		"/home/suyuti/projects/sil/sskernel/test/Hal_Test/halTests.h",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epOutcome.h",
+		"/home/suyuti/projects/sil/sskernel/test/EntryPoint_Test/epIndicatorsTests.h",
+		"/home/suyuti/projects/sil/sskernel/src/Utils/_vector.h",
+		"/home/suyuti/projects/sil/sskernel/src/Utils/_vector.c",
+		"/home/suyuti/projects/sil/sskernel/test/Base_Test/vectorTests.h",
+		"/home/suyuti/projects/sil/sskernel/cmake/modules/EnableProfiling.cmake",
+		"/home/suyuti/projects/sil/sskernel/cmake/modules/EnableCoverage.cmake",
+		"/home/suyuti/projects/sil/sskernel/cmake/modules/EnableDoxygen.cmake",
+		"/home/suyuti/projects/sil/sskernel/cmake/modules/ParseArguments.cmake",
+		"/home/suyuti/projects/sil/sskernel/cmake/modules/EnableMemCheck.cmake",
+		"/home/suyuti/projects/sil/sskernel/cmake/modules/EnableCodeStyle.cmake"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/home/suyuti/projects/sil/sskernel"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"config",
+			"config.txt",
+			"07",
+			"generateUnpredictableNumberDefaultImpl",
+			"07",
+			"generateUnpredictableNumberDefaultImpl",
+			"Config02",
+			"empty",
+			"Config02",
+			"insert",
+			"vector",
+			"      ",
+			"MSD",
+			"setup_target_for_coverage",
+			"add_style_check_target",
+			"add_custom",
+			"SETUP_TARGET_FOR_COVERAGE",
+			"SETUP_TARGET_FOR",
+			"NO",
+			"_isIssPubKeyCertFormatValid",
+			"D2",
+			"D3",
+			"_recoverPubKeyCert",
+			"mpPrintH",
+			"bdPrintHex",
+			"ndigits",
+			"T",
+			"BIGD",
+			"mpModExp_windowed",
+			"mpModExp",
+			"rsa",
+			"copyright",
+			"err",
+			"responseSelectPse",
+			"VISA_TRANSACTIONSENABLED"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"ConfigDefault",
+			"Config04",
+			"Config03",
+			"_vector"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		},
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "test/BaseTest.h",
+					"settings":
+					{
+						"buffer_size": 2570,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2005,
+								2005
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1518.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "test/BaseTest.cpp",
+					"settings":
+					{
+						"buffer_size": 1026,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								769,
+								769
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "test/EntryPoint/Test_2EA_001_00_01.h",
+					"settings":
+					{
+						"buffer_size": 6154,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3141,
+								3141
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 874.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "test/defaultHalImpl.c",
+					"settings":
+					{
+						"buffer_size": 644,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								321,
+								321
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 69.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "test/Runner2/CMakeLists.txt",
+					"settings":
+					{
+						"buffer_size": 1369,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								113,
+								113
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.534546576188,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 352.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"epcon",
+				"src/EntryPoint/epConfig.h"
+			],
+			[
+				"entr",
+				"src/EntryPoint/entryPoint.h"
+			],
+			[
+				"ker",
+				"src/Base/kernel.h"
+			],
+			[
+				"kern",
+				"src/Base/kernel.c"
+			],
+			[
+				"err.",
+				"src/Base/err.h"
+			],
+			[
+				"hal",
+				"src/Hal/hal.h"
+			],
+			[
+				"def",
+				"test/defaultHalImpl.c"
+			],
+			[
+				"ha",
+				"src/Hal/hal.h"
+			],
+			[
+				"epco",
+				"src/EntryPoint/epConfig.c"
+			],
+			[
+				"eppro",
+				"src/EntryPoint/epPreProcessing.c"
+			],
+			[
+				"kernel",
+				"src/Base/kernel.c"
+			],
+			[
+				"hal.h",
+				"src/Hal/hal.h"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 234.0,
+	"status_bar_visible": true
+}
