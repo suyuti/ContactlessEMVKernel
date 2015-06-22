@@ -8,11 +8,16 @@ HalInterfaces gHal;
 
 int initialize(const char *configFolder)
 {
-    // 1. Set terminal parameters
     int retVal = 0;
 
+    retVal = checkHalInterfaces();
+    if (retVal != SUCCESS) return retVal;
+
     retVal = ep_init(&gHal, configFolder);
+    if (retVal != SUCCESS) return retVal;
+    
     retVal = ep_process();
+    if (retVal != SUCCESS) return retVal;
     return 0;
 }
 
@@ -37,6 +42,23 @@ int getVersion()
     return 99;
 }
 
+int checkHalInterfaces()
+{
+    if (!gHal.card_open     ||
+        !gHal.card_reset    ||
+        !gHal.card_close    ||
+        !gHal.card_transmit ||
+        !gHal.fileOpen      ||
+        !gHal.fileClose     ||
+        !gHal.fileRead      ||
+        !gHal.getFileSize   ||
+        !gHal.allocate      ||
+        !gHal.release       ||
+        !gHal._genUnPredNum
+        )
+        return HAL_INTERFACE_IS_NULL;
+    return SUCCESS;
+}
 //------------------------------------------------------------------------------------
 
 int setCardOpen(_card_open f)
@@ -118,3 +140,9 @@ int setRelease(_release f)
 }
 
 //------------------------------------------------------------------------------------
+
+int setGenUnPredNum(genUnPredNum f)
+{
+    SET_DELEGATE_GENUNPREDNUM(&gHal, f);
+    return SUCCESS;
+}

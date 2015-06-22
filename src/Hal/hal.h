@@ -77,9 +77,12 @@ typedef enum {
 #define FILE_READ(halPtr, file, o, s)               (halPtr)->fileRead((file), (o), (s))
 
 
-#define SET_DELEGATE_ALLOCATE(halPtr, foo)            (halPtr)->allocate  = foo
-#define SET_DELEGATE_RELEASE(halPtr, foo)              (halPtr)->release   = foo
-#define ALLOCATE(halPtr, size)                        (halPtr)->allocate((size))
-#define RELEASE(halPtr, obj)                           (halPtr)->release((obj))
+#define SET_DELEGATE_ALLOCATE(halPtr, foo)          (halPtr)->allocate  = foo
+#define SET_DELEGATE_RELEASE(halPtr, foo)           (halPtr)->release   = foo
+#define ALLOCATE(halPtr, size)                      (halPtr)->allocate((size))
+#define RELEASE(halPtr, obj)                        (halPtr)->release((obj))
+
+#define SET_DELEGATE_GENUNPREDNUM(halPtr, foo)      (halPtr)->_genUnPredNum   = foo
+#define GENERATE_UNPRED_NUM(halPtr)                 (halPtr)->_genUnPredNum()
 
 #endif// SRC_HAL_HAL_H_

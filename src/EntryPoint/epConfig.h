@@ -2,24 +2,15 @@
 #define _EP_CONFIG_H_
 
 #include "../Base/general.h"
+#include "./epCommon.h"
 
-//--------------------------------------------------------------------
-// Book A, Table 5-2
 
-typedef struct {
-    unsigned char   bitmap;
-    unsigned char   statusCheck;
-    unsigned char   zeroAmountAllowed;
-    int             clessTrnxLimit;
-    int             clessFloorLimit;
-    int             termFloorLimit;
-    int             cvmRequiredLimit;
-    unsigned char   ttq[4];
-    unsigned char   extendedSelectionSupport;
-} EpConfig, *EpConfigPtr;
+int clearEpConfigData(EpConfigDataPtr obj);
+int clearEpConfigs(EpPtr pEp);
 
-int resetEpConfig(EpConfigPtr p);
-int readEpConfig(const char configName, EpConfigPtr pConfig);
+int addEpConfig(EpPtr pEp, EpConfig config);
+int findEpConfig(EpPtr pEp, const char aid, unsigned char kid, EpConfigPtr obj);
+
 
 #define IS_EXIST_STATUS_CHECK(p)                ((p).bitmap && 0x01)        
 #define IS_EXIST_ZERO_AMOUNT_ALLOWED(p)         ((p).bitmap && 0x02)
@@ -54,7 +45,7 @@ int readEpConfig(const char configName, EpConfigPtr pConfig);
 
 
 //--------------------------------------------------------------------
-
+/*
 typedef struct {
     char    aid[16];
     char    kid;
@@ -62,10 +53,11 @@ typedef struct {
 } Aid_Kid, *Aid_KidPtr;
 
 
-EpConfigPtr findConfigByAidKid(const char* aid, char kid);
-int addConfigByAidKid(const char* aid, unsigned char kid, EpConfig);
+EpConfigDataPtr findConfigByAidKid(const char* aid, char kid);
+int addConfigByAidKid(const char* aid, unsigned char kid, EpConfigData);
 int resetAllConfigs();
 int loadConfigs(const char* configFolder);
+int getConfigCount(EpConfigDataPtr pConfigList);
 
 //- Testing purposes
 // TODO
@@ -79,19 +71,19 @@ EpConfigPtr t_getEpConfig();
 
 
 
+*/
 
-
-
+/*
 #define MAX_EP_CONFIG   20
 typedef struct {
-    int         count;
-    EpConfig    configs[MAX_EP_CONFIG];
+    int             count;
+    EpConfig        configs[MAX_EP_CONFIG];
 } EpConfigs, *EpConfigsPtr;
 
 int addEpConfig(EpConfigsPtr configs, EpConfig config);
 int resetEpConfigs(EpConfigsPtr configs);
 int fillEpConfigs();
-
+*/
 
 
 #endif// _EP_CONFIG_H_

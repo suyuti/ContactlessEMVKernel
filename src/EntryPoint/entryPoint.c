@@ -13,29 +13,27 @@
 // TODO
 
 Ep gEp;
-static int gEpState;
 
 int ep_init(HalInterfacesPtr pHal, const char* configFolder) 
 {
-    gEpState = EP_START_STATE_A;
+    int err;
 
-    SET_DELEGATE_CARD_OPEN      (&gEp.hal,  pHal->card_open);
-    SET_DELEGATE_CARD_RESET     (&gEp.hal,  pHal->card_reset);
-    SET_DELEGATE_CARD_CLOSE     (&gEp.hal,  pHal->card_close);
-    SET_DELEGATE_CARD_TRANSMIT  (&gEp.hal,  pHal->card_transmit);
+    SET_DELEGATE_CARD_OPEN      (&gEp.hal,  pHal->card_open     );
+    SET_DELEGATE_CARD_RESET     (&gEp.hal,  pHal->card_reset    );
+    SET_DELEGATE_CARD_CLOSE     (&gEp.hal,  pHal->card_close    );
+    SET_DELEGATE_CARD_TRANSMIT  (&gEp.hal,  pHal->card_transmit );
+    SET_DELEGATE_FILE_OPEN      (&gEp.hal,  pHal->fileOpen      );
+    SET_DELEGATE_FILE_CLOSE     (&gEp.hal,  pHal->fileClose     );
+    SET_DELEGATE_FILE_READ      (&gEp.hal,  pHal->fileRead      );
+    SET_DELEGATE_GET_FILE_SIZE  (&gEp.hal,  pHal->getFileSize   );
+    SET_DELEGATE_ALLOCATE       (&gEp.hal,  pHal->allocate      );
+    SET_DELEGATE_RELEASE        (&gEp.hal,  pHal->release       );
 
-    SET_DELEGATE_FILE_OPEN      (&gEp.hal,  pHal->fileOpen);
-    SET_DELEGATE_FILE_CLOSE     (&gEp.hal,  pHal->fileClose);
-    SET_DELEGATE_FILE_READ      (&gEp.hal,  pHal->fileRead);
-    SET_DELEGATE_GET_FILE_SIZE  (&gEp.hal,  pHal->getFileSize);
-    SET_DELEGATE_ALLOCATE       (&gEp.hal,  pHal->allocate);
-    SET_DELEGATE_RELEASE        (&gEp.hal,  pHal->release);
+    gEp.state = EP_START_STATE_A;
 
     sprintf(gEp.configFolder, "%s/config.txt", configFolder);
-
-    int err;
-    err = resetAllConfigs();
-    err = loadConfigs(gEp.configFolder);
+    err = loadConfigs(&gEp);
+    if (err != SUCCESS) return err;
 
     return SUCCESS;
 }
@@ -46,7 +44,7 @@ int ep_process()
 {
     int err = SUCCESS;
     for (;;) {
-        switch(gEpState) {
+        switch(gEp.state) {
             case EP_START_STATE_A:
                 err = _ep_startA();
             break;
@@ -75,7 +73,7 @@ int ep_process()
 int _ep_startA(/*int amount, int otherAmount*/)
 {
     int err = epPreProcessing(&gEp);
-    gEpState = EP_START_STATE_B;
+    gEp.state = EP_START_STATE_B;
     return err;
 }
 
@@ -84,7 +82,7 @@ int _ep_startA(/*int amount, int otherAmount*/)
 
 int _ep_startB()
 {
-    gEpState = EP_START_STATE_C;
+    gEp.state = EP_START_STATE_C;
     return SUCCESS;
 }
 
@@ -93,7 +91,7 @@ int _ep_startB()
 
 int _ep_startC()
 {
-    gEpState = EP_START_STATE_D;
+    gEp.state = EP_START_STATE_D;
     return SUCCESS;
 }
 
@@ -102,7 +100,7 @@ int _ep_startC()
 
 int _ep_startD()
 {
-    gEpState = EP_START_STATE_NONE;
+    gEp.state = EP_START_STATE_NONE;
     return SUCCESS;
 }
 
@@ -111,10 +109,10 @@ int _ep_startD()
 int _outcomeProcessing(EpOutcomePtr pOutcome)
 {
     if (pOutcome->outcomeType == SELECT_NEXT) {
-        gEpState = EP_START_STATE_C;
+        gEp.state = EP_START_STATE_C;
     }
     else if (pOutcome->outcomeType == TRY_AGAIN) {
-        gEpState = EP_START_STATE_B;
+        gEp.state = EP_START_STATE_B;
     }
     return SUCCESS;
 }
@@ -137,5 +135,5 @@ int _readConfigData()
 
 int t_getEpState()
 {
-    return gEpState;
+    return gEp.state;
 }

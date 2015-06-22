@@ -42,16 +42,17 @@ void BaseTest::init() {
     setGetFileSize(&defaultGetFileSize);
     setAllocate(&defaultAllocate);
     setRelease(&defaultRelease);
+    setGenUnPredNum(&defaultGenUnPredNum);
 
-    //hal.card_open = def;
-    //hal.card_reset;
-    //hal.card_close;
-    //hal.card_transmit;
-    hal.fileOpen    = &defaultFileOpen;
-    hal.fileClose   = &defaultFileClose;
-    hal.fileRead    = &defaultFileRead;
-    hal.getFileSize = &defaultGetFileSize;
-    hal.allocate    = &defaultAllocate;
-    hal.release     = &defaultRelease;
-    //hal._genUnPredNum;
+    hal.card_open       = &defaultCard_open;
+    hal.card_close      = &defaultCard_close;
+    hal.card_reset      = &defaultCard_reset;
+    hal.card_transmit   = &defaultCard_transmit;
+    hal.fileOpen        = &defaultFileOpen;
+    hal.fileClose       = &defaultFileClose;
+    hal.fileRead        = &defaultFileRead;
+    hal.getFileSize     = &defaultGetFileSize;
+    hal.allocate        = &defaultAllocate;
+    hal.release         = &defaultRelease;
+    hal._genUnPredNum   = &defaultGenUnPredNum;
 }

@@ -11,7 +11,7 @@ int epPreProcessing(EpPtr epObj)
 
     err = 
 
-    err = _3_1_1_1(&epObj->epConfigs, epObj->configFolder);
+    err = _3_1_1_1(epObj->epConfigs, epObj->epConfigsCount);
     err = _3_1_1_2();
     err = _3_1_1_3();
     err = _3_1_1_4();
@@ -40,15 +40,12 @@ int epPreProcessing(EpPtr epObj)
     Pre-Processing Indicators as defined in Table 5-3 of Book A
     (Entry Point Pre-Processing Indicators) to 0.
 **/
-int _3_1_1_1(EpConfigsPtr epConfigs, const char* configFolder) 
-{ 
-    int err;// = resetEpConfig(epConfigs);
-   // char configFileName[120] = {0x00};
-    //sprintf(configFileName, "%s/config.txt", configFolder);
-    //loadConfigs(configFileName);
-    //readConfig(configFileName, (EpConfigPtr)0);
-
-    return err;
+int _3_1_1_1(EpConfigPtr configs, int count) 
+{   int i = 0;
+    for (i = 0; i < count; ++i) {
+        epIndicators_reset(&(configs[i].indicators));        
+    }
+    return SUCCESS;
 }
 //----------------------------------------------------------------------------------------------------
 int _3_1_1_2() { return SUCCESS;}

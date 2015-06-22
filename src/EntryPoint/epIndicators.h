@@ -1,16 +1,7 @@
 #ifndef _EPINDICATORS_H_
 #define _EPINDICATORS_H_
 
-// Book A, Table 5.3, Entry Point Pre-Processing Indicators
-typedef struct {
-    unsigned char statusCheckRequested;
-    unsigned char clessAppNotAllowed;
-    unsigned char zeroAmount;
-    unsigned char readerCvmReqLimitExceeded;
-    unsigned char readerClessFloorLimitExceeded;
-   // TTQ           copyOfTtq; 
-    unsigned char ttq[4];
-} EpIndicators, *EpIndicatorsPtr;
+#include "epCommon.h"
 
 void epIndicators_reset(EpIndicatorsPtr epI);
 

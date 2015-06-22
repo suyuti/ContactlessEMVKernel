@@ -3,6 +3,16 @@
 
 #include "../src/Hal/hal.h"
 
+int defaultCard_open();
+int defaultCard_reset();
+int defaultCard_close();
+int defaultCard_transmit(const unsigned char*  pIn, 
+                  int                   inSize, 
+                  unsigned char*        pOut, 
+                  unsigned long*        pOutSize);
+
+int defaultGenUnPredNum(unsigned char* pOut, 
+                            unsigned long* pOutSize);
 
 int defaultFileOpen(const char* fileName, const char* mode);
 int defaultFileClose(int file);

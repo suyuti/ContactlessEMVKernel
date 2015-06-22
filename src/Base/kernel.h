@@ -20,6 +20,7 @@ int setGetFileSize(_getFileSize getFileSize);
 
 int setAllocate(_allocate allocate);
 int setRelease(_release release);
+int setGenUnPredNum(genUnPredNum f);
 
 extern HalInterfaces    gHal;
 

@@ -16,7 +16,7 @@ extern "C" {
 
 class TestEpConfig : public BaseTest {
 };
-
+/*
 TEST_F(TestEpConfig, resetAllConfigs)
 {
     int expected = SUCCESS;
@@ -172,5 +172,5 @@ TEST_F(TestEpConfig, loadConfigs)
     p = findConfigByAidKid("UNKNOWN_AID", 0xFF);
     EXPECT_TRUE(NULL == p);
 }
-
+*/
 #endif// TEST_ENTRYPOINT_TEST_EPCONFIG_H_

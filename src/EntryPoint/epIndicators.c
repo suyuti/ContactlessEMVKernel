@@ -4,5 +4,5 @@
 
 void epIndicators_reset(EpIndicatorsPtr epI)
 {
-    //memset(epI, 0x00, sizeof(EpIndicators));
+    memset(epI, 0x00, sizeof(EpIndicators));
 }

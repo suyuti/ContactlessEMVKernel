@@ -3,77 +3,63 @@
 #include "../Base/err.h"
 #include "epCommon.h"
 
-#define MAX_AID_KID     200
-#define MAX_EP_CONFIG   (12*17)
-
-static Aid_Kid      gsAidKidList[MAX_AID_KID];
-static EpConfig     gsEpConfigs[MAX_EP_CONFIG];
-static int          gsAidKidIndex   = 0;
-static int          gsEpConfigIndex = 0;
-
-//-----------------------------------------------------------------
-
-EpConfigPtr findConfigByAidKid(const char* aid, char kid)
+int clearEpConfigData(EpConfigDataPtr obj)
 {
+    if (!obj) return NULL_PARAMETER;
+    memset(obj, 0x00, sizeof(EpConfigData));
+    return SUCCESS;
+}
+
+int clearEpConfigs(EpPtr pEp)
+{
+    if (!pEp) return NULL_PARAMETER;
+    memset(pEp->epConfigs, 0x00, sizeof(EpConfig)*MAX_EP_CONFIG);
+    pEp->epConfigsCount = 0;
+    return SUCCESS;
+}
+
+int addEpConfig(EpPtr pEp, EpConfig config)
+{
+    if (!pEp) return NULL_PARAMETER;
+    if (pEp->epConfigsCount >= MAX_EP_CONFIG) {
+        return INDEX_OUT_OF_RANGE;
+    }
+    pEp->epConfigs[pEp->epConfigsCount] = config;
+    pEp->epConfigsCount++;
+    return SUCCESS;
+}
+
+int findEpConfig(EpPtr pEp, const char aid, unsigned char kid, EpConfigPtr obj)
+{
+    if (!pEp) return NULL_PARAMETER;
     int i = 0;
-    for (i = 0; i < gsAidKidIndex; ++i) {
-        if ((strcmp(gsAidKidList[i].aid, aid) == 0) &&
-             gsAidKidList[i].kid == kid) {
-            return &(gsEpConfigs[i]);
+    for (i = 0; i < pEp->epConfigsCount; ++i) {
+        if (strcmp(pEp->epConfigs[i].aid, aid) == 0 &&
+            pEp->epConfigs[i].kid == kid) {
+            obj = &(pEp->epConfigs[i]);
+        return SUCCESS;
         }
     }
-    return NULL;
+    return OBJECT_NOT_FOUNT;
 }
 
-//-----------------------------------------------------------------
-
-int addConfigByAidKid(const char* aid, unsigned char kid, EpConfig epConfig)
+int loadConfigs(EpPtr pEp)
 {
-    if (gsAidKidIndex >= MAX_AID_KID ||
-        gsEpConfigIndex >= MAX_EP_CONFIG)
-        return INDEX_OUT_OF_RANGE;
+    if (!pEp) return NULL_PARAMETER;
 
-    Aid_KidPtr pAidKid = &(gsAidKidList[gsAidKidIndex]);
 
-    strcpy(pAidKid->aid, aid);
-    pAidKid->kid = kid;
-
-    gsEpConfigs[gsEpConfigIndex] = epConfig;
-    pAidKid->configIndex = gsEpConfigIndex;
-
-    gsEpConfigIndex++;
-    gsAidKidIndex++;
-
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------
-
-int resetAllConfigs()
-{
-    memset(&gsAidKidList,     0x00, sizeof(gsAidKidList));
-    memset(&gsEpConfigs,   0x00, sizeof(gsEpConfigs));
-    gsEpConfigIndex = 0;
-    gsAidKidIndex   = 0;
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------
-
-int loadConfigs(const char* configName)
-{
-    int file = FILE_OPEN_R(&gEp.hal, configName);
+    int file = FILE_OPEN_R(&(pEp->hal), pEp->configFolder);
     if (file == -1) { 
         return FILE_NOT_FOUND; 
     }
-    int size = GET_FILE_SIZE(&gEp.hal, file);
+    int size = GET_FILE_SIZE(&(pEp->hal), file);
 
-    char *tmp = (char*)ALLOCATE(&gEp.hal, size+1);
+    char *tmp = (char*)ALLOCATE(&(pEp->hal), size+1);
     if (!tmp) { goto EXIT;}
     memset(tmp, 0x00, size);
-    FILE_READ(&gEp.hal, file, tmp, size);
+    FILE_READ(&(pEp->hal), file, tmp, size);
 
-    resetAllConfigs();
+    clearEpConfigs(pEp);
     int i = 0;
     int j = 0;
     EpConfig config;
@@ -117,8 +103,9 @@ int loadConfigs(const char* configName)
         }
         else if (tmp[i] == '\n') {
             if (part == 2) {
-                parseEpconfig(line, &config);
-                addConfigByAidKid(aid, kid, config);
+                //parseEpconfig(line, &config);
+                //addEpConfig(pList, &);
+                //addConfigByAidKid(aid, kid, config);
             }
             part = 0;
             j = 0;
@@ -130,7 +117,6 @@ int loadConfigs(const char* configName)
         i++;
     }
 
-
 EXIT:
     RELEASE(&gEp.hal, tmp);
     FILE_CLOSE(&gEp.hal, file);
@@ -138,38 +124,7 @@ EXIT:
     return SUCCESS;
 }
 
-
-
-//-----------------------------------------------------------------
-// TODO
-//- Testing purposes
-int t_getAidKidCount() {return gsAidKidIndex;}
-int t_getEpConfigCount() {return gsEpConfigIndex;}
-Aid_KidPtr t_getAidKid() { return gsAidKidList;}
-EpConfigPtr t_getEpConfig() {return gsEpConfigs;}
-
-
-
-
-//-----------------------------------------------------------------
-//-----------------------------------------------------------------
-//-----------------------------------------------------------------
-//-----------------------------------------------------------------
-//-----------------------------------------------------------------
-//-----------------------------------------------------------------
-//-----------------------------------------------------------------
-//-----------------------------------------------------------------
-
-int resetEpConfig(EpConfigPtr p)
-{
-    if (!p) return INVALID_PARAMETER;
-    memset(p, 0x00, sizeof(EpConfig));
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------
-
-int parseEpconfig(EpConfigPtr obj, const char* line) 
+int parseEpconfig(EpConfigDataPtr obj, const char* line) 
 {
     int i = 0;
     char *token = strtok(line, ".");
@@ -246,6 +201,140 @@ int parseEpconfig(EpConfigPtr obj, const char* line)
     return SUCCESS;
 }
 
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#define MAX_AID_KID     200
+#define MAX_EP_CONFIG   (12*17)
+
+static Aid_Kid      gsAidKidList[MAX_AID_KID];
+static EpConfigData     gsEpConfigs[MAX_EP_CONFIG];
+static int          gsAidKidIndex   = 0;
+static int          gsEpConfigIndex = 0;
+
+//-----------------------------------------------------------------
+
+int getConfigCount(EpConfigDataPtr pConfigList)
+{
+    return gsEpConfigIndex;
+}
+
+//-----------------------------------------------------------------
+
+EpConfigDataPtr findConfigByAidKid(const char* aid, char kid)
+{
+    int i = 0;
+    for (i = 0; i < gsAidKidIndex; ++i) {
+        if ((strcmp(gsAidKidList[i].aid, aid) == 0) &&
+             gsAidKidList[i].kid == kid) {
+            return &(gsEpConfigs[i]);
+        }
+    }
+    return NULL;
+}
+
+//-----------------------------------------------------------------
+
+int addConfigByAidKid(const char* aid, unsigned char kid, EpConfigData epConfig)
+{
+    if (gsAidKidIndex >= MAX_AID_KID ||
+        gsEpConfigIndex >= MAX_EP_CONFIG)
+        return INDEX_OUT_OF_RANGE;
+
+    Aid_KidPtr pAidKid = &(gsAidKidList[gsAidKidIndex]);
+
+    strcpy(pAidKid->aid, aid);
+    pAidKid->kid = kid;
+
+    gsEpConfigs[gsEpConfigIndex] = epConfig;
+    pAidKid->configIndex = gsEpConfigIndex;
+
+    gsEpConfigIndex++;
+    gsAidKidIndex++;
+
+    return SUCCESS;
+}
+
+//-----------------------------------------------------------------
+
+int resetAllConfigs()
+{
+    memset(&gsAidKidList,     0x00, sizeof(gsAidKidList));
+    memset(&gsEpConfigs,   0x00, sizeof(gsEpConfigs));
+    gsEpConfigIndex = 0;
+    gsAidKidIndex   = 0;
+    return SUCCESS;
+}
+
+//-----------------------------------------------------------------
+
+
+
+
+//-----------------------------------------------------------------
+// TODO
+//- Testing purposes
+int t_getAidKidCount() {return gsAidKidIndex;}
+int t_getEpConfigCount() {return gsEpConfigIndex;}
+Aid_KidPtr t_getAidKid() { return gsAidKidList;}
+EpConfigPtr t_getEpConfig() {return gsEpConfigs;}
+
+
+
+
+//-----------------------------------------------------------------
+//-----------------------------------------------------------------
+//-----------------------------------------------------------------
+//-----------------------------------------------------------------
+//-----------------------------------------------------------------
+//-----------------------------------------------------------------
+//-----------------------------------------------------------------
+//-----------------------------------------------------------------
+
+int resetEpConfig(EpConfigPtr p)
+{
+    if (!p) return INVALID_PARAMETER;
+    memset(p, 0x00, sizeof(EpConfig));
+    return SUCCESS;
+}
+
+//-----------------------------------------------------------------
+
+
 //-----------------------------------------------------------------
 
 int readEpConfig(const char configName, EpConfigPtr pConfig)
@@ -275,3 +364,4 @@ int resetEpConfigs(EpConfigsPtr pConfigs)
     memset(pConfigs, 0x00, sizeof(EpConfigs));
     return SUCCESS;
 }
+*/

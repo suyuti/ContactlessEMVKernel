@@ -12,9 +12,9 @@ private:
     class TerminalConfigProperties {
     private:
         TerminalConfigProperties() {
-            memset(&config, 0x00, sizeof(EpConfig));
+            memset(&config, 0x00, sizeof(EpConfigData));
         }
-        EpConfig        config;
+        EpConfigData        config;
 
         friend class TerminalConfigs;
         friend class TerminalConfigBuilder;

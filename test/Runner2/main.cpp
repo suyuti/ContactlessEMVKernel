@@ -11,6 +11,7 @@
 #include "EntryPoint/Test_2EA_005_01.h"
 
 #include "EntryPoint/epConfigTests.h"
+#include "EntryPoint/epPreProcessing.h"
 
 using namespace std;
 

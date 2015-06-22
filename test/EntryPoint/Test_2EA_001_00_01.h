@@ -67,7 +67,8 @@ TEST_F(Test_2EA_001_00, case01) {
                         .WillOnce(
         Return(SUCCESS));
 
-    initialize("./test/Runner2/termsetting1");
+    int err = initialize("./test/Runner2/termsetting1");
+    EXPECT_EQ(SUCCESS, err);
 }
 
 
