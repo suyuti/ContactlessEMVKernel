@@ -14,6 +14,15 @@
 
 Ep gEp;
 
+int clearEntryPoint(EpPtr pEp)
+{
+    if (!pEp) return NULL_PARAMETER;
+
+    clearEpConfigs(pEp);
+
+    return SUCCESS;
+}
+
 int ep_init(HalInterfacesPtr pHal, const char* configFolder) 
 {
     int err;

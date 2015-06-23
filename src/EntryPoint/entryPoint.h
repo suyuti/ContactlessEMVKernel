@@ -20,6 +20,7 @@
 */
 
 
+int clearEntryPoint(EpPtr pEp);
 
 int ep_process();
 int ep_init(HalInterfacesPtr, const char* configFolder);

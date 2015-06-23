@@ -3,46 +3,54 @@
 #include "../Base/err.h"
 #include "epCommon.h"
 
+//-----------------------------------------------------------------------------
 int clearEpConfigData(EpConfigDataPtr obj)
 {
     if (!obj) return NULL_PARAMETER;
+    
     memset(obj, 0x00, sizeof(EpConfigData));
     return SUCCESS;
 }
 
+//-----------------------------------------------------------------------------
 int clearEpConfigs(EpPtr pEp)
 {
     if (!pEp) return NULL_PARAMETER;
+
     memset(pEp->epConfigs, 0x00, sizeof(EpConfig)*MAX_EP_CONFIG);
     pEp->epConfigsCount = 0;
     return SUCCESS;
 }
 
+//-----------------------------------------------------------------------------
 int addEpConfig(EpPtr pEp, EpConfig config)
 {
     if (!pEp) return NULL_PARAMETER;
     if (pEp->epConfigsCount >= MAX_EP_CONFIG) {
         return INDEX_OUT_OF_RANGE;
     }
+    
     pEp->epConfigs[pEp->epConfigsCount] = config;
     pEp->epConfigsCount++;
     return SUCCESS;
 }
 
-int findEpConfig(EpPtr pEp, const char aid, unsigned char kid, EpConfigPtr obj)
+//-----------------------------------------------------------------------------
+int findEpConfig(EpPtr pEp, const char* aid, unsigned char kid, EpConfigPtr obj)
 {
-    if (!pEp) return NULL_PARAMETER;
+    if (!pEp || !obj) return NULL_PARAMETER;
     int i = 0;
     for (i = 0; i < pEp->epConfigsCount; ++i) {
         if (strcmp(pEp->epConfigs[i].aid, aid) == 0 &&
             pEp->epConfigs[i].kid == kid) {
-            obj = &(pEp->epConfigs[i]);
-        return SUCCESS;
+            *obj = pEp->epConfigs[i];
+            return SUCCESS;
         }
     }
-    return OBJECT_NOT_FOUNT;
+    return OBJECT_NOT_FOUND;
 }
 
+//-----------------------------------------------------------------------------
 int loadConfigs(EpPtr pEp)
 {
     if (!pEp) return NULL_PARAMETER;
@@ -124,6 +132,7 @@ EXIT:
     return SUCCESS;
 }
 
+//-----------------------------------------------------------------------------
 int parseEpconfig(EpConfigDataPtr obj, const char* line) 
 {
     int i = 0;

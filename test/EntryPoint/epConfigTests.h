@@ -10,12 +10,142 @@ using namespace std;
 
 
 extern "C" {
+    #include "EntryPoint/entryPoint.h"
     #include "EntryPoint/epConfig.h"
     #include "Base/err.h"
 }
 
 class TestEpConfig : public BaseTest {
 };
+
+//-----------------------------------------------------------------------------
+
+TEST_F(TestEpConfig, clearEpConfigData)
+{
+    EpConfigData epConfigData;
+
+    SET_STATUS_CHECK(epConfigData);
+
+    int actual = clearEpConfigData(&epConfigData);
+
+    EXPECT_EQ(SUCCESS, actual);
+    EXPECT_TRUE(IS_STATUS_CHECK(epConfigData) == FALSE);
+}
+
+//-----------------------------------------------------------------------------
+
+TEST_F(TestEpConfig, clearEpConfigDataNegative)
+{
+    int actual = clearEpConfigData(NULL);
+
+    EXPECT_EQ(NULL_PARAMETER, actual);
+}
+
+//-----------------------------------------------------------------------------
+
+TEST_F(TestEpConfig, clearEpConfigs)
+{
+    Ep ep;
+    int actual = clearEpConfigs(&ep);
+    EXPECT_EQ(SUCCESS, actual);
+    EXPECT_EQ(0, ep.epConfigsCount);
+}
+
+//-----------------------------------------------------------------------------
+
+TEST_F(TestEpConfig, clearEpConfigsNegative)
+{
+    int actual = clearEpConfigs(NULL);
+    EXPECT_EQ(NULL_PARAMETER, actual);
+}
+
+//-----------------------------------------------------------------------------
+
+TEST_F(TestEpConfig, addEpConfig)
+{
+    Ep          ep;
+    EpConfig    epConfig;
+
+    sprintf(epConfig.aid, "TEST_AID");
+    epConfig.kid = 0xAB;
+    SET_STATUS_CHECK(epConfig.configData);
+
+    int actual = addEpConfig(&ep, epConfig);
+
+    EXPECT_EQ(SUCCESS,  actual);
+    EXPECT_EQ(1,        ep.epConfigsCount);
+    EXPECT_EQ(0xAB,     ep.epConfigs[0].kid);
+    EXPECT_TRUE(IS_STATUS_CHECK(ep.epConfigs[0].configData));
+}
+
+//-----------------------------------------------------------------------------
+
+TEST_F(TestEpConfig, addEpConfigNegative)
+{
+    Ep          ep;
+    EpConfig    epConfig;
+
+    int actual = addEpConfig(NULL, epConfig);
+
+    EXPECT_EQ(NULL_PARAMETER,  actual);
+}
+
+//-----------------------------------------------------------------------------
+
+TEST_F(TestEpConfig, findEpConfig)
+{
+    Ep          ep;
+    EpConfig    epConfig;
+
+    clearEntryPoint(&ep);
+
+    sprintf(epConfig.aid, "TEST_AID_AB");
+    epConfig.kid = 0xAB;
+    SET_STATUS_CHECK(epConfig.configData);
+    addEpConfig(&ep, epConfig);
+    EXPECT_EQ(1, ep.epConfigsCount);
+
+    sprintf(epConfig.aid, "TEST_AID_AC");
+    epConfig.kid = 0xAC;
+    SET_STATUS_CHECK(epConfig.configData);
+    addEpConfig(&ep, epConfig);
+
+    EXPECT_EQ(2, ep.epConfigsCount);
+
+    int actual = findEpConfig(&ep, "TEST_AID_AB", 0xAB, &epConfig);
+
+    EXPECT_EQ(SUCCESS, actual);
+    EXPECT_EQ(0xAB, epConfig.kid);
+
+    actual = findEpConfig(&ep, "TEST_AID_UNKNOWN", 0xFF, &epConfig);
+
+    EXPECT_EQ(OBJECT_NOT_FOUND, actual);
+}
+
+//-----------------------------------------------------------------------------
+
+TEST_F(TestEpConfig, findEpConfigNegative)
+{
+    Ep          ep;
+    EpConfig    epConfig;
+
+    int actual = findEpConfig(&ep, "TEST_AID_AB", 0xAB, NULL);
+    EXPECT_EQ(NULL_PARAMETER, actual);
+
+    actual = findEpConfig(NULL, "TEST_AID_AB", 0xAB, &epConfig);
+    EXPECT_EQ(NULL_PARAMETER, actual);
+
+    actual = findEpConfig(NULL, "TEST_AID_AB", 0xAB, NULL);
+    EXPECT_EQ(NULL_PARAMETER, actual);
+}
+
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /*
 TEST_F(TestEpConfig, resetAllConfigs)
 {

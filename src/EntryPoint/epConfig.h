@@ -9,7 +9,7 @@ int clearEpConfigData(EpConfigDataPtr obj);
 int clearEpConfigs(EpPtr pEp);
 
 int addEpConfig(EpPtr pEp, EpConfig config);
-int findEpConfig(EpPtr pEp, const char aid, unsigned char kid, EpConfigPtr obj);
+int findEpConfig(EpPtr pEp, const char* aid, unsigned char kid, EpConfigPtr obj);
 
 
 #define IS_EXIST_STATUS_CHECK(p)                ((p).bitmap && 0x01)        
