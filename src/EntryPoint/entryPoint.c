@@ -49,13 +49,13 @@ int ep_init(HalInterfacesPtr pHal, const char* configFolder)
 
 //--------------------------------------------------------------------
 
-int ep_process()
+int ep_process(int amount, int amountAuthorized)
 {
     int err = SUCCESS;
     for (;;) {
         switch(gEp.state) {
             case EP_START_STATE_A:
-                err = _ep_startA();
+                err = _ep_startA(amount, amountAuthorized);
             break;
             case EP_START_STATE_B:
                 err = _ep_startB();
@@ -79,9 +79,9 @@ int ep_process()
 //--------------------------------------------------------------------
 // Pre-processing
 
-int _ep_startA(/*int amount, int otherAmount*/)
+int _ep_startA(int amount, int amountAuthorized)
 {
-    int err = epPreProcessing(&gEp);
+    int err = epPreProcessing(&gEp, amount, amountAuthorized);
     gEp.state = EP_START_STATE_B;
     return err;
 }

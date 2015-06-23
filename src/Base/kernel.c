@@ -16,7 +16,7 @@ int initialize(const char *configFolder)
     retVal = ep_init(&gHal, configFolder);
     if (retVal != SUCCESS) return retVal;
     
-    retVal = ep_process();
+    retVal = ep_process(0, 0);
     if (retVal != SUCCESS) return retVal;
     return 0;
 }

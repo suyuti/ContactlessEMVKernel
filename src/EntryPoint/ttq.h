@@ -3,6 +3,7 @@
 
 #include "../Base/bits.h"
 
+#define TTQ_LEN                             4
 // Book A Table 5-4
 
 #define MAGSTRIPE_SUPP_BYTE                 0
@@ -51,31 +52,31 @@
 #define SET_ISS_UPDATE_SUPP(ttq)
 #define SET_CONS_DEV_CVM_SUPP(ttq)
 
-#define RESET_MAGSTRIPE_SUPP(ttq)                SET_BIT(ttq[MAGSTRIPE_SUPP_BYTE], MAGSTRIPE_SUPP_BIT)
-#define RESET_EMV_MODE_SUPP(ttq)                 SET_BIT(ttq[EMV_MODE_SUPP_BYTE], EMV_MODE_SUPP_BIT)
+#define RESET_MAGSTRIPE_SUPP(ttq)               RESET_BIT(ttq[MAGSTRIPE_SUPP_BYTE], MAGSTRIPE_SUPP_BIT)
+#define RESET_EMV_MODE_SUPP(ttq)                RESET_BIT(ttq[EMV_MODE_SUPP_BYTE], EMV_MODE_SUPP_BIT)
 #define RESET_EMV_CONTACT_CHIP_SUPP()
 #define RESET_OFFLINE_ONLY_READER()
 #define RESET_ONLINE_PIN_SUPP()
 #define RESET_SIGNATURE_SUPP()
 #define RESET_ODA_FOR_ONLINE_AUTH_SUPP()
-#define RESET_ONLINE_CRYPT_REQ()
-#define RESET_CVM_REQ()
+#define RESET_ONLINE_CRYPT_REQ(ttq)             RESET_BIT(ttq[ONLINE_CRYPT_REQ_BYTE], ONLINE_CRYPT_REQ_BIT)
+#define RESET_CVM_REQ(ttq)                      RESET_BIT(ttq[CVM_REQ_BYTE], CVM_REQ_BIT)
 #define RESET_OFFLINE_PIN_SUPP()
 #define RESET_ISS_UPDATE_SUPP()
 #define RESET_CONS_DEV_CVM_SUPP()
 
 
-#define IS_MAGSTRIPE_SUPP(ttq)                SET_BIT(ttq[MAGSTRIPE_SUPP_BYTE], MAGSTRIPE_SUPP_BIT)
-#define IS_EMV_MODE_SUPP(ttq)                 SET_BIT(ttq[EMV_MODE_SUPP_BYTE], EMV_MODE_SUPP_BIT)
-#define IS_EMV_CONTACT_CHIP_SUPP()
-#define IS_OFFLINE_ONLY_READER()
-#define IS_ONLINE_PIN_SUPP()
-#define IS_SIGNATURE_SUPP()
-#define IS_ODA_FOR_ONLINE_AUTH_SUPP()
-#define IS_ONLINE_CRYPT_REQ()
-#define IS_CVM_REQ()
-#define IS_OFFLINE_PIN_SUPP()
-#define IS_ISS_UPDATE_SUPP()
-#define IS_CONS_DEV_CVM_SUPP()
+#define IS_MAGSTRIPE_SUPP(ttq)                  CHECK_BIT(ttq[MAGSTRIPE_SUPP_BYTE], MAGSTRIPE_SUPP_BIT)
+#define IS_EMV_MODE_SUPP(ttq)                   CHECK_BIT(ttq[EMV_MODE_SUPP_BYTE], EMV_MODE_SUPP_BIT)
+#define IS_EMV_CONTACT_CHIP_SUPP(ttq)
+#define IS_OFFLINE_ONLY_READER(ttq)
+#define IS_ONLINE_PIN_SUPP(ttq)
+#define IS_SIGNATURE_SUPP(ttq)
+#define IS_ODA_FOR_ONLINE_AUTH_SUPP(ttq)
+#define IS_ONLINE_CRYPT_REQ(ttq)                CHECK_BIT(ttq[ONLINE_CRYPT_REQ_BYTE],   ONLINE_CRYPT_REQ_BIT)
+#define IS_CVM_REQ(ttq)                         CHECK_BIT(ttq[CVM_REQ_BYTE],            CVM_REQ_BIT)
+#define IS_OFFLINE_PIN_SUPP(ttq)
+#define IS_ISS_UPDATE_SUPP(ttq)
+#define IS_CONS_DEV_CVM_SUPP(ttq)
 
 #endif // _TTQ_H_

@@ -10,8 +10,14 @@
 #define BIT_6 0x40  // 01000000
 #define BIT_7 0x80  // 10000000
 
-#define CHECK_BIT(var, bit) (((var) & (bit)) == (bit))
-#define SET_BIT(var, bit) ((var) |= (bit))
+//#define CHECK_BIT(var, bit) (((var) & (bit)) == (bit))
+//#define SET_BIT(var, bit) ((var) |= (bit))
+//#define RESET_BIT(var, bit) ((var) |= (bit))
 
+#define SET_BIT(var, bit)           ((var) |= 1 << (bit));
+#define RESET_BIT(var, bit)         ((var) &= ~(1 << (bit)))
+#define TOGGLE_BIT(var, bit)        ((var) ^= 1 << (bit))
+#define CHECK_BIT(var, bit)         (((var) >> (bit)) & 1)
+#define CHANGE_NBIT(var, n, x)      ((var) ^= (-(x) ^ (var)) & (1 << (n)))
 
 #endif// _BITS_H_
