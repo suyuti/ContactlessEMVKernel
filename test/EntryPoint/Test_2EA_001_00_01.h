@@ -35,7 +35,7 @@ public:
         Case01: The LT shall receive in the GET PROCESSING OPTIONS data field: Transaction Type = value supported for the configuration 
         Case01: The LT shall receive in the GET PROCESSING OPTIONS data field: Amount Other = 0
 **/
-
+/*
 TEST_F(Test_2EA_001_00, case01) {
     InSequence s1;
     EXPECT_CALL(halApi, cardOpen()).Times(Exactly(1));
@@ -70,7 +70,7 @@ TEST_F(Test_2EA_001_00, case01) {
     int err = initialize("./test/Runner2/termsetting1");
     EXPECT_EQ(SUCCESS, err);
 }
-
+*/
 
 //-------------------------------------------------------------------------------------------------
 /**

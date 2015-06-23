@@ -6,6 +6,7 @@
 #define TTQ_LEN                             4
 // Book A Table 5-4
 
+//- Bytes
 #define MAGSTRIPE_SUPP_BYTE                 0
 #define EMV_MODE_SUPP_BYTE                  0
 #define EMV_CONTACT_CHIP_SUPP_BYTE          0
@@ -21,21 +22,21 @@
 #define ISS_UPDATE_SUPP_BYTE                2
 #define CONS_DEV_CVM_SUPP_BYTE              2
 
+//- Bits
+#define MAGSTRIPE_SUPP_BIT                  (8-1)
+#define EMV_MODE_SUPP_BIT                   (6-1)
+#define EMV_CONTACT_CHIP_SUPP_BIT           (5-1)
+#define OFFLINE_ONLY_READER_BIT             (4-1)
+#define ONLINE_PIN_SUPP_BIT                 (3-1)
+#define SIGNATURE_SUPP_BIT                  (2-1)
+#define ODA_FOR_ONLINE_AUTH_SUPP_BIT        (1-1)
 
-#define MAGSTRIPE_SUPP_BIT                  8
-#define EMV_MODE_SUPP_BIT                   6
-#define EMV_CONTACT_CHIP_SUPP_BIT           5
-#define OFFLINE_ONLY_READER_BIT             4
-#define ONLINE_PIN_SUPP_BIT                 3
-#define SIGNATURE_SUPP_BIT                  2
-#define ODA_FOR_ONLINE_AUTH_SUPP_BIT        1
+#define ONLINE_CRYPT_REQ_BIT                (8-1)
+#define CVM_REQ_BIT                         (7-1)
+#define OFFLINE_PIN_SUPP_BIT                (6-1)
 
-#define ONLINE_CRYPT_REQ_BIT                8
-#define CVM_REQ_BIT                         7
-#define OFFLINE_PIN_SUPP_BIT                6
-
-#define ISS_UPDATE_SUPP_BIT                 8
-#define CONS_DEV_CVM_SUPP_BIT               7
+#define ISS_UPDATE_SUPP_BIT                 (8-1)
+#define CONS_DEV_CVM_SUPP_BIT               (7-1)
 
 //--------------------------------------------------------
 
@@ -46,7 +47,7 @@
 #define SET_ONLINE_PIN_SUPP(ttq)
 #define SET_SIGNATURE_SUPP(ttq)
 #define SET_ODA_FOR_ONLINE_AUTH_SUPP(ttq)
-#define SET_ONLINE_CRYPT_REQ(ttq)
+#define SET_ONLINE_CRYPT_REQ(ttq)               SET_BIT(ttq[ONLINE_CRYPT_REQ_BYTE], ONLINE_CRYPT_REQ_BIT)
 #define SET_CVM_REQ(ttq)
 #define SET_OFFLINE_PIN_SUPP(ttq)
 #define SET_ISS_UPDATE_SUPP(ttq)

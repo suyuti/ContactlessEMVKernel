@@ -140,7 +140,9 @@ int _3_1_1_5(EpConfigPtr pConfig, int amountAuthorized)
     //}
 }
 
-int _3_1_1_6() 
+//----------------------------------------------------------------------------------------------------
+
+int _3_1_1_6(EpConfigPtr pConfig, int amountAuthorized) 
 { 
     /*
         Book B v2.5 p.14
@@ -151,11 +153,19 @@ int _3_1_1_6()
         THEN    Entry Point shall set the ‘Reader Contactless Floor Limit
                 Exceeded’ indicator for the Combination to 1.
     */    
+    if (!pConfig) return NULL_PARAMETER;
+
+    if (IS_EXIST_CLESS_FLOOR_LIMIT(pConfig->configData) 
+        && (amountAuthorized > pConfig->configData.clessFloorLimit)
+        ) {
+        SET_EPIND_READER_CLESS_FLOOR_LIMIT_EXCEEDED(pConfig->indicators);
+    }
     return SUCCESS;
 }
 
 //----------------------------------------------------------------------------------------------------
-int _3_1_1_7() 
+
+int _3_1_1_7(EpConfigPtr pConfig, int amountAuthorized) 
 { 
     /*
         Book B v2.5 p.14
@@ -170,10 +180,19 @@ int _3_1_1_7()
         THEN    Entry Point shall set the ‘Reader Contactless Floor Limit
                 Exceeded’ indicator for the Combination to 1.
     */
+    if (!pConfig) return NULL_PARAMETER;
+
+    if (!IS_EXIST_CLESS_FLOOR_LIMIT(pConfig->configData)
+        && IS_EXIST_TERM_FLOOR_LIMIT(pConfig->configData)
+        && (amountAuthorized > pConfig->configData.termFloorLimit)) {
+        SET_EPIND_READER_CLESS_FLOOR_LIMIT_EXCEEDED(pConfig->indicators);
+    }
     return SUCCESS;
 }
+
 //----------------------------------------------------------------------------------------------------
-int _3_1_1_8() 
+
+int _3_1_1_8(EpConfigPtr pConfig, int amountAuthorized) 
 { 
     /*
         Book B v2.5 p.14
@@ -185,10 +204,18 @@ int _3_1_1_8()
         THEN    Entry Point shall set the ‘Reader CVM Required Limit
                 Exceeded’ indicator for the Combination to 1
     */
+    if (!pConfig) return NULL_PARAMETER;
+
+    if (IS_EXIST_CVM_REQ_LIMIT(pConfig->configData)
+        && (amountAuthorized >= pConfig->configData.cvmRequiredLimit)) {
+        SET_EPIND_READER_CVM_REQ_LIMIT_EXCEEDED(pConfig->indicators);
+    } 
     return SUCCESS;
 }
+
 //----------------------------------------------------------------------------------------------------
-int _3_1_1_9() 
+
+int _3_1_1_9(EpConfigPtr pConfig) 
 { 
     /*
         Book B v2.5 p.15
@@ -198,10 +225,15 @@ int _3_1_1_9()
         THEN    Entry Point shall set byte 2, bit 8 in the Copy of TTQ for the
                 Combination to 1b (‘Online cryptogram required’).
     */
+    if (!pConfig) return NULL_PARAMETER;
+
+    if (IS_EPIND_READER_CLESS_FLOOR_LIMIT_EXCEEDED(pConfig->indicators)) {
+        SET_ONLINE_CRYPT_REQ(pConfig->indicators.ttq);
+    }
     return SUCCESS;
 }
 //----------------------------------------------------------------------------------------------------
-int _3_1_1_10() 
+int _3_1_1_10(EpConfigPtr pConfig) 
 {
     /*
         Book B v2.5 p.15
@@ -211,10 +243,15 @@ int _3_1_1_10()
         THEN    Entry Point shall set byte 2, bit 8 in the Copy of TTQ for the
                 Combination to 1b (‘Online cryptogram required’).
     */
+    if (!pConfig) return NULL_PARAMETER;
+
+    if (IS_EPIND_STATUS_CHECK_REQ(pConfig->indicators)) {
+        SET_ONLINE_CRYPT_REQ(pConfig->indicators.ttq);
+    }
     return SUCCESS;
 }
 //----------------------------------------------------------------------------------------------------
-int _3_1_1_11() 
+int _3_1_1_11(EpConfigPtr pConfig) 
 { 
     /*
         Book B v2.5 p.15
@@ -231,10 +268,15 @@ int _3_1_1_11()
                     reader’)), Entry Point shall set the ‘Contactless Application Not
                     Allowed’ indicator for the Combination to 1.
     */
+    if (!pConfig) return NULL_PARAMETER;
+
+    if (IS_EPIND_ZERO_AMOUNT(pConfig->indicators)) {
+        // TODO
+    }
     return SUCCESS;
 }
 //----------------------------------------------------------------------------------------------------
-int _3_1_1_12() 
+int _3_1_1_12(EpConfigPtr pConfig) 
 { 
     /*
         Book B v2.5 p.15
@@ -244,8 +286,44 @@ int _3_1_1_12()
         THEN    Entry Point shall set byte 2, bit 7 in the Copy of TTQ for the
                 Combination to 1b (‘CVM required’).
     */
+    if (!pConfig) return NULL_PARAMETER;
+
+    if (IS_EPIND_READER_CVM_REQ_LIMIT_EXCEEDED(pConfig->indicators)) {
+        // TODO
+    }
     return SUCCESS;
 }
 //----------------------------------------------------------------------------------------------------
-int _3_1_1_13() { return SUCCESS;}
+int _3_1_1_13() 
+{ 
+    /*
+        Book B v2.5 p.16
+        3.1.1.13
+
+        IF,     for all the Combinations, the ‘Contactless Application Not
+                Allowed’ indicator is 1,
+        THEN    Entry Point shall provide a Try Another Interface Outcome
+                with the following Outcome parameter values and shall continue
+                with Outcome Processing, section 3.5.
+
+            Try Another Interface:
+                - Start: N/A
+                - Online Response Data: N/A
+                - CVM: N/A
+                - UI Request on Outcome Present: Yes
+                    o Message Identifier: '18' (“Please Insert or Swipe Card”)
+                    o Status: Processing Error
+                - UI Request on Restart Present: No
+                - Data Record Present: No
+                - Discretionary Data Present: No
+                - Alternate Interface Preference: N/A
+                - Receipt: N/A
+                - Field Off Request: N/A
+                - Removal Timeout: Zero
+        OTHERWISE (at least one Combination is allowed) Entry Point shall
+                retain the Entry Point Pre-Processing Indicators for each allowed
+                Combination.
+    */
+    return SUCCESS;
+}
 //----------------------------------------------------------------------------------------------------

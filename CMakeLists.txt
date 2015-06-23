@@ -29,7 +29,7 @@ endif()
 #      Test coverage
 if (BUILD_WITH_COVERAGE)
     include(EnableCoverage)
-    setup_target_for_coverage(coverage testKernel coverage)
+    setup_target_for_coverage(coverage test2 coverage)
 endif()
 
 #-----------------------------------------------------------------------
