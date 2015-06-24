@@ -261,8 +261,34 @@ TEST_F(TestPreProcessing, _3_1_1_9) {
     EXPECT_TRUE(IS_ONLINE_CRYPT_REQ(config.indicators.ttq));
 
 }
+
 //-----------------------------------------------------------------------------
+
+TEST_F(TestPreProcessing, _3_1_1_10_Negative) {
+    int actual =  _3_1_1_10(NULL);
+    EXPECT_EQ(NULL_PARAMETER, actual);
+}
+
 //-----------------------------------------------------------------------------
+
+TEST_F(TestPreProcessing, _3_1_1_10) {
+    EpConfig config;
+    memset(&config, 0x00, sizeof(EpConfig));
+
+    // B1
+    int actual =  _3_1_1_10(&config);
+    EXPECT_EQ(SUCCESS, actual);
+    EXPECT_FALSE(IS_ONLINE_CRYPT_REQ(config.indicators.ttq));
+
+    // B2
+    memset(&config, 0x00, sizeof(EpConfig));
+    SET_EPIND_STATUS_CHECK_REQ(config.indicators);
+    actual =  _3_1_1_10(&config);
+    EXPECT_EQ(SUCCESS, actual);
+    EXPECT_TRUE(IS_ONLINE_CRYPT_REQ(config.indicators.ttq));
+
+}
+
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------

@@ -17,9 +17,21 @@ int epPreProcessing(EpPtr epObj, int amount, int amountAuthorized)
         err = _3_1_1_2(&(epObj->epConfigs[i]));
         err = _3_1_1_3(&(epObj->epConfigs[i]), amount, amountAuthorized);
         err = _3_1_1_4(&(epObj->epConfigs[i]), amount, amountAuthorized);
+        err = _3_1_1_5(&(epObj->epConfigs[i]), amountAuthorized);
+        err = _3_1_1_6(&(epObj->epConfigs[i]), amountAuthorized);
+        err = _3_1_1_7(&(epObj->epConfigs[i]), amountAuthorized);
+        err = _3_1_1_8(&(epObj->epConfigs[i]), amountAuthorized);
+        
+        if (IS_EXIST_TTQ(epObj->epConfigs[i].configData)) {
+            err = _3_1_1_9(&(epObj->epConfigs[i]));
+            err = _3_1_1_10(&(epObj->epConfigs[i]));
+            err = _3_1_1_11(&(epObj->epConfigs[i]));
+            err = _3_1_1_12(&(epObj->epConfigs[i]));
+        }
     }
+    err = _3_1_1_13();
 
-    return SUCCESS;
+    return err;
 }
 
 //-----------------------------------------------------------------------------
