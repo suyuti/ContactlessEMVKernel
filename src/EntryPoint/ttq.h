@@ -16,7 +16,7 @@
 #define ODA_FOR_ONLINE_AUTH_SUPP_BYTE       0
 
 #define ONLINE_CRYPT_REQ_BYTE               1
-#define CVM_REQ_BYTE                        1
+#define CVM_REQUIRED_BYTE                   1
 #define OFFLINE_PIN_SUPP_BYTE               1
 
 #define ISS_UPDATE_SUPP_BYTE                2
@@ -32,7 +32,7 @@
 #define ODA_FOR_ONLINE_AUTH_SUPP_BIT        (1-1)
 
 #define ONLINE_CRYPT_REQ_BIT                (8-1)
-#define CVM_REQ_BIT                         (7-1)
+#define CVM_REQUIRED_BIT                    (7-1)
 #define OFFLINE_PIN_SUPP_BIT                (6-1)
 
 #define ISS_UPDATE_SUPP_BIT                 (8-1)
@@ -61,7 +61,7 @@
 #define RESET_SIGNATURE_SUPP()
 #define RESET_ODA_FOR_ONLINE_AUTH_SUPP()
 #define RESET_ONLINE_CRYPT_REQ(ttq)             RESET_BIT(ttq[ONLINE_CRYPT_REQ_BYTE], ONLINE_CRYPT_REQ_BIT)
-#define RESET_CVM_REQ(ttq)                      RESET_BIT(ttq[CVM_REQ_BYTE], CVM_REQ_BIT)
+#define RESET_CVM_REQ(ttq)                      RESET_BIT(ttq[CVM_REQUIRED_BYTE], CVM_REQUIRED_BIT)
 #define RESET_OFFLINE_PIN_SUPP()
 #define RESET_ISS_UPDATE_SUPP()
 #define RESET_CONS_DEV_CVM_SUPP()
@@ -75,7 +75,7 @@
 #define IS_SIGNATURE_SUPP(ttq)
 #define IS_ODA_FOR_ONLINE_AUTH_SUPP(ttq)
 #define IS_ONLINE_CRYPT_REQ(ttq)                CHECK_BIT(ttq[ONLINE_CRYPT_REQ_BYTE],   ONLINE_CRYPT_REQ_BIT)
-#define IS_CVM_REQ(ttq)                         CHECK_BIT(ttq[CVM_REQ_BYTE],            CVM_REQ_BIT)
+#define IS_CVM_REQ(ttq)                         CHECK_BIT(ttq[CVM_REQUIRED_BYTE],       CVM_REQUIRED_BIT)
 #define IS_OFFLINE_PIN_SUPP(ttq)
 #define IS_ISS_UPDATE_SUPP(ttq)
 #define IS_CONS_DEV_CVM_SUPP(ttq)

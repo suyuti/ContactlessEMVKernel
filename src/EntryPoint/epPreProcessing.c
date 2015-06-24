@@ -1,9 +1,9 @@
+#include <string.h>
 #include "epPreProcessing.h"
 #include "epTrnxParameters.h"
 #include "../Base/err.h"
 #include "./epCommon.h"
-
-#include "epConfigHelper.h"
+#include "./epConfig.h"
 #include "./ttq.h"
 #include "./epIndicators.h"
 #include "./epOutcome.h"

@@ -81,3 +81,15 @@ open ./coverage/index.html
 
 
 Python module usage:
+
+
+Getting information about binaries:
+  size src/libentrypoint.a
+
+  The sections have the following meaning
+
+  text: denotes the code size of the executable
+  data: is initialized data section, e.g. variables, like int v = 17; or char name[] = "Tom";
+  bss: is the uninitialized or simply 0 initiailized section, int a; or double amount;
+  dec: is the overall size, in this case 102134 + 1776 + 11272 = 115182
+  hex: finally is also the overall size, as a hex value 1c1ee = 115182

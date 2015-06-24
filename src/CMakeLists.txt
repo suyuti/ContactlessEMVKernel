@@ -10,7 +10,6 @@ set(srcEntryPoint   EntryPoint/entryPoint.c
                     EntryPoint/epTrnxParameters.c
                     EntryPoint/epConfig.c
                     EntryPoint/epOutcome.c
-                    EntryPoint/epConfigHelper.c
                     )
 
 set(srcPcsc         Hal/linux/scard.c)
