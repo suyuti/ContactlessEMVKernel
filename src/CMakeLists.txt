@@ -6,6 +6,7 @@ set(srcEntryPoint   EntryPoint/entryPoint.c
                     Utils/_vector.c
                     EntryPoint/epIndicators.c
                     EntryPoint/epPreProcessing.c
+                    EntryPoint/epProtocolActivation.c
                     EntryPoint/epTrnxParameters.c
                     EntryPoint/epConfig.c
                     EntryPoint/epConfigHelper.c
