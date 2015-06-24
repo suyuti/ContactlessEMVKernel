@@ -34,19 +34,63 @@ typedef struct {
     EpIndicators    indicators;
 } EpConfig, *EpConfigPtr;
 
+//-------------------------------------------------------------------
+typedef enum {
+    StartA,
+    StartB,
+    StartC,
+    StartD,
+    Start_NA
+} OutcomeStartTypes;
+
+typedef enum {
+    Cvm_OnlinePin,
+    Cvm_ConfirmationCodeVerified,
+    Cvm_ObtainSignature,
+    Cvm_NoCvm,
+    Cvm_NA,
+} CvmTypes;
+
+typedef enum {
+    Interface_ContactChip,
+    Interface_MagStripe,
+    Interface_NA
+} InterfaceTypes;
+
+#define MAX_DATA_LEN        256
+typedef struct {
+    OutcomeStartTypes   start;
+    int                 onlineResponseDataLen;
+    unsigned char       onlineResponseData[MAX_DATA_LEN];
+    CvmTypes            cvm;
+    int                 uiRequestOnOutcomePresent;
+    int                 uiRequestOnRestartPresent;
+    int                 dataRecordPresent;
+    int                 discreationaryDataPresent;
+    InterfaceTypes      alternateInterfacePreference;
+    int                 receipt;
+    int                 fieldOffRequest;
+    int                 removalTimeout;
+} EpOutcome, *EpOutcomePtr;
+
+
+
 #define MAX_EP_CONFIG   200
 
 typedef struct {
     HalInterfaces   hal;
     int             state;
 
-    //- config data
+    //- Config data
     int             epConfigsCount;
     EpConfig        epConfigs[MAX_EP_CONFIG];
-
     char            configFolder[120];
 
+    //- Outcome
+    EpOutcome       outcome;
 
+    //- Started by reader
+    int             startedByReader;
 } Ep, *EpPtr;
 
 extern Ep gEp; // define in entryPoint.c

@@ -7,11 +7,16 @@
 
 #include "./err.h"
 
+/*----------------------------------------------------------------------
+    Book B p.21
+    Table 3-2
+    SELECT Response Message Data Field (FCI) of the PPSE
+*/
 typedef struct {
-    unsigned char   _4F     [1 + 16];
-    unsigned char   _50     [1 + 16];
-    unsigned char   _87     [1 +  1];
-    unsigned char   _9F2A   [1 +  1];
+    unsigned char   _4F     [1 + 16];   // ADF Name
+    unsigned char   _50     [1 + 16];   // Application Label
+    unsigned char   _87     [1 +  1];   // Application priority indicator
+    unsigned char   _9F2A   [1 +  1];   // Kernel identifier
 } FciIssData, *FciIssDataPtr;
 
 typedef struct {

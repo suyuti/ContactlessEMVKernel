@@ -6,6 +6,7 @@
 #include "epConfigHelper.h"
 #include "./ttq.h"
 #include "./epIndicators.h"
+#include "./epOutcome.h"
 
 int epPreProcessing(EpPtr epObj, int amount, int amountAuthorized)
 {
@@ -306,7 +307,7 @@ int _3_1_1_12(EpConfigPtr pConfig)
     return SUCCESS;
 }
 //----------------------------------------------------------------------------------------------------
-int _3_1_1_13() 
+int _3_1_1_13(EpPtr pEp) 
 { 
     /*
         Book B v2.5 p.16
@@ -336,6 +337,8 @@ int _3_1_1_13()
                 retain the Entry Point Pre-Processing Indicators for each allowed
                 Combination.
     */
+    resetOutcome(&pEp->outcome);
+    // TODO UI Request on Outcome Present
     return SUCCESS;
 }
 //----------------------------------------------------------------------------------------------------

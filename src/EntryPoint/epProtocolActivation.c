@@ -10,7 +10,7 @@ int epProtocolActivation()
 
 //-----------------------------------------------------------------------------
 
-int _3_2_1_1() 
+int _3_2_1_1(EpPtr pEp)
 {
     /*
         Book B v2.5 p.17
@@ -30,6 +30,12 @@ int _3_2_1_1()
                 - Entry Point shall clear the Candidate List.
 
     */
+    int i = 0;
+    if (pEp->startedByReader) {
+        for (i = 0; i < pEp->epConfigsCount; ++i) {
+            epIndicators_reset(&(pEp->epConfigs[i].indicators));
+        }
+     }
     return SUCCESS;
 }
 

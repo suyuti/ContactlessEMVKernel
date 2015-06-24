@@ -9,6 +9,7 @@ set(srcEntryPoint   EntryPoint/entryPoint.c
                     EntryPoint/epProtocolActivation.c
                     EntryPoint/epTrnxParameters.c
                     EntryPoint/epConfig.c
+                    EntryPoint/epOutcome.c
                     EntryPoint/epConfigHelper.c
                     )
 

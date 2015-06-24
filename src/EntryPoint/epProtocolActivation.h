@@ -5,7 +5,7 @@
 
 int epProtocolActivation();
 
-int _3_2_1_1();
+int _3_2_1_1(EpPtr p);
 int _3_2_1_2();
 int _3_2_1_3();
 int _3_2_1_4();

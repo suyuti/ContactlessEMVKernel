@@ -8,6 +8,7 @@
 #include "../Base/select.h"
 #include "../Base/err.h"
 #include "epPreProcessing.h"
+#include "epProtocolActivation.h"
 #include "../Hal/hal.h"
 
 // TODO
@@ -91,6 +92,7 @@ int _ep_startA(int amount, int amountAuthorized)
 
 int _ep_startB()
 {
+    int err = epProtocolActivation();
     gEp.state = EP_START_STATE_C;
     return SUCCESS;
 }
@@ -117,12 +119,14 @@ int _ep_startD()
 
 int _outcomeProcessing(EpOutcomePtr pOutcome)
 {
+    /*
     if (pOutcome->outcomeType == SELECT_NEXT) {
         gEp.state = EP_START_STATE_C;
     }
     else if (pOutcome->outcomeType == TRY_AGAIN) {
         gEp.state = EP_START_STATE_B;
     }
+    */
     return SUCCESS;
 }
 
