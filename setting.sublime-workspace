@@ -5,7 +5,95 @@
 		[
 			[
 				"p",
-				"printf	printf …"
+				"pEp"
+			],
+			[
+				"Ca",
+				"CandidateListItemPtr"
+			],
+			[
+				"Can",
+				"candidateList"
+			],
+			[
+				"MA",
+				"MAX_CANDIDATE_LIST"
+			],
+			[
+				"ma",
+				"maxSize"
+			],
+			[
+				"CAN",
+				"CANDLIST_DFNAME_BIT"
+			],
+			[
+				"S",
+				"Step3"
+			],
+			[
+				"Ste",
+				"StepExit"
+			],
+			[
+				"St",
+				"Step1"
+			],
+			[
+				"Step",
+				"Step2"
+			],
+			[
+				"g",
+				"gLastSW"
+			],
+			[
+				"_",
+				"_3_3_1_1"
+			],
+			[
+				"indi",
+				"Indicators"
+			],
+			[
+				"re",
+				"return"
+			],
+			[
+				"EpO",
+				"EpOutcomePtr"
+			],
+			[
+				"Ep",
+				"EpOutcomePtr"
+			],
+			[
+				"o",
+				"outcome"
+			],
+			[
+				"ui",
+				"uiRequestOnRestartPresent"
+			],
+			[
+				"uiR",
+				"uiRequestOnOutcomePresent"
+			],
+			[
+				"on",
+				"onlineResponseDataLen"
+			],
+			[
+				"Ou",
+				"OutcomeStartTypes"
+			],
+			[
+				"ep",
+				"epConfigs"
+			],
+			[
+				"_3",
+				"_3_1_1_5"
 			],
 			[
 				"ONL",
@@ -84,22 +172,6 @@
 				"amountAuthorized"
 			],
 			[
-				"_",
-				"_3_1_1_4"
-			],
-			[
-				"Ep",
-				"EpConfigPtr"
-			],
-			[
-				"_3",
-				"_3_1_1_2"
-			],
-			[
-				"ep",
-				"epIndicators"
-			],
-			[
 				"epco",
 				"epConfigs"
 			],
@@ -144,10 +216,6 @@
 				"epObj"
 			],
 			[
-				"re",
-				"return"
-			],
-			[
 				"_g",
 				"_genUnPredNum"
 			],
@@ -174,10 +242,6 @@
 			[
 				"I",
 				"INDEX_OUT_OF_RANGE"
-			],
-			[
-				"MA",
-				"MAX_EP_CONFIG"
 			],
 			[
 				"EpConfig",
@@ -224,10 +288,6 @@
 				"gsEpConfigIndex"
 			],
 			[
-				"g",
-				"gsEpConfigIndex"
-			],
-			[
 				"A",
 				"Aid_KidPtr"
 			],
@@ -248,37 +308,26 @@
 	"buffers":
 	[
 		{
-			"file": "src/EntryPoint/epPreProcessing.c",
+			"file": "src/EntryPoint/epCombinationSelection.h",
 			"settings":
 			{
-				"buffer_size": 10959,
+				"buffer_size": 698,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "#ifndef _EPINDICATORS_H_\n#define _EPINDICATORS_H_\n\n#include \"epCommon.h\"\n\nvoid epIndicators_reset(EpIndicatorsPtr epI);\n\n\n\n#define SET_EPIND_STATUS_CHECK_REQ(ep)                      ((ep).statusCheckRequested          = 0x01)\n#define SET_EPIND_CLESS_APP_NOT_ALLOWED(ep)                 ((ep).clessAppNotAllowed            = 0x01)\n#define SET_EPIND_ZERO_AMOUNT(ep)                           ((ep).zeroAmount                    = 0x01)\n#define SET_EPIND_READER_CVM_REQ_LIMIT_EXCEEDED(ep)         ((ep).readerCvmReqLimitExceeded     = 0x01)\n#define SET_EPIND_READER_CLESS_FLOOR_LIMIT_EXCEEDED(ep)     ((ep).readerClessFloorLimitExceeded = 0x01)\n\n#define RESET_EPIND_STATUS_CHECK_REQ(ep)                    ((ep).statusCheckRequested          = 0x00)\n#define RESET_EPIND_CLESS_APP_NOT_ALLOWED(ep)               ((ep).clessAppNotAllowed            = 0x00)\n#define RESET_EPIND_ZERO_AMOUNT(ep)                         ((ep).zeroAmount                    = 0x00)\n#define RESET_EPIND_READER_CVM_REQ_LIMIT_EXCEEDED(ep)       ((ep).readerCvmReqLimitExceeded     = 0x00)\n#define RESET_EPIND_READER_CLESS_FLOOR_LIMIT_EXCEEDED(ep)   ((ep).readerClessFloorLimitExceeded = 0x00)\n\n#define IS_EPIND_STATUS_CHECK_REQ(ep)                       ((ep).statusCheckRequested          != 0x00)\n#define IS_EPIND_CLESS_APP_NOT_ALLOWED(ep)                  ((ep).clessAppNotAllowed            != 0x00)\n#define IS_EPIND_ZERO_AMOUNT(ep)                            ((ep).zeroAmount                    != 0x00)\n#define IS_EPIND_READER_CVM_REQ_LIMIT_EXCEEDED(ep)          ((ep).readerCvmReqLimitExceeded     != 0x00)\n#define IS_EPIND_READER_CLESS_FLOOR_LIMIT_EXCEEDED(ep)      ((ep).readerClessFloorLimitExceeded != 0x00)\n\n\n#endif// _EPINDICATORS_H_\n",
-			"file": "src/EntryPoint/epIndicators.h",
-			"file_size": 1718,
-			"file_write_time": 130794502130931265,
+			"file": "src/CMakeLists.txt",
 			"settings":
 			{
-				"buffer_size": 1718,
+				"buffer_size": 2505,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/EntryPoint/ttq.h",
+			"file": "src/EntryPoint/epCombinationSelection.c",
 			"settings":
 			{
-				"buffer_size": 3377,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Base/bits.h",
-			"settings":
-			{
-				"buffer_size": 773,
+				"buffer_size": 5250,
 				"line_ending": "Unix"
 			}
 		},
@@ -286,47 +335,65 @@
 			"file": "src/EntryPoint/epCommon.h",
 			"settings":
 			{
-				"buffer_size": 1376,
+				"buffer_size": 2746,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/EntryPoint/epConfig.h",
+			"file": "src/Base/candidateList.h",
 			"settings":
 			{
-				"buffer_size": 7082,
+				"buffer_size": 1596,
+				"line_ending": "Unix",
+				"name": "#ifndef _CANDIDATE_LIST_H_"
+			}
+		},
+		{
+			"file": "src/Base/candidateList.c",
+			"settings":
+			{
+				"buffer_size": 1500,
+				"line_ending": "Unix",
+				"name": "#include \"candidateList.h\""
+			}
+		},
+		{
+			"file": "src/Base/select.c",
+			"settings":
+			{
+				"buffer_size": 4412,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "test/EntryPoint/epPreProcessingTests.h",
+			"file": "test/UnitTests/selectTests.h",
 			"settings":
 			{
-				"buffer_size": 8697,
+				"buffer_size": 9339,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/EntryPoint/epConfig.c",
+			"file": "src/Base/general.h",
 			"settings":
 			{
-				"buffer_size": 9444,
+				"buffer_size": 375,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "CMakeLists.txt",
+			"file": "src/Base/base.h",
 			"settings":
 			{
-				"buffer_size": 2282,
+				"buffer_size": 162,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "test/EntryPoint/Test_2EA_001_00_01.h",
+			"file": "src/Base/select.h",
 			"settings":
 			{
-				"buffer_size": 6197,
+				"buffer_size": 1338,
 				"line_ending": "Unix"
 			}
 		}
@@ -395,34 +462,48 @@
 		"/home/suyuti/projects/sil/sskernel/src",
 		"/home/suyuti/projects/sil/sskernel/src/Base",
 		"/home/suyuti/projects/sil/sskernel/src/EntryPoint",
-		"/home/suyuti/projects/sil/sskernel/src/Hal",
+		"/home/suyuti/projects/sil/sskernel/src/Kernels",
+		"/home/suyuti/projects/sil/sskernel/src/Kernels/DummyKernel",
 		"/home/suyuti/projects/sil/sskernel/test",
-		"/home/suyuti/projects/sil/sskernel/test/EntryPoint",
-		"/home/suyuti/projects/sil/sskernel/test/Runner2"
+		"/home/suyuti/projects/sil/sskernel/test/UnitTests"
 	],
 	"file_history":
 	[
+		"/home/suyuti/projects/sil/sskernel/src/Base/baseCommon.h",
+		"/home/suyuti/projects/sil/sskernel/src/Base/tlv.c",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epProtocolActivation.h",
+		"/home/suyuti/projects/sil/sskernel/test/CMakeLists.txt",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/ttq.h",
 		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epConfig.h",
-		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epPreProcessing.h",
-		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epConfig.c",
-		"/home/suyuti/projects/sil/sskernel/TODO.txt",
-		"/home/suyuti/projects/sil/sskernel/test/EntryPoint/epConfigTests.h",
-		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/entryPoint.c",
-		"/home/suyuti/projects/sil/sskernel/src/Base/kernel.c",
-		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/entryPoint.h",
-		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epIndicators.h",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epPreProcessing.c",
 		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epCommon.h",
 		"/home/suyuti/projects/sil/sskernel/test/EntryPoint/epPreProcessingTests.h",
-		"/home/suyuti/projects/sil/sskernel/test/Runner2/main.cpp",
-		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/ttq.h",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epConfig.c",
+		"/home/suyuti/projects/sil/sskernel/CMakeLists.txt",
+		"/home/suyuti/projects/sil/sskernel/test/EntryPoint/Test_2EA_001_00_01.h",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epIndicators.h",
+		"/home/suyuti/projects/sil/sskernel/Readme.md",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epProtocolActivation.c",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/entryPoint.c",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epCombinationSelection.h",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epCombinationSelection.c",
+		"/home/suyuti/projects/sil/sskernel/src/Base/select.h",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epOutcome.h",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epOutcome.c",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epConfigHelper.c",
+		"/home/suyuti/projects/sil/sskernel/src/CMakeLists.txt",
 		"/home/suyuti/projects/sil/sskernel/src/Base/bits.h",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epPreProcessing.h",
+		"/home/suyuti/projects/sil/sskernel/TODO.txt",
+		"/home/suyuti/projects/sil/sskernel/test/EntryPoint/epConfigTests.h",
+		"/home/suyuti/projects/sil/sskernel/src/Base/kernel.c",
+		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/entryPoint.h",
+		"/home/suyuti/projects/sil/sskernel/test/Runner2/main.cpp",
 		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epIndicators.c",
 		"/home/suyuti/projects/sil/sskernel/src/Base/err.h",
-		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epPreProcessing.c",
 		"/home/suyuti/projects/sil/sskernel/test/BaseTest.cpp",
 		"/home/suyuti/projects/sil/sskernel/test/defaultHalImpl.c",
 		"/home/suyuti/projects/sil/sskernel/src/Hal/hal.h",
-		"/home/suyuti/projects/sil/sskernel/test/EntryPoint/Test_2EA_001_00_01.h",
 		"/home/suyuti/projects/sil/sskernel/src/Base/kernel.h",
 		"/home/suyuti/projects/sil/sskernel/test/Config/ConfigFactory/configFactory.h",
 		"/home/suyuti/projects/sil/sskernel/test/defaultHalImpl.h",
@@ -447,6 +528,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"fci",
 			"config"
 		],
 		"highlight": true,
@@ -465,24 +547,82 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/EntryPoint/epPreProcessing.c",
+					"file": "src/EntryPoint/epCombinationSelection.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10959,
+						"buffer_size": 698,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6837,
-								6837
+								95,
+								95
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/CMakeLists.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2505,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1425,
+								1425
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/EntryPoint/epCombinationSelection.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5250,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								877,
+								877
 							]
 						],
 						"settings":
@@ -492,27 +632,209 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4799.0,
+						"translation.y": 897.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "src/EntryPoint/epIndicators.h",
+					"buffer": 3,
+					"file": "src/EntryPoint/epCommon.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1718,
+						"buffer_size": 2746,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								121,
-								121
+								2535,
+								2535
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1656.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/Base/candidateList.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1596,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								72,
+								72
+							]
+						],
+						"settings":
+						{
+							"auto_name": "#ifndef _CANDIDATE_LIST_H_",
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/Base/candidateList.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1500,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								798,
+								798
+							]
+						],
+						"settings":
+						{
+							"auto_name": "#include \"candidateList.h\"",
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/Base/select.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4412,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								787,
+								787
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 483.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "test/UnitTests/selectTests.h",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 9339,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								626,
+								626
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5727.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "src/Base/general.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 375,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								272,
+								272
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 9,
+					"file": "src/Base/base.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 162,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								107,
+								107
 							]
 						],
 						"settings":
@@ -527,199 +849,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "src/EntryPoint/ttq.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3377,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1097,
-								1097
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 318.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "src/Base/bits.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 773,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								499,
-								499
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/EntryPoint/epCommon.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1376,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								653,
-								653
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "src/EntryPoint/epConfig.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7082,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3574,
-								3574
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 690.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 6,
-					"file": "test/EntryPoint/epPreProcessingTests.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8697,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8150,
-								8150
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 5466.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/EntryPoint/ttq.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3377,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2127,
-								2127
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 893.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "src/EntryPoint/epConfig.c",
+					"buffer": 10,
+					"file": "src/Base/select.h",
 					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 9444,
+						"buffer_size": 1338,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3905,
-								3905
+								627,
+								627
 							]
 						],
 						"settings":
@@ -729,70 +872,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3036.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "CMakeLists.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2282,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1257,
-								1257
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 345.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "test/EntryPoint/Test_2EA_001_00_01.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6197,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1411,
-								1411
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 759.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -804,7 +887,7 @@
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 33.0
 	},
 	"layout":
 	{
@@ -826,7 +909,7 @@
 		"cols":
 		[
 			0.0,
-			0.509527238856,
+			0.589180573767,
 			1.0
 		],
 		"rows":
@@ -857,6 +940,34 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"ttq.",
+				"src/EntryPoint/ttq.h"
+			],
+			[
+				"eppre",
+				"src/EntryPoint/epPreProcessing.c"
+			],
+			[
+				"epin",
+				"src/EntryPoint/epIndicators.h"
+			],
+			[
+				"epout",
+				"src/EntryPoint/epOutcome.c"
+			],
+			[
+				"epco",
+				"src/EntryPoint/epConfig.c"
+			],
+			[
+				"epcon",
+				"src/EntryPoint/epConfig.h"
+			],
+			[
+				"ttq",
+				"src/EntryPoint/ttq.h"
+			],
 			[
 				"err",
 				"src/Base/err.h"
@@ -902,7 +1013,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 197.0,
+	"side_bar_width": 306.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

@@ -2,6 +2,8 @@
 #define _EP_COMMON_H_
 
 #include "../Hal/hal.h"
+#include "../Base/select.h"
+#include "../Base/candidateList.h"
 
 //--------------------------------------------------------------------
 // Book A, Table 5-2
@@ -75,7 +77,8 @@ typedef struct {
 
 
 
-#define MAX_EP_CONFIG   200
+#define MAX_EP_CONFIG       200
+#define MAX_CANDIDATE_LIST  10
 
 typedef struct {
     HalInterfaces   hal;
@@ -89,8 +92,13 @@ typedef struct {
     //- Outcome
     EpOutcome       outcome;
 
+    Fci             fci;
     //- Started by reader
     int             startedByReader;
+
+    //- Candidate list
+    int                 candidateListCount;
+    CandidateListItem   candidateList[MAX_CANDIDATE_LIST];
 } Ep, *EpPtr;
 
 extern Ep gEp; // define in entryPoint.c

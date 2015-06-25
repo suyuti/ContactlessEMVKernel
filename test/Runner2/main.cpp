@@ -13,6 +13,9 @@
 #include "EntryPoint/epConfigTests.h"
 #include "EntryPoint/epPreProcessingTests.h"
 
+#include "Base/candidateListTests.h"
+#include "Base/selectTests.h"
+
 using namespace std;
 
 int main(int argc, char** argv)

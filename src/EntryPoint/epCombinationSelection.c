@@ -1,11 +1,106 @@
-int epCombinationSelection()
+#include "./epCombinationSelection.h"
+#include "../Base/err.h"
+
+typedef enum {
+    Step1,
+    Step2,
+    Step3,
+    StepExit
+} Steps;
+
+static Steps gsNextStep;
+
+//-----------------------------------------------------------------------------
+
+int epCombinationSelection(EpPtr pEp)
 {
-    return SUCCESS;
+    if (!pEp) return NULL_PARAMETER;
+    int err;
+
+    gsNextStep = Step1;
+
+    while(gsNextStep != StepExit) {
+        switch(gsNextStep) {
+            case Step1:
+                err = _step1(pEp);
+            break;
+            case Step2:
+                err = _step2(pEp);
+            break;
+            case Step3:
+                err = _step3(pEp);
+            break;
+        }
+    }
+    return err;
 }
 
 //-----------------------------------------------------------------------------
 
-int _3_3_1_1();
+int _step1(EpPtr pEp)
+{
+    if (!pEp) return NULL_PARAMETER;
+
+    int i = 0;
+    int err = selectPpse(&(pEp->fci));
+    if (err != SUCCESS) return err;
+    if (getLastSw() == MAKEWORD(90,0)) {
+        clearCandidateList(pEp->candidateList, MAX_CANDIDATE_LIST);
+        CandidateListItem item;
+        for(i = 0; i < pEp->fci._fciIssDataCount; ++i) {
+            fciToCandidateItem(&(pEp->fci._fciIssData[i]), &item);
+        }
+        addCandidateList(pEp->candidateList,
+                        &(pEp->candidateListCount),
+                        MAX_CANDIDATE_LIST,
+                        &item);
+        gsNextStep = Step2;
+    }
+    else {
+        gsNextStep = Step3;
+    }
+    return err;
+}
+
+//-----------------------------------------------------------------------------
+
+int _step2(EpPtr pEp) 
+{
+    int err = SUCCESS;
+    if (!pEp) return NULL_PARAMETER;
+
+    /*
+        Book B v2.5 p.27
+        3.3.2.4
+
+        IF      there is no Directory Entry (Tag '61') in the FCI,
+        THEN    Entry Point shall add no Combinations to the Candidate List
+                and shall proceed to Step 3.
+    */
+    if (pEp->fci._fciIssDataCount == 0) {
+        gsNextStep = Step3;
+    }
+
+    /*
+        Book B v2.5 p.27
+        3.3.2.5
+
+    */
+    return err;
+}
+
+//-----------------------------------------------------------------------------
+
+int _step3(EpPtr pEp) 
+{
+    int err = SUCCESS;
+    if (!pEp) return NULL_PARAMETER;
+    return err;
+}
+
+//-----------------------------------------------------------------------------
+
+int _3_3_1_1()
 {
     /*
         Book B v2.5 p.22
@@ -22,7 +117,7 @@ int _3_3_1_1();
 
 //-----------------------------------------------------------------------------
 
-int _3_3_2_1();
+int _3_3_2_1(EpPtr pEp)
 {
     /*
         Book B v2.5 p.26
@@ -39,96 +134,105 @@ int _3_3_2_1();
         ELSE IF Entry Point is activated by the reader at Start C,
         THEN    processing shall continue at Step 3.
     */
+    if (!pEp) return NULL_PARAMETER;
+
+    if (pEp->startedByReader) {
+
+    }
     return SUCCESS;
 }
 
 //-----------------------------------------------------------------------------
 
-int _3_3_2_2();
+int _3_3_2_2(EpPtr pEp)
+{
+    if (!pEp) return NULL_PARAMETER;
+
+    int err = selectPpse(&(pEp->fci));
+
+    return SUCCESS;
+}
+
+//-----------------------------------------------------------------------------
+
+int _3_3_2_3()
 {
     return SUCCESS;
 }
 
 //-----------------------------------------------------------------------------
 
-int _3_3_2_3();
+int _3_3_2_4()
 {
     return SUCCESS;
 }
 
 //-----------------------------------------------------------------------------
 
-int _3_3_2_4();
+int _3_3_2_5()
 {
     return SUCCESS;
 }
 
 //-----------------------------------------------------------------------------
 
-int _3_3_2_5();
+int _3_3_2_6()
 {
     return SUCCESS;
 }
 
 //-----------------------------------------------------------------------------
 
-int _3_3_2_6();
+int _3_3_2_7()
 {
     return SUCCESS;
 }
 
 //-----------------------------------------------------------------------------
 
-int _3_3_2_7();
+int _3_3_3_1()
 {
     return SUCCESS;
 }
 
 //-----------------------------------------------------------------------------
 
-int _3_3_3_1();
+int _3_3_3_2()
 {
     return SUCCESS;
 }
 
 //-----------------------------------------------------------------------------
 
-int _3_3_3_2();
+int _3_3_3_3()
 {
     return SUCCESS;
 }
 
 //-----------------------------------------------------------------------------
 
-int _3_3_3_3();
+int _3_3_3_4()
 {
     return SUCCESS;
 }
 
 //-----------------------------------------------------------------------------
 
-int _3_3_3_4();
+int _3_3_3_5()
 {
     return SUCCESS;
 }
 
 //-----------------------------------------------------------------------------
 
-int _3_3_3_5();
+int _3_3_3_6()
 {
     return SUCCESS;
 }
 
 //-----------------------------------------------------------------------------
 
-int _3_3_3_6();
-{
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------------------
-
-int _3_3_3_7();
+int _3_3_3_7()
 {
     return SUCCESS;
 }

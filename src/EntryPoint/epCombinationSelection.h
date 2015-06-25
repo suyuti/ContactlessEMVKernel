@@ -1,12 +1,25 @@
 #ifndef _EPCOMBINATION_SELECTION_H_
 #define _EPCOMBINATION_SELECTION_H_
 
+#include "./epCommon.h"
+/*-----------------------------------------------------------------------------
+    Book B p.22
+    Table 3-3
+*/
+#define GET_APP_PRIORITY_INDICATOR(v) ((v) & 0x0F)
+
+/*-----------------------------------------------------------------------------
+    Book B p.23
+    Table 3-4
+*/
+
+
 int epCombinationSelection();
 
 int _3_3_1_1();
 
 int _3_3_2_1();
-int _3_3_2_2();
+int _3_3_2_2(EpPtr pEp);
 int _3_3_2_3();
 int _3_3_2_4();
 int _3_3_2_5();

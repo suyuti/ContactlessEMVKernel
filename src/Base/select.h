@@ -40,5 +40,7 @@ int _resolveSelectPpse(const unsigned char* pData, int size, FciPtr fci);
 
 int OnTag_resolvePpse(int tag, int len, int constructed, const unsigned char* val, FciPtr target);
 
+unsigned short getLastSw();
+
 
 #endif// SRC_BASE_SELECT_H_

@@ -8,6 +8,7 @@
 
 #include "Config/ConfigFactory/configFactory.h"
 #include "Mockups/mockHal.h"
+#include "testUtils.h"
 extern "C" {
     #include "../src/Base/kernel.h"
     #include "../src/Base/err.h"
@@ -16,6 +17,7 @@ extern "C" {
 
 #include "matchers.h"
 
+using namespace EmvTest;
 using namespace std; 
 using ::testing::Return;
 using ::testing::Exactly;

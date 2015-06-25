@@ -10,5 +10,8 @@
 #define YES         1
 #define NO          0
 
+typedef unsigned char   BYTE;
+typedef unsigned short  WORD;
+#define MAKEWORD(a,b)   ((WORD)(((BYTE)(a))|(((WORD)((BYTE)(b)))<<8)))
     
 #endif// _GENERAL_H_

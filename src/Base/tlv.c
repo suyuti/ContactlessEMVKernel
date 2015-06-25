@@ -57,7 +57,6 @@ int _parse( const unsigned char* data,
 
     if (len+tagLen+lenLen > size) {
         return INCORRECT_DATA;}
-
     //gTagList[gTagListIndex++] = tag;
     if (constructed == 1) {
         err = onTag(tag, len, constructed, NULL, target);

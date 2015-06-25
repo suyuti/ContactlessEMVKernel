@@ -1,13 +1,17 @@
-set(srcEntryPoint   EntryPoint/entryPoint.c
+set(srcBase         Base/candidateList.c
                     Base/select.c
                     Base/tlv.c
                     Base/utils.c
                     Base/kernel.c
                     Utils/_vector.c
+)
+
+set(srcEntryPoint   EntryPoint/entryPoint.c
                     EntryPoint/epIndicators.c
                     EntryPoint/epPreProcessing.c
                     EntryPoint/epProtocolActivation.c
                     EntryPoint/epTrnxParameters.c
+                    EntryPoint/epCombinationSelection.c
                     EntryPoint/epConfig.c
                     EntryPoint/epOutcome.c
                     )
@@ -44,13 +48,16 @@ endif()
 
 
 
-
+#-------------------------------------------------------------
+# Base Library
+add_library(base ${srcBase})
 
 #-------------------------------------------------------------
 #   Entry point library
 
 add_library(entryPoint  ${srcEntryPoint}
                         ${srcHal})
+target_link_libraries(entryPoint    base)
 
 
 #-------------------------------------------------------------
