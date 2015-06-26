@@ -12,6 +12,7 @@
 
 #include "EntryPoint/epConfigTests.h"
 #include "EntryPoint/epPreProcessingTests.h"
+#include "EntryPoint/epCombinationSelectionTests.h"
 
 #include "Base/candidateListTests.h"
 #include "Base/selectTests.h"

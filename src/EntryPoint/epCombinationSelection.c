@@ -1,12 +1,7 @@
 #include "./epCombinationSelection.h"
 #include "../Base/err.h"
+#include "../Base/general.h"
 
-typedef enum {
-    Step1,
-    Step2,
-    Step3,
-    StepExit
-} Steps;
 
 static Steps gsNextStep;
 
@@ -44,7 +39,7 @@ int _step1(EpPtr pEp)
     int i = 0;
     int err = selectPpse(&(pEp->fci));
     if (err != SUCCESS) return err;
-    if (getLastSw() == MAKEWORD(90,0)) {
+    if (getLastSw() == MAKEWORD(0x90, 0x00)) {
         clearCandidateList(pEp->candidateList, MAX_CANDIDATE_LIST);
         CandidateListItem item;
         for(i = 0; i < pEp->fci._fciIssDataCount; ++i) {
@@ -239,3 +234,12 @@ int _3_3_3_7()
 
 //-----------------------------------------------------------------------------
 
+int t_getNextStep() 
+{
+    return gsNextStep;
+}
+
+void t_setNextStep(Steps s) 
+{
+    gsNextStep = s;
+}

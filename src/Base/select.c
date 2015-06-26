@@ -47,6 +47,9 @@ int selectPpse(FciPtr pFci)
     if (gSize >= 2) {
         gLastSW = MAKEWORD(gTmp2[gSize-2], gTmp2[gSize-1]);
     }
+    else {
+        return SW_NOT_SUCCESS;
+    }
     if (gLastSW == MAKEWORD(0x90, 0x00)) {
         err = _resolveSelectPpse(gTmp2, gSize-2, pFci);
     }

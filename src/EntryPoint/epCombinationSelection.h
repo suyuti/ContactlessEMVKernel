@@ -13,8 +13,27 @@
     Table 3-4
 */
 
+typedef enum {
+    Step1 = 1,
+    Step2,
+    Step3,
+    StepExit
+} Steps;
+
 
 int epCombinationSelection();
+
+int _step1(EpPtr pEp);
+
+//- Testing purposes
+int t_getNextStep();
+void t_setNextStep(Steps s);
+
+
+
+
+
+
 
 int _3_3_1_1();
 
