@@ -44,11 +44,11 @@ int _step1(EpPtr pEp)
         CandidateListItem item;
         for(i = 0; i < pEp->fci._fciIssDataCount; ++i) {
             fciToCandidateItem(&(pEp->fci._fciIssData[i]), &item);
+            addCandidateList(pEp->candidateList,
+                            &(pEp->candidateListCount),
+                            MAX_CANDIDATE_LIST,
+                            &item);
         }
-        addCandidateList(pEp->candidateList,
-                        &(pEp->candidateListCount),
-                        MAX_CANDIDATE_LIST,
-                        &item);
         gsNextStep = Step2;
     }
     else {
