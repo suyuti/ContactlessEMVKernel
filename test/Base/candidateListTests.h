@@ -6,6 +6,7 @@
 extern "C" {
     #include "Base/candidateList.h"
     #include "Base/err.h"
+    #include "Base/debug.h"
 }
 
 class Test_CandidateList : public BaseTest {
@@ -89,29 +90,44 @@ TEST_F(Test_CandidateList, fciToCandidateItem_Negative) {
 //-----------------------------------------------------------------------------
 
 TEST_F(Test_CandidateList, fciToCandidateItem) {
-/*    FciIssData          fci;
+    Fci          fci;
     CandidateListItem   item;
+    memset(&item, 0x00, sizeof(CandidateListItem));
 
-    unsigned char _4FData[] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05,
-                                0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B,
-                                0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x11,
-                                0x12};
-    unsigned char _50Data[] = { 0x10, 0x11, 0x12, 0x13, 0x14, 0x15,
-                                0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B,
-                                0x1C, 0x1D, 0x1E, 0x1F, 0x20, 0x21,
-                                0x22, 0x23};
-    unsigned char _87Data[] = { 0x00, 0x01};
-    unsigned char _9F2AData[] = { 0x00, 0x01};
 
-    _setFciIssData(&fci, 0x4F,   _4FData, sizeof(_4FData));
-    _setFciIssData(&fci, 0x50,   _4FData, sizeof(_50Data));
-    _setFciIssData(&fci, 0x87,   _4FData, sizeof(_87Data));
-    _setFciIssData(&fci, 0x9F2A, _4FData, sizeof(_9F2AData));
+    unsigned char _4FData[] = "ABCDEFGHIJKLMNO";
+    unsigned char _50Data[] = { 0x10, 0x11, 0x12, 0x13, 0x14, 
+                                0x16, 0x17, 0x18, 0x19, 0x1A, 
+                                0x1C, 0x1D, 0x1E, 0x1F, 0x20, 
+                                0x22};
+    unsigned char _87Data[] = { 0x01};
+    unsigned char _9F2AData[] = { 0x01};
 
-    int actual = fciToCandidateItem(&fci, &item);
+    _clearFci(&fci);
+    _incFciIssDataCounter(&fci);
+
+    int err = _setFciIssData(&fci, 0x4F,   _4FData, sizeof(_4FData));
+    EXPECT_EQ(SUCCESS, err);
+    err = _setFciIssData(&fci, 0x50,   _50Data, sizeof(_50Data));
+    EXPECT_EQ(SUCCESS, err);
+    err = _setFciIssData(&fci, 0x87,   _87Data, sizeof(_87Data));
+    EXPECT_EQ(SUCCESS, err);
+    err = _setFciIssData(&fci, 0x9F2A, _9F2AData, sizeof(_9F2AData));
+    EXPECT_EQ(SUCCESS, err);
+
+    //printFci(&fci);
+    //printCandidateListItem(&item);
+
+    int actual = fciToCandidateItem(&(fci._fciIssData[0]), &item);
+
+    //printFci(&fci);
+    //printCandidateListItem(&item);
+    
+
     EXPECT_EQ(SUCCESS, actual);
-    EXPECT_TRUE(memcmp(item._4F, _4FData, sizeof(_4FData)) == 0);
-    */
+    //debugBin(_4FData, sizeof(_4FData), "_4FData");
+    //debugBin(item._4F, 17, "Item");
+    EXPECT_TRUE(memcmp(item._4F+1, _4FData, sizeof(_4FData)) == 0);
 }
 
 //-----------------------------------------------------------------------------

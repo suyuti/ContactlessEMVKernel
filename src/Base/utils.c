@@ -86,3 +86,13 @@ int bcd2str(const unsigned char* pIn, int size, unsigned char* pOut, int* pOutSi
 }
 
 //-----------------------------------------------------------------------------
+
+    int _debugBin(unsigned char* buffer, int len) 
+    {
+        int i = 0;
+        for(i=0; i < len; ++i) {
+            fprintf(stderr, "%02X ", buffer[i]);
+            if ((i%16)==0 && i!=0) fprintf(stderr, "\n");
+        }
+        fprintf(stderr, "\n");
+    }

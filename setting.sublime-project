@@ -11,6 +11,7 @@
             "name": "make",
             "cmd": [ "make", "-C", "build" ],
             "file_regex": "/([^/:]+):(\\d+):(\\d+): ",
+            "working_dir": "${file_path}/build",
 
             "variants": [
                 {
@@ -49,5 +50,12 @@
         // Controls if auto complete is shown when snippet fields are active.
         // Only relevant if auto_complete_commit_on_tab is true.
         "auto_complete_with_fields": false,
-    }
+
+
+        //"sublimegdb_workingdir": "${project_path:main.cpp}}",
+        "sublimegdb_workingdir": "/home/suyuti/projects/sil/sskernel/src",
+        // NOTE: You MUST provide --interpreter=mi for the plugin to work
+        "sublimegdb_commandline": "gdb --interpreter=mi ../build/test/Runner2/test2"
+    
+   }
 }

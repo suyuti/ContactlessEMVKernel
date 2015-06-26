@@ -17,13 +17,14 @@
 #define CANDLIST_9F2A_BIT       4
 #define CANDLIST_KERNELID_BIT   CANDLIST_9F2A_BIT
 
+
 typedef struct {
     unsigned char bitmap;
     unsigned char _84[1];    // DFName
     unsigned char _4F[1 + 16];    // Application Id
     unsigned char _50[1 + 16];    // Application label
     unsigned char _87[1 + 1];    // Application Priority Indicator
-    unsigned char _9F2A[1 + 1];  // Kernel Id
+    unsigned char _9F2A[1+1];  // Kernel Id
 } CandidateListItem, *CandidateListItemPtr;
 
 #define IS_EXIST_CANDLIST_DFNAME(l)         CHECK_BIT((l), CANDLIST_DFNAME_BIT  )

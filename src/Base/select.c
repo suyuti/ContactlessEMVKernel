@@ -141,6 +141,7 @@ int _setFciIssData(FciPtr r, int tag, const unsigned char* value, int size)
     }
     printf("\n");
     */
+
     switch(tag) {
         case 0x4F:
             if (size > 16) return INCORRECT_DATA;

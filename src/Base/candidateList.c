@@ -1,5 +1,6 @@
 #include "candidateList.h"
 #include "./err.h"
+#include "./debug.h"
 
 int clearCandidateList(CandidateListItemPtr pList, int size)
 {
@@ -30,10 +31,11 @@ int fciToCandidateItem(FciIssDataPtr pFciData, CandidateListItemPtr pItem)
     if (!pFciData || !pItem) return NULL_PARAMETER;
 
     //memcpy(pItem->_84,      pFciData->_84,      16); // TODO
-    memcpy(pItem->_50,      pFciData->_50,      16); // TODO
-    memcpy(pItem->_87,      pFciData->_87,      16); // TODO
-    memcpy(pItem->_9F2A,    pFciData->_9F2A,    16); // TODO
-
+    memcpy(pItem->_4F,   pFciData->_4F,      16+1); // TODO
+    memcpy(pItem->_50,   pFciData->_50,      16+1); // TODO
+    memcpy(pItem->_87,   pFciData->_87,      1+1); // TODO
+    memcpy(pItem->_9F2A, pFciData->_9F2A,    1+1); // TODO
+    
     return SUCCESS;
 }
 

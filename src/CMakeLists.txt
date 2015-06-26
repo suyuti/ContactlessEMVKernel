@@ -3,6 +3,7 @@ set(srcBase         Base/candidateList.c
                     Base/tlv.c
                     Base/utils.c
                     Base/kernel.c
+                    Base/debug.c
                     Utils/_vector.c
 )
 
