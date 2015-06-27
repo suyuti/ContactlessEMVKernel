@@ -4,6 +4,7 @@ set(srcBase         Base/candidateList.c
                     Base/utils.c
                     Base/kernel.c
                     Base/debug.c
+                    Base/fci.c
                     Utils/_vector.c
 )
 

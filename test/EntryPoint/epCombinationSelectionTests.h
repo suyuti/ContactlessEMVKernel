@@ -51,7 +51,7 @@ TEST_F(Test_CombinationSelection, _step1) {
     int actual = _step1(&ep);
     EXPECT_EQ(SUCCESS, actual);
     EXPECT_EQ(1, ep.candidateListCount);
-    unsigned char expected4F[] = {0x01, 0xA0, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01};
+    unsigned char expected4F[] = {0x07, 0xA0, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01};
     EXPECT_TRUE(memcmp(ep.candidateList[0]._4F, expected4F, sizeof(expected4F)) == 0);
     EXPECT_EQ(Step2, t_getNextStep());
 }
@@ -145,10 +145,10 @@ TEST_F(Test_CombinationSelection, _step1_Multiple) {
     EXPECT_EQ(SUCCESS, actual);
     EXPECT_EQ(2, ep.candidateListCount);
 
-    unsigned char expected4F_1[] = {0x01, 0xA0, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01};
+    unsigned char expected4F_1[] = {0x07, 0xA0, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01};
     EXPECT_TRUE(memcmp(ep.candidateList[0]._4F, expected4F_1, sizeof(expected4F_1)) == 0);
 
-    unsigned char expected4F_2[] = {0x01, 0xA0, 0x00, 0x00, 0x00, 0x02, 0x00, 0x01};
+    unsigned char expected4F_2[] = {0x07, 0xA0, 0x00, 0x00, 0x00, 0x02, 0x00, 0x01};
     EXPECT_TRUE(memcmp(ep.candidateList[1]._4F, expected4F_2, sizeof(expected4F_2)) == 0);
     EXPECT_EQ(Step2, t_getNextStep());
 }

@@ -193,9 +193,9 @@ TEST_F(Test_Select, _setFciIssData)
 {
     Fci fci;
     unsigned char _4FData[]          = {0x4F, 0x4F};
-    unsigned char expected4FData[]   = {0x01, 0x4F, 0x4F};
+    unsigned char expected4FData[]   = {0x02, 0x4F, 0x4F};
     unsigned char _50Data[]          = {0x50, 0x50};
-    unsigned char expected50Data[]   = {0x01, 0x50, 0x50};
+    unsigned char expected50Data[]   = {0x02, 0x50, 0x50};
     unsigned char _87Data[]          = {0x87};
     unsigned char expected87Data[]   = {0x01, 0x87};
     unsigned char _9F2AData[]        = {0x9F};
@@ -371,10 +371,10 @@ TEST_F(Test_Select, _resolveSelectPpse)
     int actual = _resolveSelectPpse(ppseResponse, len, &fci);
     EXPECT_EQ(SUCCESS, actual);
 
-    unsigned char expected4F[] = {0x01, 0xA0, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01};
+    unsigned char expected4F[] = {0x07, 0xA0, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01};
     EXPECT_TRUE(memcmp(fci._fciIssData[0]._4F, expected4F, sizeof(expected4F)) == 0);
 
-    unsigned char expected50[] = {0x01, 0x41, 0x50, 0x50, 0x31};
+    unsigned char expected50[] = {0x04, 0x41, 0x50, 0x50, 0x31};
     EXPECT_TRUE(memcmp(fci._fciIssData[0]._50, expected50, sizeof(expected50)) == 0);
 
     unsigned char expected9F2A[] = {0x01, 0x23};
@@ -426,10 +426,10 @@ TEST_F(Test_Select, selectPpse)
     int actual = selectPpse(&fci);
     EXPECT_EQ(SUCCESS, actual);
 
-    unsigned char expected4F[] = {0x01, 0xA0, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01};
+    unsigned char expected4F[] = {0x07, 0xA0, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01};
     EXPECT_TRUE(memcmp(fci._fciIssData[0]._4F, expected4F, sizeof(expected4F)) == 0);
 
-    unsigned char expected50[] = {0x01, 0x41, 0x50, 0x50, 0x31};
+    unsigned char expected50[] = {0x04, 0x41, 0x50, 0x50, 0x31};
     EXPECT_TRUE(memcmp(fci._fciIssData[0]._50, expected50, sizeof(expected50)) == 0);
 
     unsigned char expected9F2A[] = {0x01, 0x23};

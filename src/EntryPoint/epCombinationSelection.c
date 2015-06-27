@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "./epCombinationSelection.h"
 #include "./epIndicators.h"
 #include "../Base/err.h"
@@ -84,13 +85,18 @@ int _step2(EpPtr pEp)
     */
     int i = 0;
     int j = 0;
+    EpConfigPtr pConfig = NULL;
     for (i = 0; i < pEp->epConfigsCount; ++i) {
-        if (!IS_EPIND_CLESS_APP_NOT_ALLOWED(pEp->epConfigs[i].indicators)) {
-            for(j = 0; j < pEp->fci._fciIssDataCount; ++j) {
+        pConfig = &(pEp->epConfigs[i]);
+        if (!IS_EPIND_CLESS_APP_NOT_ALLOWED(pConfig->indicators)) {
+            for (j = 0; j < pEp->fci._fciIssDataCount; ++j) {
                 if (pEp->fci._fciIssData[j]._4F[0] == 0x00 
                     // || TODO
                     ) {
                     continue;
+                }
+                if (getAdfNameLen(&(pEp->fci), j) == getEpConfigAidLen(pConfig)) {
+
                 }
                 //if (pEp->fci._fciIssData[j]._4F == pEp->epConfigs[i].aid) {
 
@@ -163,7 +169,7 @@ int _3_3_2_2(EpPtr pEp)
 
     int err = selectPpse(&(pEp->fci));
 
-    return SUCCESS;
+    return err;
 }
 
 //-----------------------------------------------------------------------------

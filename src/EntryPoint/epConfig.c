@@ -211,6 +211,13 @@ int parseEpconfig(EpConfigDataPtr obj, const char* line)
 }
 
 
+int getEpConfigAidLen(EpConfigPtr p)
+{
+    //if (!p) return NULL_PARAMETER;
+    return (int)p->aid[0];
+}
+
+
 /*
 
 
