@@ -153,5 +153,19 @@ TEST_F(Test_CombinationSelection, _step1_Multiple) {
     EXPECT_EQ(Step2, t_getNextStep());
 }
 
+TEST_F(Test_CombinationSelection, _step2_Negative) {
+    int actual = _step2(NULL);
+    EXPECT_EQ(NULL_PARAMETER, actual);
+}
+
+TEST_F(Test_CombinationSelection, _step2_3_3_2_4) {
+    Ep ep;
+    memset(&ep, 0x00, sizeof(Ep));
+    int actual = _step2(&ep);
+    EXPECT_EQ(SUCCESS, actual);
+    EXPECT_EQ(3, t_getNextStep());
+    EXPECT_EQ(0, ep.candidateListCount);
+}
+
 
 #endif// _TEST_EPCOMBINATIONSELECTIONTESTS_H_

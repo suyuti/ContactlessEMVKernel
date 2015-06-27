@@ -24,6 +24,7 @@ typedef enum {
 int epCombinationSelection();
 
 int _step1(EpPtr pEp);
+int _step2(EpPtr pEp);
 
 //- Testing purposes
 int t_getNextStep();

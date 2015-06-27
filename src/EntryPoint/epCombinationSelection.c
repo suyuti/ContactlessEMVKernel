@@ -1,4 +1,5 @@
 #include "./epCombinationSelection.h"
+#include "./epIndicators.h"
 #include "../Base/err.h"
 #include "../Base/general.h"
 
@@ -81,6 +82,23 @@ int _step2(EpPtr pEp)
         3.3.2.5
 
     */
+    int i = 0;
+    int j = 0;
+    for (i = 0; i < pEp->epConfigsCount; ++i) {
+        if (!IS_EPIND_CLESS_APP_NOT_ALLOWED(pEp->epConfigs[i].indicators)) {
+            for(j = 0; j < pEp->fci._fciIssDataCount; ++j) {
+                if (pEp->fci._fciIssData[j]._4F[0] == 0x00 
+                    // || TODO
+                    ) {
+                    continue;
+                }
+                //if (pEp->fci._fciIssData[j]._4F == pEp->epConfigs[i].aid) {
+
+                //}
+            }
+        }
+    }
+    gsNextStep = Step3;
     return err;
 }
 
