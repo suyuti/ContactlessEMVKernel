@@ -21,38 +21,19 @@ typedef enum {
 } Steps;
 
 
-int epCombinationSelection();
-
+int epCombinationSelection(EpPtr pEp);
+int _3_3_2_1(EpPtr pEp);
 int _step1(EpPtr pEp);
 int _step2(EpPtr pEp);
+int _step3(EpPtr pEp);
+
+int epFinalCombinationSelection(EpPtr pEp);
+
+int useDefaultKernelId(const unsigned char* aid, int aidLen);
+int _3_3_2_5(EpPtr pEp);
 
 //- Testing purposes
 int t_getNextStep();
 void t_setNextStep(Steps s);
-
-
-
-
-
-
-
-int _3_3_1_1();
-
-int _3_3_2_1();
-int _3_3_2_2(EpPtr pEp);
-int _3_3_2_3();
-int _3_3_2_4();
-int _3_3_2_5();
-int _3_3_2_6();
-int _3_3_2_7();
-
-int _3_3_3_1();
-int _3_3_3_2();
-int _3_3_3_3();
-int _3_3_3_4();
-int _3_3_3_5();
-int _3_3_3_6();
-int _3_3_3_7();
-
 
 #endif// _EPCOMBINATION_SELECTION_H_

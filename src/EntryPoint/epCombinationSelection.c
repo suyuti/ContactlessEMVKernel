@@ -18,7 +18,7 @@ int epCombinationSelection(EpPtr pEp)
     int err;
 
     gsNextStep = Step1;
-    err = _3_3_2_1();
+    err = _3_3_2_1(pEp);
     IS_SUCCESS(err);
 
     while (gsNextStep != StepExit) {
@@ -37,11 +37,6 @@ int epCombinationSelection(EpPtr pEp)
     return err;
 }
 
-/*---------------------------------------------
-    Book B v2.5 p.32
-    3.3.3
-    
-*/
 
 int epFinalCombinationSelection(EpPtr pEp) 
 {
@@ -78,36 +73,16 @@ int _step1(EpPtr pEp)
 {
     if (!pEp) return NULL_PARAMETER;
 
-    int err = _3_3_2_2(pEp);
-    IS_SUCCESS(err);
-
-    err = _3_3_2_3();
-    IS_SUCCESS(err);
-
-    return err;
-/*
-
-
     int err = selectPpse(&(pEp->fci));
     if (err == SW_NOT_FOUND) return err;
 
     if (getLastSw() == MAKEWORD(0x90, 0x00)) {
-        clearCandidateList(pEp->candidateList, MAX_CANDIDATE_LIST);
-        CandidateListItem item;
-        for(i = 0; i < pEp->fci._fciIssDataCount; ++i) {
-            fciToCandidateItem(&(pEp->fci._fciIssData[i]), &item);
-            addCandidateList(pEp->candidateList,
-                            &(pEp->candidateListCount),
-                            MAX_CANDIDATE_LIST,
-                            &item);
-        }
         gsNextStep = Step2;
     }
     else {
         gsNextStep = Step3;
     }
-    return err;
-*/
+    return SUCCESS;
 }
 
 //-----------------------------------------------------------------------------
@@ -131,65 +106,9 @@ int _step2(EpPtr pEp)
     }
 
 
-    _3_3_2_5();
+    err = _3_3_2_5(pEp);
 
     return err;
-
-
-
-
-
-
-
-
-
-    /*
-        Book B v2.5 p.27
-        3.3.2.5
-
-    */
-        /*
-    int i = 0;
-    int j = 0;
-    EpConfigPtr pConfig = NULL;
-    unsigned char matchingAid[30] = {0x00};
-    int selectetKernelId = 0;
-
-    for (i = 0; i < pEp->epConfigsCount; ++i) {
-        pConfig = &(pEp->epConfigs[i]);
-        if (!IS_EPIND_CLESS_APP_NOT_ALLOWED(pConfig->indicators)) {
-            for (j = 0; j < pEp->fci._fciIssDataCount; ++j) {
-                //---------------------
-                // Ref: A
-                if (!isAdfNameExist(&(pEp->fci), j) ||
-                    !isAdfNameValid(&(pEp->fci), j)) {
-                    continue;
-
-                }
-
-                //---------------------
-                // Ref: B
-                if ((getAdfNameLen(&(pEp->fci), j) == getEpConfigAidLen(pConfig)) ||
-                    startsWith(getAdfName(&(pEp->fci), j),
-                               pConfig->aid) == TRUE) {
-                    strncpy(matchingAid, pConfig->aid, getEpConfigAidLen(pConfig));
-                }
-                else {
-                    continue;
-                }
-
-                //---------------------
-                // Ref: C
-                if (isKernelIdExist(pFciData) == FALSE) {
-                    useDefaultKernelId(matchingAid, matchingAidLen, &selectedKernelId);
-                }
-
-            }
-            gsNextStep = Step3;
-        }
-    }
-    return err;
-    */
 }
 
 //-----------------------------------------------------------------------------
@@ -238,40 +157,6 @@ int _3_3_2_1(EpPtr pEp)
 
 //-----------------------------------------------------------------------------
 
-int _3_3_2_2(EpPtr pEp)
-{
-    int err = selectPpse(&(pEp->fci));
-    if (err != SW_NOT_FOUND) // TODO Think again!
-        return SUCCESS;
-
-    return err;
-}
-
-//-----------------------------------------------------------------------------
-
-int _3_3_2_3()
-{
-    if (getLastSw() == MAKEWORD(0x90, 0x00)) {
-        gsNextStep = Step2;
-    }
-    else {
-        gsNextStep = Step3;
-    }
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------------------
-/*
-int _3_3_2_4(EpPtr pEp)
-{
-    if (pEp->fci._fciIssDataCount == 0) {
-        gsNextStep = Step3;
-    }
-    return SUCCESS;
-}
-*/
-
-
 int useDefaultKernelId(const unsigned char* aid, int aidLen)
 {
     // TODO ...
@@ -279,10 +164,6 @@ int useDefaultKernelId(const unsigned char* aid, int aidLen)
 }
 
 //-----------------------------------------------------------------------------
-int _3_3_2_5_C(FciIssDataPtr pFciData, const unsigned char* aid, int aidLen, int* pSelectedKernel)
-{
-    return SUCCESS;
-}
 
 int _3_3_2_5(EpPtr pEp)
 {
@@ -374,115 +255,6 @@ int _3_3_2_5(EpPtr pEp)
     }
     gsNextStep = Step3;
 
-
-/*
-
-
-
-    int i = 0;
-    int j = 0;
-    EpConfigPtr pConfig = NULL;
-    unsigned char matchingAid[30] = {0x00};
-    int selectetKernelId = 0;
-
-    for (i = 0; i < pEp->epConfigsCount; ++i) {
-        pConfig = &(pEp->epConfigs[i]);
-        if (!IS_EPIND_CLESS_APP_NOT_ALLOWED(pConfig->indicators)) {
-            for (j = 0; j < pEp->fci._fciIssDataCount; ++j) {
-                //---------------------
-                // Ref: A
-                if (!isAdfNameExist(&(pEp->fci), j) ||
-                    !isAdfNameValid(&(pEp->fci), j)) {
-                    continue;
-
-                }
-
-                //---------------------
-                // Ref: B
-                if ((getAdfNameLen(&(pEp->fci), j) == getEpConfigAidLen(pConfig)) ||
-                    startsWith(getAdfName(&(pEp->fci), j),
-                               pConfig->aid) == TRUE) {
-                    strncpy(matchingAid, pConfig->aid, getEpConfigAidLen(pConfig));
-                }
-                else {
-                    continue;
-                }
-
-                //---------------------
-                // Ref: C
-                if (!isKernelIdExist(&(pEp->fci), j)) {
-                }
-                else {
-
-                }
-            }
-            gsNextStep = Step3;
-        }
-    }
-    */
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------------------
-
-int _3_3_2_6()
-{
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------------------
-
-int _3_3_2_7()
-{
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------------------
-
-int _3_3_3_1()
-{
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------------------
-
-int _3_3_3_2()
-{
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------------------
-
-int _3_3_3_3()
-{
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------------------
-
-int _3_3_3_4()
-{
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------------------
-
-int _3_3_3_5()
-{
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------------------
-
-int _3_3_3_6()
-{
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------------------
-
-int _3_3_3_7()
-{
     return SUCCESS;
 }
 
@@ -492,6 +264,8 @@ int t_getNextStep()
 {
     return gsNextStep;
 }
+
+//-----------------------------------------------------------------------------
 
 void t_setNextStep(Steps s) 
 {
