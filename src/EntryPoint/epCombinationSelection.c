@@ -4,6 +4,7 @@
 #include "./epIndicators.h"
 #include "../Base/err.h"
 #include "../Base/general.h"
+#include "../Base/kernels.h"
 
 
 static Steps                gsNextStep;
@@ -17,9 +18,11 @@ int epCombinationSelection(EpPtr pEp)
     int err;
 
     gsNextStep = Step1;
+    err = _3_3_2_1();
+    IS_SUCCESS(err);
 
-    while(gsNextStep != StepExit) {
-        switch(gsNextStep) {
+    while (gsNextStep != StepExit) {
+        switch (gsNextStep) {
             case Step1:
                 err = _step1(pEp);
             break;
@@ -75,7 +78,16 @@ int _step1(EpPtr pEp)
 {
     if (!pEp) return NULL_PARAMETER;
 
-    int i = 0;
+    int err = _3_3_2_2(pEp);
+    IS_SUCCESS(err);
+
+    err = _3_3_2_3();
+    IS_SUCCESS(err);
+
+    return err;
+/*
+
+
     int err = selectPpse(&(pEp->fci));
     if (err == SW_NOT_FOUND) return err;
 
@@ -95,6 +107,7 @@ int _step1(EpPtr pEp)
         gsNextStep = Step3;
     }
     return err;
+*/
 }
 
 //-----------------------------------------------------------------------------
@@ -114,13 +127,258 @@ int _step2(EpPtr pEp)
     */
     if (pEp->fci._fciIssDataCount == 0) {
         gsNextStep = Step3;
+        return SUCCESS;
     }
+
+
+    _3_3_2_5();
+
+    return err;
+
+
+
+
+
+
+
+
 
     /*
         Book B v2.5 p.27
         3.3.2.5
 
     */
+        /*
+    int i = 0;
+    int j = 0;
+    EpConfigPtr pConfig = NULL;
+    unsigned char matchingAid[30] = {0x00};
+    int selectetKernelId = 0;
+
+    for (i = 0; i < pEp->epConfigsCount; ++i) {
+        pConfig = &(pEp->epConfigs[i]);
+        if (!IS_EPIND_CLESS_APP_NOT_ALLOWED(pConfig->indicators)) {
+            for (j = 0; j < pEp->fci._fciIssDataCount; ++j) {
+                //---------------------
+                // Ref: A
+                if (!isAdfNameExist(&(pEp->fci), j) ||
+                    !isAdfNameValid(&(pEp->fci), j)) {
+                    continue;
+
+                }
+
+                //---------------------
+                // Ref: B
+                if ((getAdfNameLen(&(pEp->fci), j) == getEpConfigAidLen(pConfig)) ||
+                    startsWith(getAdfName(&(pEp->fci), j),
+                               pConfig->aid) == TRUE) {
+                    strncpy(matchingAid, pConfig->aid, getEpConfigAidLen(pConfig));
+                }
+                else {
+                    continue;
+                }
+
+                //---------------------
+                // Ref: C
+                if (isKernelIdExist(pFciData) == FALSE) {
+                    useDefaultKernelId(matchingAid, matchingAidLen, &selectedKernelId);
+                }
+
+            }
+            gsNextStep = Step3;
+        }
+    }
+    return err;
+    */
+}
+
+//-----------------------------------------------------------------------------
+
+int _step3(EpPtr pEp) 
+{
+    int err = SUCCESS;
+    if (!pEp) return NULL_PARAMETER;
+    return err;
+}
+
+//-----------------------------------------------------------------------------
+
+
+int _3_3_2_1(EpPtr pEp)
+{
+    /*
+        Book B v2.5 p.26
+        3.3.2.1
+
+        IF      Entry Point is activated by the reader at Start B,
+        THEN:
+            -   IF       Issuer Authentication Data and/or Issuer Script is present,
+                THEN     processing shall continue at requirement 3.3.3.3 of Final
+                         Combination Selection with the Combination that was
+                         selected during the previous Final Combination Selection.
+            - OTHERWISE, Entry Point shall perform steps 1 to 3.
+
+        ELSE IF Entry Point is activated by the reader at Start C,
+        THEN    processing shall continue at Step 3.
+    */
+
+    if (!pEp) return NULL_PARAMETER;
+
+    if (pEp->startPoint == StartedAtB) {
+        // TODO
+    }
+    else if (pEp->startPoint == StartedAtC) {
+        gsNextStep = Step1;
+    }
+    else {
+        gsNextStep = Step3;
+    }
+    return SUCCESS;
+}
+
+//-----------------------------------------------------------------------------
+
+int _3_3_2_2(EpPtr pEp)
+{
+    int err = selectPpse(&(pEp->fci));
+    if (err != SW_NOT_FOUND) // TODO Think again!
+        return SUCCESS;
+
+    return err;
+}
+
+//-----------------------------------------------------------------------------
+
+int _3_3_2_3()
+{
+    if (getLastSw() == MAKEWORD(0x90, 0x00)) {
+        gsNextStep = Step2;
+    }
+    else {
+        gsNextStep = Step3;
+    }
+    return SUCCESS;
+}
+
+//-----------------------------------------------------------------------------
+/*
+int _3_3_2_4(EpPtr pEp)
+{
+    if (pEp->fci._fciIssDataCount == 0) {
+        gsNextStep = Step3;
+    }
+    return SUCCESS;
+}
+*/
+
+
+int useDefaultKernelId(const unsigned char* aid, int aidLen)
+{
+    // TODO ...
+    return DefultKernel_AmericanExpress;
+}
+
+//-----------------------------------------------------------------------------
+int _3_3_2_5_C(FciIssDataPtr pFciData, const unsigned char* aid, int aidLen, int* pSelectedKernel)
+{
+    return SUCCESS;
+}
+
+int _3_3_2_5(EpPtr pEp)
+{
+    EpConfigPtr         pConfig          = NULL;
+    int                 i                = 0;
+    int                 j                = 0;
+    FciIssDataPtr       directoryEntry   = NULL;
+    int                 requestedKernelId = 0xFF;
+    unsigned char       matchingAid[30]  = {0x00};
+    int                 matchingAidLen   = 0;
+
+    for (i = 0; i < pEp->epConfigsCount; ++i) {
+        pConfig = &(pEp->epConfigs[i]);
+        if (!IS_EPIND_CLESS_APP_NOT_ALLOWED(pConfig->indicators)) {
+            for (j = 0; j < pEp->fci._fciIssDataCount; ++j) {
+                directoryEntry = &(pEp->fci._fciIssData[j]);
+
+                // 3.3.2.5 A
+                if (!isAdfNameExist(directoryEntry) ||
+                    !isAdfNameValid(directoryEntry)) {
+                    continue;
+                }
+
+                // 3.3.2.5 B
+                if ((getAdfNameLen(directoryEntry) == getEpConfigAidLen(pConfig)) 
+                     ||
+                    startsWith(getAdfName(directoryEntry), pConfig->aid) == TRUE) {
+                    // TODO
+                    //strncpy(matchingAid, pConfig->aid, getEpConfigAidLen(pConfig));
+                }
+                else {
+                    continue;
+                }
+
+                // 3.3.2.5 C
+                if (isKernelIdExist(directoryEntry) == FALSE) {
+                    requestedKernelId = useDefaultKernelId(matchingAid, matchingAidLen);
+                }
+                else {
+                    if (getKernelIdLen(directoryEntry) == 0) {  // ? size = 0 means KernelId doesn't exist.
+                        requestedKernelId = useDefaultKernelId(matchingAid, matchingAidLen);
+                        //return SUCCESS;
+                        // TODO
+                    }
+                    switch(getKernelType(directoryEntry)) {
+                        case RfuKernel:
+                        case InternationalKernel:
+                            requestedKernelId = getShortKernelId(directoryEntry);
+                        break;
+                        case DomesticKernelEmvCoFormat:
+                        case DomesticKernelPropFormat: {
+                            // TODO p.29
+                            if (getShortKernelId(directoryEntry) != 0x00) {
+                                // TODO
+                            }
+                            else {
+                                // TODO
+                            }
+                        }
+                        break;
+                    }
+                }
+
+                // 3.3.2.5 D
+                if (requestedKernelId == 0x00) {
+                    // TODO
+                }
+                else {
+                    // TODO
+                    if (requestedKernelId == getKernelId(directoryEntry)) {
+
+                    }
+                    else {
+                        continue;
+                    }
+                }
+
+                // 3.3.2.5 E
+                CandidateListItem item;
+
+                fciToCandidateItem(directoryEntry, &item);
+                addCandidateList(pEp->candidateList,
+                                &(pEp->candidateListCount),
+                                MAX_CANDIDATE_LIST,
+                                &item);
+
+            }
+        }
+    }
+    gsNextStep = Step3;
+
+
+/*
+
+
+
     int i = 0;
     int j = 0;
     EpConfigPtr pConfig = NULL;
@@ -161,91 +419,7 @@ int _step2(EpPtr pEp)
             gsNextStep = Step3;
         }
     }
-    return err;
-}
-
-//-----------------------------------------------------------------------------
-
-int _step3(EpPtr pEp) 
-{
-    int err = SUCCESS;
-    if (!pEp) return NULL_PARAMETER;
-    return err;
-}
-
-//-----------------------------------------------------------------------------
-
-int _3_3_1_1()
-{
-    /*
-        Book B v2.5 p.22
-        3.3.1.1
-
-        The coding of the Application Priority Indicator is indicated in Table 3-3.
-        
-        IF      The Application Priority Indicator is absent from a Directory Entry,
-        THEN    Entry Point shall assume b4-b1 to have a value of 0000b.    
     */
-
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------------------
-
-int _3_3_2_1(EpPtr pEp)
-{
-    /*
-        Book B v2.5 p.26
-        3.3.2.1
-
-        IF      Entry Point is activated by the reader at Start B,
-        THEN:
-            -   IF       Issuer Authentication Data and/or Issuer Script is present,
-                THEN     processing shall continue at requirement 3.3.3.3 of Final
-                         Combination Selection with the Combination that was
-                         selected during the previous Final Combination Selection.
-            - OTHERWISE, Entry Point shall perform steps 1 to 3.
-
-        ELSE IF Entry Point is activated by the reader at Start C,
-        THEN    processing shall continue at Step 3.
-    */
-    if (!pEp) return NULL_PARAMETER;
-
-    if (pEp->startedByReader) {
-
-    }
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------------------
-
-int _3_3_2_2(EpPtr pEp)
-{
-    if (!pEp) return NULL_PARAMETER;
-
-    int err = selectPpse(&(pEp->fci));
-
-    return err;
-}
-
-//-----------------------------------------------------------------------------
-
-int _3_3_2_3()
-{
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------------------
-
-int _3_3_2_4()
-{
-    return SUCCESS;
-}
-
-//-----------------------------------------------------------------------------
-
-int _3_3_2_5()
-{
     return SUCCESS;
 }
 

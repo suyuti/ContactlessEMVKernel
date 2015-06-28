@@ -18,6 +18,9 @@
 #define CANDLIST_9F2A_BIT       4
 #define CANDLIST_KERNELID_BIT   CANDLIST_9F2A_BIT
 
+#define CANDLIST_9F29_BIT                   5
+#define CANDLIST_EXTENDEDSELECTION_BIT      CANDLIST_9F29_BIT
+
 
 typedef struct {
     unsigned char bitmap;
@@ -26,13 +29,15 @@ typedef struct {
     unsigned char _50[MAX_50_LEN];          // Application label
     unsigned char _87[MAX_87_LEN];          // Application Priority Indicator
     unsigned char _9F2A[MAX_9F2A_LEN];      // Kernel Id
+    unsigned char _9F29[MAX_9F29_LEN];      // Extended Selection
 } CandidateListItem, *CandidateListItemPtr;
 
-#define IS_EXIST_CANDLIST_DFNAME(l)         CHECK_BIT((l), CANDLIST_DFNAME_BIT  )
-#define IS_EXIST_CANDLIST_APPID(l)          CHECK_BIT((l), CANDLIST_APPID_BIT   )
-#define IS_EXIST_CANDLIST_APPLABEL(l)       CHECK_BIT((l), CANDLIST_APPLABEL_BIT)
-#define IS_EXIST_CANDLIST_API(l)            CHECK_BIT((l), CANDLIST_API_BIT     )
-#define IS_EXIST_CANDLIST_KERNELID(l)       CHECK_BIT((l), CANDLIST_KERNELID_BIT)
+#define IS_EXIST_CANDLIST_DFNAME(l)             CHECK_BIT((l), CANDLIST_DFNAME_BIT              )
+#define IS_EXIST_CANDLIST_APPID(l)              CHECK_BIT((l), CANDLIST_APPID_BIT               )
+#define IS_EXIST_CANDLIST_APPLABEL(l)           CHECK_BIT((l), CANDLIST_APPLABEL_BIT            )
+#define IS_EXIST_CANDLIST_API(l)                CHECK_BIT((l), CANDLIST_API_BIT                 )
+#define IS_EXIST_CANDLIST_KERNELID(l)           CHECK_BIT((l), CANDLIST_KERNELID_BIT            )
+#define IS_EXIST_CANDLIST_EXTENTED_SELECTION(l) CHECK_BIT((l), CANDLIST_EXTENDEDSELECTION_BIT   )
 
 int clearCandidateList(CandidateListItemPtr pList, int size);
 int addCandidateList(CandidateListItemPtr   pList, 

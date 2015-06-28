@@ -3,6 +3,7 @@
 #include "./fci.h"
 #include "./err.h"
 #include "./general.h"
+#include "./bits.h"
 
 //-----------------------------------------------------------------------
 
@@ -67,77 +68,116 @@ int _incFciIssDataCounter(FciPtr r)
     return SUCCESS;
 }
 
-int getAdfNameLen(FciPtr p, int index)
+//-----------------------------------------------------------------------
+
+int getAdfNameLen(FciIssDataPtr p)
 {
-    //if (!p) return NULL_PARAMETER;
-    //if (index < 0 || index >= p->_fciIssDataCount) return INDEX_OUT_OF_RANGE;
-    return (int)p->_fciIssData[index]._4F[0];
+    return (int)p->_4F[0];
 }
 
-unsigned char* getAdfName(FciPtr p, int index)
+//-----------------------------------------------------------------------
+
+unsigned char* getAdfName(FciIssDataPtr p)
 {
-    //if (!p) return NULL;
-    //if (index < 0 || index >= p->_fciIssDataCount) return NULL;
-    return &(p->_fciIssData[index]._4F[1]);
+    return &(p->_4F[1]);
 }
 
-int getApplicationLabelLen(FciPtr p, int index)
+//-----------------------------------------------------------------------
+
+int getApplicationLabelLen(FciIssDataPtr p)
 {
-    //if (!p) return NULL_PARAMETER;
-    //if (index < 0 || index >= p->_fciIssDataCount) return INDEX_OUT_OF_RANGE;
-    return (int)(p->_fciIssData[index]._50[0]);
+    return (int)(p->_50[0]);
 }
 
-unsigned char* getApplicationLabel(FciPtr p, int index)
+//-----------------------------------------------------------------------
+
+unsigned char* getApplicationLabel(FciIssDataPtr p)
 {
-    //if (!p) return NULL;
-    //if (index < 0 || index >= p->_fciIssDataCount) return NULL;
-    return &(p->_fciIssData[index]._50[1]);
+    return &(p->_50[1]);
 }
 
-int getAPILen(FciPtr p, int index)
+//-----------------------------------------------------------------------
+
+int getAPILen(FciIssDataPtr p)
 {
-    //if (!p) return NULL_PARAMETER;
-    //if (index < 0 || index >= p->_fciIssDataCount) return INDEX_OUT_OF_RANGE;
-    return (int)p->_fciIssData[index]._87[0];
+    return (int)p->_87[0];
 }
 
-int getAPI(FciPtr p, int index)
+//-----------------------------------------------------------------------
+
+int getAPI(FciIssDataPtr p)
 {
-    //if (!p) return NULL_PARAMETER;
-    //if (index < 0 || index >= p->_fciIssDataCount) return INDEX_OUT_OF_RANGE;
-    return (int)p->_fciIssData[index]._87[1];
+    return (int)p->_87[1];
 }
 
+//-----------------------------------------------------------------------
 
-int getKernelIdLen(FciPtr p, int index)
+int getKernelIdLen(FciIssDataPtr p)
 {
-    //if (!p) return NULL_PARAMETER;
-    //if (index < 0 || index >= p->_fciIssDataCount) return INDEX_OUT_OF_RANGE;
-    return (int)p->_fciIssData[index]._9F2A[0];
+    return (int)p->_9F2A[0];
 }
 
-int getKernelId(FciPtr p, int index)
+//-----------------------------------------------------------------------
+
+int getKernelId(FciIssDataPtr p)
 {
-    //if (!p) return NULL_PARAMETER;
-    //if (index < 0 || index >= p->_fciIssDataCount) return INDEX_OUT_OF_RANGE;
-    return (int)p->_fciIssData[index]._9F2A[1];
+    return MAKEWORD(p->_9F2A[1], p->_9F2A[2]);
 }
 
-int isKernelIdExist(FciPtr p, int index)
+//-----------------------------------------------------------------------
+
+int isKernelIdExist(FciIssDataPtr p)
 {
-    return (p->_fciIssData[index]._9F2A[0] != 0x00) ? TRUE : FALSE;
+    return (p->_9F2A[0] != 0x00) ? TRUE : FALSE;
 }
 
+//-----------------------------------------------------------------------
 
-int isAdfNameExist(FciPtr p, int index)
+int isAdfNameExist(FciIssDataPtr p)
 {
-    return (p->_fciIssData[index]._4F[0] != 0x00);
+    return (p->_4F[0] != 0x00);
 }
 
-int isAdfNameValid(FciPtr p, int index)
+//-----------------------------------------------------------------------
+
+int isAdfNameValid(FciIssDataPtr p)
 {
     // TODO 
     // EMV 4.2 Book 1 12.2.1
     return TRUE;
+}
+
+//-----------------------------------------------------------------------
+
+TypeOfKernels getKernelType(FciIssDataPtr p)
+{
+    /*
+        Book B v2.5 p.23
+        Table 3-4
+    */
+    if (CHECK_BIT(p->_9F2A[0], 8) == RESET && CHECK_BIT(p->_9F2A[0], 7) == RESET) {
+        // b8, b7: 00b
+        return InternationalKernel;
+    }
+    else if (CHECK_BIT(p->_9F2A[0], 8) == SET && CHECK_BIT(p->_9F2A[0], 7) == RESET) {
+        // b8, b7: 10b
+        return DomesticKernelEmvCoFormat;
+    }
+    else if (CHECK_BIT(p->_9F2A[0], 8) == SET && CHECK_BIT(p->_9F2A[0], 7) == SET) {
+        // b8, b7: 11b
+        return DomesticKernelPropFormat;
+    }
+    // b8, b7: 01b
+    return RfuKernel;
+}
+
+//-----------------------------------------------------------------------
+
+int getShortKernelId(FciIssDataPtr p) 
+{
+    /*
+        Book B v2.5 p.23
+        Table 3-4
+    */
+    return (int)(p->_9F2A[1] & 0xC0);
 }

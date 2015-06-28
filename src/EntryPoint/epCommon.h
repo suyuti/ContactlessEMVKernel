@@ -75,6 +75,12 @@ typedef struct {
     int                 removalTimeout;
 } EpOutcome, *EpOutcomePtr;
 
+typedef enum {
+    StartedAtA,
+    StartedAtB,
+    StartedAtC,
+    StartedAtD,
+} EpStartPoint;
 
 
 #define MAX_EP_CONFIG       200
@@ -95,6 +101,7 @@ typedef struct {
     Fci             fci;
     //- Started by reader
     int             startedByReader;
+    EpStartPoint    startPoint;
 
     //- Candidate list
     int                 candidateListCount;
