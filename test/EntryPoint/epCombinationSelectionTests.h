@@ -74,9 +74,10 @@ TEST_F(Test_CombinationSelection, _step1_6A85) {
 
     Ep ep;
     memset(&ep, 0x00, sizeof(Ep));
+    t_setNextStep(Step1);
 
     int actual = _step1(&ep);
-    EXPECT_EQ(SUCCESS, actual);
+    EXPECT_EQ(SW_NOT_SUCCESS, actual);
     EXPECT_EQ(0, ep.candidateListCount);
     EXPECT_EQ(Step3, t_getNextStep());
 }
@@ -103,7 +104,7 @@ TEST_F(Test_CombinationSelection, _step1_invalid) {
     
     int actual = _step1(&ep);
     
-    EXPECT_EQ(SW_NOT_SUCCESS, actual);
+    EXPECT_EQ(SW_NOT_FOUND, actual);
     EXPECT_EQ(0, ep.candidateListCount);
     EXPECT_EQ(1, t_getNextStep());
 }

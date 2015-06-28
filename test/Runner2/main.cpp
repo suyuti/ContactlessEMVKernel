@@ -16,6 +16,7 @@
 
 #include "Base/candidateListTests.h"
 #include "Base/selectTests.h"
+#include "Base/utilsTests.h"
 
 using namespace std;
 

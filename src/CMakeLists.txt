@@ -5,7 +5,7 @@ set(srcBase         Base/candidateList.c
                     Base/kernel.c
                     Base/debug.c
                     Base/fci.c
-                    Utils/_vector.c
+#                    Utils/_vector.c
 )
 
 set(srcEntryPoint   EntryPoint/entryPoint.c

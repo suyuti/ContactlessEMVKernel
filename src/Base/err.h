@@ -23,6 +23,7 @@
 #define ERR_EMV_BASE                (-100)
 #define SW_NOT_SUCCESS              (ERR_EMV_BASE - 1)
 #define UNKNOWN_TAG                 (ERR_EMV_BASE - 2)
+#define SW_NOT_FOUND                (ERR_EMV_BASE - 3)
 
 #define ERR_SELECT_BASE             (-200)
 #define FCI_NOT_FOUND               (ERR_SELECT_BASE - 1)

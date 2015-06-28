@@ -1,6 +1,7 @@
 #ifndef _CANDIDATE_LIST_H_
 #define _CANDIDATE_LIST_H_
 #include "select.h"
+#include "fci.h"
 
 #define CANDLIST_84_BIT         0
 #define CANDLIST_DFNAME_BIT     CANDLIST_84_BIT
@@ -20,11 +21,11 @@
 
 typedef struct {
     unsigned char bitmap;
-    unsigned char _84[1];    // DFName
-    unsigned char _4F[1 + 16];    // Application Id
-    unsigned char _50[1 + 16];    // Application label
-    unsigned char _87[1 + 1];    // Application Priority Indicator
-    unsigned char _9F2A[1+1];  // Kernel Id
+    unsigned char _84[MAX_84_LEN];          // DFName
+    unsigned char _4F[MAX_4F_LEN];          // Application Id
+    unsigned char _50[MAX_50_LEN];          // Application label
+    unsigned char _87[MAX_87_LEN];          // Application Priority Indicator
+    unsigned char _9F2A[MAX_9F2A_LEN];      // Kernel Id
 } CandidateListItem, *CandidateListItemPtr;
 
 #define IS_EXIST_CANDLIST_DFNAME(l)         CHECK_BIT((l), CANDLIST_DFNAME_BIT  )
@@ -39,5 +40,5 @@ int addCandidateList(CandidateListItemPtr   pList,
                      int                    maxSize, 
                      CandidateListItemPtr   item);
 int fciToCandidateItem(FciIssDataPtr pFciData, CandidateListItemPtr pItem);
-
+int getApplicationPriority(CandidateListItemPtr p);
 #endif// _CANDIDATE_LIST_H_

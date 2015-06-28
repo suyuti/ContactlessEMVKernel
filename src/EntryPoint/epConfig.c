@@ -217,6 +217,12 @@ int getEpConfigAidLen(EpConfigPtr p)
     return (int)p->aid[0];
 }
 
+unsigned char* getEpConfigAid(EpConfigPtr p)
+{
+    return p->aid;
+}
+
+
 
 /*
 

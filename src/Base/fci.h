@@ -42,5 +42,9 @@ int getAPI(FciPtr p, int index);
 
 int getKernelIdLen(FciPtr p, int index);
 int getKernelId(FciPtr p, int index);
+int isKernekIdExist(FciPtr p, int index);
+
+int isAdfNameExist(FciPtr p, int index);
+int isAdfNameValid(FciPtr p, int index);
 
 #endif// _FCI_H_

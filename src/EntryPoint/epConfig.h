@@ -13,6 +13,7 @@ int addEpConfig(EpPtr pEp, EpConfig config);
 int findEpConfig(EpPtr pEp, const char* aid, unsigned char kid, EpConfigPtr obj);
 
 int getEpConfigAidLen(EpConfigPtr p);
+unsigned char* getEpConfigAid(EpConfigPtr p);
 
 #define STATUS_CHECK_BIT                        1
 #define ZERO_AMOUT_ALLOWED_BIT                  2

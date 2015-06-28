@@ -1,5 +1,5 @@
 /*
-    Copyright 2015
+    Coyright 2015
 */
 
 #include <string.h>
@@ -12,8 +12,8 @@
 
 #define PPSE        "2PAY.SYS.DDF01"
 
-static unsigned char    gTmp1[1024];
-static unsigned char    gTmp2[1024];
+static unsigned char    gTmp1[1024];    // output buffer: Terminal writes
+static unsigned char    gTmp2[1024];    // input buffer : Card writes
 static unsigned long    gSize = 0;
 static unsigned short   gLastSW;
 
@@ -26,34 +26,63 @@ unsigned short getLastSw()
 
 //-----------------------------------------------------------------------
 
+int _select(void)
+{
+    gLastSW = MAKEWORD(0, 0);
+    memset(gTmp2, 0x00, sizeof(gTmp2));
+
+    int err = CARD_TRANSMIT(&gHal, gTmp1, gSize, gTmp2, &gSize);
+    IS_SUCCESS(err);
+    
+    else if (gSize >= 2) {
+        gLastSW = MAKEWORD(gTmp2[gSize-2], gTmp2[gSize-1]);
+        if (gSize == 2 && getLastSw() != MAKEWORD(0x90, 0x00)) {
+            return SW_NOT_SUCCESS;
+        }
+    }
+    else {
+        return SW_NOT_FOUND;
+    }
+
+    return err;
+}
+
+//-----------------------------------------------------------------------
+
+int selectAid(FciPtr pFci, const unsigned char* aid, int aidLen)
+{
+    int err = _buildSelect(aid, aidLen, gTmp1, &gSize);
+    IS_SUCCESS(err);
+
+    err = _select();
+    IS_SUCCESS(err);
+
+    err = _resolveSelectAid(gTmp2, gSize, pFci);
+    IS_SUCCESS(err);
+
+    return err;
+}
+
 int selectPpse(FciPtr pFci)
 {
     if (!pFci) return NULL_PARAMETER;
     int err = _buildSelectPpse(gTmp1, &gSize);
-    if (err != SUCCESS) return err;
+    IS_SUCCESS(err);
 
-    gLastSW = MAKEWORD(0, 0);
-    err = CARD_TRANSMIT(&gHal, gTmp1, gSize, gTmp2, &gSize);
-/*
-    int i = 0;
-    for (i = 0; i < gSize; ++i) {
-        printf("%02X ", gTmp2[i]);
-    }
-    printf("\n");
-*/
+    err = _select();
+    IS_SUCCESS(err);
 
-    if (err != SUCCESS) return err;
+    err = _resolveSelectPpse(gTmp2, gSize-2, pFci);
 
-    if (gSize >= 2) {
-        gLastSW = MAKEWORD(gTmp2[gSize-2], gTmp2[gSize-1]);
-    }
-    else {
-        return SW_NOT_SUCCESS;
-    }
-    if (gLastSW == MAKEWORD(0x90, 0x00)) {
-        err = _resolveSelectPpse(gTmp2, gSize-2, pFci);
-    }
     return err;
+}
+
+int _resolveSelectAid(const unsigned char* pData, int size, FciPtr fci)
+{
+    if (!pData || size == 0 || !fci) return NULL_PARAMETER;
+
+    int res =  _parse(pData, size, (OnTag)OnTag_resolveAid, fci);
+    return res;
 }
 
 //-----------------------------------------------------------------------
@@ -84,13 +113,17 @@ int _buildSelectPpse(unsigned char* pBuffer, unsigned long* pSize)
 
 int _resolveSelectPpse(const unsigned char* pData, int size, FciPtr fci)
 {
-    if (!pData || size == 0 || !fci) return NULL_PARAMETER;
+    if (!pData || size == 0 ||  !fci) return NULL_PARAMETER;
 
     int res =  _parse(pData, size, (OnTag)OnTag_resolvePpse, fci);
     return res;
 }
 
 //-----------------------------------------------------------------------
+int OnTag_resolveAid(int tag, int len, int constructed, const unsigned char* val, FciPtr target)
+{
+    return SUCCESS;
+}
 
 int OnTag_resolvePpse(int tag, int len, int constructed, const unsigned char* val, FciPtr target)
 {

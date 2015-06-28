@@ -14,6 +14,10 @@
 
 
 int selectPpse(FciPtr pFci);
+int selectAid(FciPtr pFci, const unsigned char* aid, int aidLen);
+
+int _select();
+int OnTag_resolveAid(int tag, int len, int constructed, const unsigned char* val, FciPtr target);
 
 int _buildSelect(const char* aid, int size, unsigned char* pBuffer, unsigned long* pSize);
 int _buildSelectPpse(unsigned char* pBuffer, unsigned long* pSize);

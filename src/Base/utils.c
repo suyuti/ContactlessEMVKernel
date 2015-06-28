@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include "./utils.h"
 #include "./err.h"
+#include "./general.h"
 
 int toInt(const unsigned char* ptag, int size)
 {
@@ -96,3 +97,30 @@ int bcd2str(const unsigned char* pIn, int size, unsigned char* pOut, int* pOutSi
         }
         fprintf(stderr, "\n");
     }
+
+//-----------------------------------------------------------------------------
+
+int startsWith(const char* pSource, const char* prefix)
+{
+    while(*prefix)
+    {
+        if(*prefix++ != *pSource++)
+            return FALSE;
+    }
+
+    return TRUE;
+}
+
+//-----------------------------------------------------------------------------
+
+int startsWithBin(const unsigned char* pSource, int sourceLen,
+                  const unsigned char* prefix, int prefixLen)
+{
+    while(prefixLen--)
+    {
+        if(*prefix++ != *pSource++)
+            return FALSE;
+    }
+
+    return TRUE;
+}

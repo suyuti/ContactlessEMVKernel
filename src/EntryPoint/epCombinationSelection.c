@@ -1,11 +1,13 @@
 #include <stdlib.h>
+#include <string.h>
 #include "./epCombinationSelection.h"
 #include "./epIndicators.h"
 #include "../Base/err.h"
 #include "../Base/general.h"
 
 
-static Steps gsNextStep;
+static Steps                gsNextStep;
+static CandidateListItem    gsSelectedApp;
 
 //-----------------------------------------------------------------------------
 
@@ -32,6 +34,41 @@ int epCombinationSelection(EpPtr pEp)
     return err;
 }
 
+/*---------------------------------------------
+    Book B v2.5 p.32
+    3.3.3
+    
+*/
+
+int epFinalCombinationSelection(EpPtr pEp) 
+{
+    /*
+        Book B v2.5 p.32
+        3.3.3.1
+
+        If there is only one Combination in the Candidate List,
+        then Entry Point shall select the Combination.
+    */
+    if (pEp->candidateListCount == 1) {
+
+    }
+    else if (pEp->candidateListCount > 1) {
+        int i              = 0;
+        int maxPriority    = 0;
+        int curentPriority = 0;
+        for (i = 0; i < pEp->candidateListCount; ++i) {
+            curentPriority =  getApplicationPriority(&(pEp->candidateList[i]));
+            if (curentPriority > maxPriority) {
+                gsSelectedApp = pEp->candidateList[i];
+                maxPriority = curentPriority;
+            }
+        }
+
+        //int err = se
+    }
+
+}
+
 //-----------------------------------------------------------------------------
 
 int _step1(EpPtr pEp)
@@ -40,7 +77,8 @@ int _step1(EpPtr pEp)
 
     int i = 0;
     int err = selectPpse(&(pEp->fci));
-    if (err != SUCCESS) return err;
+    if (err == SW_NOT_FOUND) return err;
+
     if (getLastSw() == MAKEWORD(0x90, 0x00)) {
         clearCandidateList(pEp->candidateList, MAX_CANDIDATE_LIST);
         CandidateListItem item;
@@ -86,25 +124,43 @@ int _step2(EpPtr pEp)
     int i = 0;
     int j = 0;
     EpConfigPtr pConfig = NULL;
+    unsigned char matchingAid[30] = {0x00};
+    int selectetKernelId = 0;
+
     for (i = 0; i < pEp->epConfigsCount; ++i) {
         pConfig = &(pEp->epConfigs[i]);
         if (!IS_EPIND_CLESS_APP_NOT_ALLOWED(pConfig->indicators)) {
             for (j = 0; j < pEp->fci._fciIssDataCount; ++j) {
-                if (pEp->fci._fciIssData[j]._4F[0] == 0x00 
-                    // || TODO
-                    ) {
+                //---------------------
+                // Ref: A
+                if (!isAdfNameExist(&(pEp->fci), j) ||
+                    !isAdfNameValid(&(pEp->fci), j)) {
+                    continue;
+
+                }
+
+                //---------------------
+                // Ref: B
+                if ((getAdfNameLen(&(pEp->fci), j) == getEpConfigAidLen(pConfig)) ||
+                    startsWith(getAdfName(&(pEp->fci), j),
+                               pConfig->aid) == TRUE) {
+                    strncpy(matchingAid, pConfig->aid, getEpConfigAidLen(pConfig));
+                }
+                else {
                     continue;
                 }
-                if (getAdfNameLen(&(pEp->fci), j) == getEpConfigAidLen(pConfig)) {
+
+                //---------------------
+                // Ref: C
+                if (!isKernelIdExist(&(pEp->fci), j)) {
+                }
+                else {
 
                 }
-                //if (pEp->fci._fciIssData[j]._4F == pEp->epConfigs[i].aid) {
-
-                //}
             }
+            gsNextStep = Step3;
         }
     }
-    gsNextStep = Step3;
     return err;
 }
 

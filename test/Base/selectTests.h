@@ -388,9 +388,6 @@ TEST_F(Test_Select, _resolveSelectPpse)
 
 TEST_F(Test_Select, selectPpse_Negative) 
 {
-    char selectPPSEResponse[]   = "6F2D840E325041592E5359532E4444463031A51BBF0C1861164F07A00000000100015004415050319F2A0123870101";
-    ON_CALL(halApi, cardTransmit(isApdu("00A404000E325041592E5359532E4444463031"), Ge(5), _, _));
-
     int actual = selectPpse(NULL);
     EXPECT_EQ(NULL_PARAMETER, actual);
 }
@@ -459,7 +456,7 @@ TEST_F(Test_Select, selectPpse_invalidResponse)
     _clearFci(&fci);
 
     int actual = selectPpse(&fci);
-    EXPECT_EQ(SUCCESS, actual);
+    EXPECT_EQ(SW_NOT_SUCCESS, actual);
     EXPECT_EQ(MAKEWORD(0x6A, 0x85), getLastSw());
 }
 

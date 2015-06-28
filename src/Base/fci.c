@@ -2,6 +2,7 @@
 
 #include "./fci.h"
 #include "./err.h"
+#include "./general.h"
 
 //-----------------------------------------------------------------------
 
@@ -18,14 +19,6 @@ int _setFciIssData(FciPtr r, int tag, const unsigned char* value, int size)
 {
     if (!r || !value || size == 0) return NULL_PARAMETER;
     if (r->_fciIssDataCount == 0) return INDEX_OUT_OF_RANGE;
-    /*
-    printf("------set Fci %02X l:%02X(%d) v: ", tag, size, size);
-    int i = 0;
-    for (i = 0; i < size; ++i) {
-        printf("%02X ", value[i]);
-    }
-    printf("\n");
-    */
 
     switch(tag) {
         case 0x4F:
@@ -92,7 +85,7 @@ int getApplicationLabelLen(FciPtr p, int index)
 {
     //if (!p) return NULL_PARAMETER;
     //if (index < 0 || index >= p->_fciIssDataCount) return INDEX_OUT_OF_RANGE;
-    return &(p->_fciIssData[index]._50[0]);
+    return (int)(p->_fciIssData[index]._50[0]);
 }
 
 unsigned char* getApplicationLabel(FciPtr p, int index)
@@ -131,3 +124,20 @@ int getKernelId(FciPtr p, int index)
     return (int)p->_fciIssData[index]._9F2A[1];
 }
 
+int isKernelIdExist(FciPtr p, int index)
+{
+    return (p->_fciIssData[index]._9F2A[0] != 0x00) ? TRUE : FALSE;
+}
+
+
+int isAdfNameExist(FciPtr p, int index)
+{
+    return (p->_fciIssData[index]._4F[0] != 0x00);
+}
+
+int isAdfNameValid(FciPtr p, int index)
+{
+    // TODO 
+    // EMV 4.2 Book 1 12.2.1
+    return TRUE;
+}
