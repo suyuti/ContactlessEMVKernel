@@ -48,7 +48,7 @@ int _ep_startC();
 int _ep_startD();
 int _outcomeProcessing(EpOutcomePtr pOutcome);
 int _readConfigData();
-
+void setEpNextState(EpStates next);
 
 
 //--------------------------------------------------------------------

@@ -39,7 +39,7 @@ int ep_init(HalInterfacesPtr pHal, const char* configFolder)
     SET_DELEGATE_ALLOCATE       (&gEp.hal,  pHal->allocate      );
     SET_DELEGATE_RELEASE        (&gEp.hal,  pHal->release       );
 
-    gEp.state = EP_START_STATE_A;
+    setEpNextState(EpStateStartA);
 
     sprintf(gEp.configFolder, "%s/config.txt", configFolder);
     err = loadConfigs(&gEp);
@@ -53,19 +53,29 @@ int ep_init(HalInterfacesPtr pHal, const char* configFolder)
 int ep_process(int amount, int amountAuthorized)
 {
     int err = SUCCESS;
+
     for (;;) {
         switch(gEp.state) {
-            case EP_START_STATE_A:
+            case EpStateStartA:
                 err = _ep_startA(amount, amountAuthorized);
             break;
-            case EP_START_STATE_B:
+            case EpStateStartB:
                 err = _ep_startB();
             break;
-            case EP_START_STATE_C:
+            case EpStateStartC:
                 err = _ep_startC();
             break;
-            case EP_START_STATE_D:
+            case EpStateStartD:
                 err = _ep_startD();
+            break;
+            case EpStateKernelProcessing: 
+                err = _kernelProcessing();
+            break;
+            case EpStateOutcomeProcessing: 
+                err = _outcomeProcessing(&(gEp.outcome));
+            break;
+            case EpStateFinalOutcomeProcessing: 
+                goto EXIT;
             break;
             default:
                 return err;
@@ -74,6 +84,7 @@ int ep_process(int amount, int amountAuthorized)
         if (err != SUCCESS)
             break;
     }
+EXIT:
     return err;
 }
 
@@ -83,7 +94,7 @@ int ep_process(int amount, int amountAuthorized)
 int _ep_startA(int amount, int amountAuthorized)
 {
     int err = epPreProcessing(&gEp, amount, amountAuthorized);
-    gEp.state = EP_START_STATE_B;
+    setEpNextState(EpStateStartB);
     return err;
 }
 
@@ -93,7 +104,7 @@ int _ep_startA(int amount, int amountAuthorized)
 int _ep_startB()
 {
     int err = epProtocolActivation();
-    gEp.state = EP_START_STATE_C;
+    setEpNextState(EpStateStartC);
     return SUCCESS;
 }
 
@@ -102,7 +113,10 @@ int _ep_startB()
 
 int _ep_startC()
 {
-    gEp.state = EP_START_STATE_D;
+    int err = epCombinationSelection(&gEp);
+    // TODO
+    err = epFinalCombinationSelection(&gEp);
+    setEpNextState(EpStateStartD);
     return SUCCESS;
 }
 
@@ -111,7 +125,15 @@ int _ep_startC()
 
 int _ep_startD()
 {
-    gEp.state = EP_START_STATE_NONE;
+    setEpNextState(EpStateKernelProcessing);
+    return SUCCESS;
+}
+
+//--------------------------------------------------------------------
+
+int _kernelProcessing()
+{
+    setEpNextState(EpStateOutcomeProcessing);
     return SUCCESS;
 }
 
@@ -127,6 +149,7 @@ int _outcomeProcessing(EpOutcomePtr pOutcome)
         gEp.state = EP_START_STATE_B;
     }
     */
+    setEpNextState(EpStateFinalOutcomeProcessing);
     return SUCCESS;
 }
 
@@ -141,6 +164,11 @@ int _readConfigData()
         REFUND
     } TransactionTypes;
     return SUCCESS;
+}
+
+void setEpNextState(EpStates next)
+{
+    gEp.state = next;
 }
 
 //--------------------------------------------------------------------

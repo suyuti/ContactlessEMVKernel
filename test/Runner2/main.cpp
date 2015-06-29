@@ -10,6 +10,7 @@
 #include "EntryPoint/Test_2EA_005_00.h"
 #include "EntryPoint/Test_2EA_005_01.h"
 
+#include "EntryPoint/entryPointTest.h"
 #include "EntryPoint/epConfigTests.h"
 #include "EntryPoint/epPreProcessingTests.h"
 #include "EntryPoint/epCombinationSelectionTests.h"
@@ -17,6 +18,7 @@
 #include "Base/candidateListTests.h"
 #include "Base/selectTests.h"
 #include "Base/utilsTests.h"
+#include "Base/kernelTests.h"
 
 using namespace std;
 

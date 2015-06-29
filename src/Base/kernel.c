@@ -8,17 +8,16 @@ HalInterfaces gHal;
 
 int initialize(const char *configFolder)
 {
-    int retVal = 0;
+    int err = 0;
+    if (!configFolder) return NULL_PARAMETER;
 
-    retVal = checkHalInterfaces();
-    if (retVal != SUCCESS) return retVal;
+    err = checkHalInterfaces();
+    if (err != SUCCESS) return err;
 
-    retVal = ep_init(&gHal, configFolder);
-    if (retVal != SUCCESS) return retVal;
+    err = ep_init(&gHal, configFolder);
+    if (err != SUCCESS) return err;
     
-    retVal = ep_process(0, 0);
-    if (retVal != SUCCESS) return retVal;
-    return 0;
+    return err;
 }
 
 //------------------------------------------------------------------------------------
@@ -30,9 +29,10 @@ int release()
 
 //------------------------------------------------------------------------------------
 
-int start()
+int start(int amount, int amountOther)
 {
-    return 0;
+    int err = ep_process(amount, amountOther);
+    return err;
 }
 
 //------------------------------------------------------------------------------------
@@ -41,6 +41,8 @@ int getVersion()
 {
     return 99;
 }
+
+//------------------------------------------------------------------------------------
 
 int checkHalInterfaces()
 {
@@ -59,6 +61,7 @@ int checkHalInterfaces()
         return HAL_INTERFACE_IS_NULL;
     return SUCCESS;
 }
+
 //------------------------------------------------------------------------------------
 
 int setCardOpen(_card_open f)

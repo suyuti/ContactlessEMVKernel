@@ -117,6 +117,16 @@ int _step3(EpPtr pEp)
 {
     int err = SUCCESS;
     if (!pEp) return NULL_PARAMETER;
+
+    // 3.3.2.6
+    if (pEp->candidateListCount >= 1) {
+        // TODO
+    }
+    else {
+        // 3.3.2.7
+
+    }
+
     return err;
 }
 
@@ -145,11 +155,14 @@ int _3_3_2_1(EpPtr pEp)
 
     if (pEp->startPoint == StartedAtB) {
         // TODO
+        if (FALSE) {
+
+        }
+        else {
+            gsNextStep = Step1;
+        }
     }
     else if (pEp->startPoint == StartedAtC) {
-        gsNextStep = Step1;
-    }
-    else {
         gsNextStep = Step3;
     }
     return SUCCESS;

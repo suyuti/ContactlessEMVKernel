@@ -5,9 +5,7 @@
 #ifndef TEST_ENTRYPOINT_TEST_ENTRYPOINTTEST_H_
 #define TEST_ENTRYPOINT_TEST_ENTRYPOINTTEST_H_
 
-#include "gtest/gtest.h"
-using namespace std;
-
+#include "../BaseTest.h"
 
 extern "C" {
     #include "EntryPoint/entryPoint.h"
@@ -16,19 +14,13 @@ extern "C" {
     #include "Hal/linux/unPredNumGen.h"
 }
 
-class TestEntryPoint : public ::testing::Test {
-protected:
-    HalInterfaces hal;
-
-    virtual void SetUp() {
-        injectInterface(&hal, RandomNumberGenerator, (void*)&generateUnpredictableNumberDefaultImpl);
-    }
+class TestEntryPoint : public BaseTest {
 };
 
 TEST_F(TestEntryPoint, ep_init)
 {
-    int err             = ep_init(&hal);
-    int expectedState   = EP_START_STATE_A;
+    int err             = ep_init(&hal, "./test/Runner2/termsetting1");
+    int expectedState   = EpStateStartA;
     int actualState     = t_getEpState();
 
     EXPECT_EQ(SUCCESS,       err);
@@ -37,8 +29,8 @@ TEST_F(TestEntryPoint, ep_init)
 
 TEST_F(TestEntryPoint, _ep_startA)
 {
-    int err             = _ep_startA();
-    int expectedState   = EP_START_STATE_B;
+    int err             = _ep_startA(0, 0);
+    int expectedState   = EpStateStartB;
     int actualState     = t_getEpState();
 
     EXPECT_EQ(SUCCESS,       err);
@@ -48,21 +40,29 @@ TEST_F(TestEntryPoint, _ep_startA)
 TEST_F(TestEntryPoint, _ep_startB)
 {
     int err             = _ep_startB();
-    int expectedState   = EP_START_STATE_C;
+    int expectedState   = EpStateStartC;
     int actualState     = t_getEpState();
 
     EXPECT_EQ(SUCCESS,       err);
     EXPECT_EQ(expectedState, actualState);
 }
-
+/*
 TEST_F(TestEntryPoint, _ep_startC)
 {
     int err             = _ep_startC();
-    int expectedState   = EP_START_STATE_D;
+    int expectedState   = EpStateStartD;
     int actualState     = t_getEpState();
 
     EXPECT_EQ(SUCCESS,       err);
     EXPECT_EQ(expectedState, actualState);
+}
+*/
+
+TEST_F(TestEntryPoint, ep_process)
+{
+//    int err = ep_init(&hal, "./test/Runner2/termsetting1");
+//    err     = ep_process(0, 0);
+//    EXPECT_EQ(SUCCESS,       err);
 }
 
 

@@ -59,6 +59,17 @@ typedef enum {
     Interface_NA
 } InterfaceTypes;
 
+typedef enum {
+    EpStateStartA,
+    EpStateStartB,
+    EpStateStartC,
+    EpStateStartD,
+    EpStateKernelProcessing,
+    EpStateOutcomeProcessing,
+    EpStateFinalOutcomeProcessing
+} EpStates;
+
+
 #define MAX_DATA_LEN        256
 typedef struct {
     OutcomeStartTypes   start;
@@ -88,7 +99,7 @@ typedef enum {
 
 typedef struct {
     HalInterfaces   hal;
-    int             state;
+    EpStates        state;
 
     //- Config data
     int             epConfigsCount;
