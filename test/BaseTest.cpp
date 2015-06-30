@@ -31,6 +31,8 @@ void BaseTest::executeTest()
 }
 
 void BaseTest::init() {
+    setRfOpen(&mockRfOpen);
+    setRfClose(&mockRfClose);
     setCardOpen(&mockCardOpen);
     setCardReset(&mockCardReset);
     setCardClose(&mockCardClose);

@@ -5,6 +5,9 @@
 #ifndef SRC_HAL_HAL_H_
 #define SRC_HAL_HAL_H_
 
+//- RF
+typedef int     (*_rfOpen)(void); 
+typedef int     (*_rfClose)(void); 
 
 //- SmartCard IO
 typedef int     (*_card_open)(void);
@@ -35,16 +38,18 @@ typedef int (*genUnPredNum)(unsigned char* pOut,
 #define GENERATE_UNPREDICT_NUMBER(p, n,l)  (p)->_genUnPredNum((n), (l))
 
 typedef struct {
-    _card_open       card_open;
-    _card_reset      card_reset;
-    _card_close      card_close;
-    _card_transmit   card_transmit;
+    _rfOpen         rfOpen;
+    _rfClose        rfClose;
+    _card_open      card_open;
+    _card_reset     card_reset;
+    _card_close     card_close;
+    _card_transmit  card_transmit;
     _fileOpen       fileOpen;
     _fileClose      fileClose;
     _fileRead       fileRead;
     _getFileSize    getFileSize;
-    _allocate         allocate;
-    _release           release;
+    _allocate       allocate;
+    _release        release;
     genUnPredNum    _genUnPredNum;
 } HalInterfaces, *HalInterfacesPtr;
 
@@ -53,6 +58,12 @@ typedef enum {
     CardReaderOpen,
     CardReaderClose,
 } HalInterfaceTypes;
+
+#define SET_DELEGATE_RF_OPEN(halPtr, foo)           (halPtr)->rfOpen        = foo
+#define SET_DELEGATE_RF_CLOSE(halPtr, foo)          (halPtr)->rfClose       = foo
+#define RF_OPEN(halPtr)                             (halPtr)->rfOpen()
+#define RF_CLOSE(halPtr)                            (halPtr)->rfClose()
+
 
 #define SET_DELEGATE_CARD_OPEN(halPtr, foo)         (halPtr)->card_open      = foo
 #define SET_DELEGATE_CARD_RESET(halPtr, foo)        (halPtr)->card_reset     = foo

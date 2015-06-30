@@ -3,8 +3,10 @@
 
 //-----------------------------------------------------------------------------
 
-int epProtocolActivation()
+int epProtocolActivation(EpPtr pEp)
 {
+    RF_OPEN(&(pEp->hal));
+
     return SUCCESS;
 }
 

@@ -6,9 +6,11 @@
 
 int initialize(const char* configFolder);
 int release();
-int start();
+int start(int amount, int amountOther);
 int getVersion();
 
+int setRfOpen(_rfOpen f);
+int setRfClose(_rfClose f);
 int setCardOpen (_card_open f);
 int setCardClose(_card_close f);
 int setCardReset(_card_reset f);

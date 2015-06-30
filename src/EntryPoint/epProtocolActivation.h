@@ -4,7 +4,7 @@
 #include "./epCommon.h"
 
 
-int epProtocolActivation();
+int epProtocolActivation(EpPtr p);
 
 int _3_2_1_1(EpPtr p);
 int _3_2_1_2();

@@ -13,6 +13,16 @@
  *
  */
 
+int mockRfOpen(void)
+{
+    return MockHalFunctions::instance().rfOpen();
+}
+
+int mockRfClose(void)
+{
+    return MockHalFunctions::instance().rfClose();
+}
+
 int mockCardOpen(void)
 {
     return MockHalFunctions::instance().cardOpen();

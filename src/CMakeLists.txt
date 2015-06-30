@@ -29,6 +29,7 @@ set(srcHal                      Hal/halInjection.c
 set(srcHalLinuxDefaultImpl      Hal/linux/scard.c
                                 Hal/linux/unPredNumGen.c)
 
+set(srcTestKernel               Kernels/DummyKernel/testKernel.c)
 
 
 
@@ -54,6 +55,8 @@ endif()
 # Base Library
 add_library(base ${srcBase})
 
+
+
 #-------------------------------------------------------------
 #   Entry point library
 
@@ -62,13 +65,18 @@ add_library(entryPoint  ${srcEntryPoint}
 target_link_libraries(entryPoint    base)
 
 
+
 #-------------------------------------------------------------
 #   Python module
 
 add_subdirectory(Py)
 set(CMAKE_C_FLAGS " -fPIC " )
-add_library(emvClessPy  ${srcEntryPoint} ${srcPy} )
-target_link_libraries(emvClessPy    pcsclite)
+add_library(emvClessPy  ${srcPy}
+                        ${srcEntryPoint}
+                        ${srcBase} )
+target_link_libraries(emvClessPy
+                                    pcsclite)
+
 
 #-------------------------------------------------------------
 # HAL linux default Impl
@@ -76,7 +84,13 @@ include_directories(/usr/include/PCSC)
 add_library(halLinuxDefaultImpl  ${srcHalLinuxDefaultImpl})
 target_link_libraries(halLinuxDefaultImpl    pcsclite)
 
+
 #-------------------------------------------------------------
+# Test Kernel
+
+add_library(testKernel  ${srcTestKernel}
+                        )
+target_link_libraries(testKernel    base)
 
 
 
@@ -90,3 +104,4 @@ target_link_libraries(halLinuxDefaultImpl    pcsclite)
 #                                pthread
 #                                entryPoint
 #                                l2Pcsc)
+

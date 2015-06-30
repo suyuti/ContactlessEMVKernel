@@ -2,12 +2,13 @@
 
 # ---------------------------[ emv cless module ]------------------------
 
-add_library(emvclessmodule SHARED emvclessmodule.cpp )
+add_library(emvclessmodule SHARED emvclessmodule.cpp 
+                                )
 target_link_libraries(emvclessmodule ${Boost_LIBRARIES} emvClessPy)
 
 set_target_properties(emvclessmodule PROPERTIES 
                         PREFIX "" 
-                        LIBRARY_OUTPUT_DIRECTORY "../../test")
+                        LIBRARY_OUTPUT_DIRECTORY "../../test/PyEmvCless")
 
 
 # ----------------------[ scard reader ]-------------------
@@ -22,5 +23,5 @@ target_link_libraries(scardreadermodule ${Boost_LIBRARIES}  scardreader)
 
 set_target_properties(scardreadermodule PROPERTIES 
                             PREFIX "" 
-                            LIBRARY_OUTPUT_DIRECTORY "../../test")
+                            LIBRARY_OUTPUT_DIRECTORY "../../test/PyEmvCless")
 

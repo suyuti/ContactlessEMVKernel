@@ -53,6 +53,7 @@ TEST_F(TestKernel, initialize)
     int err = initialize("./test/Runner2/termsetting1");
     EXPECT_EQ(SUCCESS, err);
     EXPECT_EQ(EpStateStartA, t_getEpState());
+    
 }
 
 //------------------------------------------------------------------------------------

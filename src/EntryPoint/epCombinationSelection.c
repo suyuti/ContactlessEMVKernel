@@ -22,6 +22,7 @@ int epCombinationSelection(EpPtr pEp)
     IS_SUCCESS(err);
 
     while (gsNextStep != StepExit) {
+        printf("step %d\n", gsNextStep);
         switch (gsNextStep) {
             case Step1:
                 err = _step1(pEp);
@@ -126,7 +127,7 @@ int _step3(EpPtr pEp)
         // 3.3.2.7
 
     }
-
+    gsNextStep = StepExit; // TODO ?
     return err;
 }
 

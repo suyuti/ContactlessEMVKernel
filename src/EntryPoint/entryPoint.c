@@ -28,6 +28,8 @@ int ep_init(HalInterfacesPtr pHal, const char* configFolder)
 {
     int err;
 
+    SET_DELEGATE_RF_OPEN        (&gEp.hal,  pHal->rfOpen        );
+    SET_DELEGATE_RF_CLOSE       (&gEp.hal,  pHal->rfClose       );
     SET_DELEGATE_CARD_OPEN      (&gEp.hal,  pHal->card_open     );
     SET_DELEGATE_CARD_RESET     (&gEp.hal,  pHal->card_reset    );
     SET_DELEGATE_CARD_CLOSE     (&gEp.hal,  pHal->card_close    );
@@ -53,7 +55,6 @@ int ep_init(HalInterfacesPtr pHal, const char* configFolder)
 int ep_process(int amount, int amountAuthorized)
 {
     int err = SUCCESS;
-
     for (;;) {
         switch(gEp.state) {
             case EpStateStartA:
@@ -64,6 +65,7 @@ int ep_process(int amount, int amountAuthorized)
             break;
             case EpStateStartC:
                 err = _ep_startC();
+                goto EXIT;
             break;
             case EpStateStartD:
                 err = _ep_startD();
@@ -103,7 +105,7 @@ int _ep_startA(int amount, int amountAuthorized)
 
 int _ep_startB()
 {
-    int err = epProtocolActivation();
+    int err = epProtocolActivation(&gEp);
     setEpNextState(EpStateStartC);
     return SUCCESS;
 }

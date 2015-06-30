@@ -16,6 +16,10 @@ extern "C" {
 }
 
 extern "C" {
+    // RF 
+    int mockRfOpen(void);
+    int mockRfClose(void);
+
     // SmartCard IO
     int mockCardOpen(void);
     int mockCardReset(void);
@@ -40,6 +44,10 @@ extern "C" {
 
 class MockHalFunctions : public testing::MockerC<MockHalFunctions> {
 public:
+    //- RF
+    MOCK_CONST_METHOD0(rfOpen,          int(void));
+    MOCK_CONST_METHOD0(rfClose,         int(void));
+
     //- SmartCard IO
     MOCK_CONST_METHOD0(cardOpen,        int(void));
     MOCK_CONST_METHOD0(cardReset,       int(void));

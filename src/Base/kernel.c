@@ -46,7 +46,9 @@ int getVersion()
 
 int checkHalInterfaces()
 {
-    if (!gHal.card_open     ||
+    if (!gHal.rfOpen        ||
+        !gHal.rfClose       ||
+        !gHal.card_open     ||
         !gHal.card_reset    ||
         !gHal.card_close    ||
         !gHal.card_transmit ||
@@ -59,6 +61,22 @@ int checkHalInterfaces()
         !gHal._genUnPredNum
         )
         return HAL_INTERFACE_IS_NULL;
+    return SUCCESS;
+}
+
+//------------------------------------------------------------------------------------
+
+int setRfOpen(_rfOpen f)
+{
+    SET_DELEGATE_RF_OPEN(&gHal, f);
+    return SUCCESS;
+}
+
+//------------------------------------------------------------------------------------
+
+int setRfClose(_rfClose f)
+{
+    SET_DELEGATE_RF_CLOSE(&gHal, f);
     return SUCCESS;
 }
 

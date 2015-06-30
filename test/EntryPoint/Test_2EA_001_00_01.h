@@ -20,10 +20,10 @@
 
 class Test_2EA_001_00 : public BaseTest {
 public:
-    Test_2EA_001_00() : BaseTest("2EA_001_00") {
-        useTerminalConfig(TerminalConfigs::Config01);
-    };
-    virtual ~Test_2EA_001_00() {};
+    //Test_2EA_001_00() : BaseTest("2EA_001_00") {
+    //    useTerminalConfig(TerminalConfigs::Config01);
+    //};
+    //virtual ~Test_2EA_001_00() {};
 };
 
 //-------------------------------------------------------------------------------------------------
@@ -35,23 +35,27 @@ public:
         Case01: The LT shall receive in the GET PROCESSING OPTIONS data field: Transaction Type = value supported for the configuration 
         Case01: The LT shall receive in the GET PROCESSING OPTIONS data field: Amount Other = 0
 **/
-/*
+
 TEST_F(Test_2EA_001_00, case01) {
     InSequence s1;
+    EXPECT_CALL(halApi, rfOpen()).Times(Exactly(1));
     EXPECT_CALL(halApi, cardOpen()).Times(Exactly(1));
     EXPECT_CALL(halApi, cardReset()).Times(Exactly(1)).WillOnce(Return(SUCCESS));
 
     // From Kernel: 00A404000E325041592E5359532E444446303100
     char selectPPSEResponse[]   = "6F2D840E325041592E5359532E4444463031A51BBF0C1861164F07A00000000100015004415050319F2A0123870101";
+    unsigned char ppseResponse[255];
+    int len = TestUtils::str2bcd(selectPPSEResponse, ppseResponse);
     EXPECT_CALL(halApi, cardTransmit(isApdu("00A404000E325041592E5359532E4444463031"), Ge(5), _, _))
                         .Times(Exactly(1))
                         .WillOnce(
                             DoAll(
-                                SetArrayArgument<2>(selectPPSEResponse, selectPPSEResponse+sizeof(selectPPSEResponse)),
-                                SetArgPointee<3>((unsigned long)sizeof(selectPPSEResponse)),
+                                SetArrayArgument<2>(ppseResponse, ppseResponse+len),
+                                SetArgPointee<3>((unsigned long)len),
                                 Return(SUCCESS)
                             )
                         );
+                        /*
 
     // From Kernel: 00A4040007A000000001000100
     char selectAIPResponse[]    = "6F2A8407A0000000010001A51F5004415050318701019F3813D1029F66049F02069F03069C019F37049F2A08";
@@ -67,10 +71,14 @@ TEST_F(Test_2EA_001_00, case01) {
                         .WillOnce(
         Return(SUCCESS));
 
+    */
     int err = initialize("./test/Runner2/termsetting1");
     EXPECT_EQ(SUCCESS, err);
+
+    err = start(10, 0);
+    EXPECT_EQ(SUCCESS, err);
 }
-*/
+
 
 //-------------------------------------------------------------------------------------------------
 /**
