@@ -11,7 +11,7 @@ set_target_properties(emvclessmodule PROPERTIES
 
 
 # ----------------------[ scard reader ]-------------------
-
+if (NOT APPLE)
 include_directories(/usr/include/PCSC)
 
 add_library(scardreader SHARED scard.cpp )
@@ -24,3 +24,4 @@ set_target_properties(scardreadermodule PROPERTIES
                             PREFIX "" 
                             LIBRARY_OUTPUT_DIRECTORY "../../test")
 
+endif()

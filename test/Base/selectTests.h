@@ -192,6 +192,8 @@ TEST_F(Test_Select, _setFciIssData_Negative)
 TEST_F(Test_Select, _setFciIssData) 
 {
     Fci fci;
+    memset(&fci, 0x00, sizeof(Fci));
+
     unsigned char _4FData[]          = {0x4F, 0x4F};
     unsigned char expected4FData[]   = {0x02, 0x4F, 0x4F};
     unsigned char _50Data[]          = {0x50, 0x50};
@@ -249,6 +251,8 @@ TEST_F(Test_Select, _incFciIssDataCounter_Negative)
 TEST_F(Test_Select, _incFciIssDataCounter) 
 {
     Fci fci;
+    memset(&fci, 0x00, sizeof(Fci));
+
     int actual = _incFciIssDataCounter(&fci);
     EXPECT_EQ(SUCCESS, actual);
     EXPECT_EQ(1, fci._fciIssDataCount);
@@ -318,6 +322,7 @@ TEST_F(Test_Select, OnTag_resolvePpse_Negative)
 TEST_F(Test_Select, OnTag_resolvePpse) 
 {
     Fci fci;
+    memset(&fci, 0x00, sizeof(Fci));
     unsigned char value[] = {0x61};
 
     int actual = OnTag_resolvePpse(0x61, 1, 0, value, &fci);

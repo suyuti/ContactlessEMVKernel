@@ -54,6 +54,17 @@ Test Coverage
 
 Profiling
 
+-------------------------------------
+For Mac Users:
+install Boost, Boost-pyton
+http://www.pyimagesearch.com/2015/04/27/installing-boost-and-boost-python-on-osx-with-homebrew/
+
+install Gtest
+http://ysonggit.github.io/system/2015/01/01/install-gtest-on-mac-os-yosemite.html
+http://www.kaizou.org/2014/11/gtest-cmake/
+
+
+
 
 
 Usage:

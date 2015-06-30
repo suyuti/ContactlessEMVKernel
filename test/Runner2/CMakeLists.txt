@@ -21,6 +21,9 @@ set(srcTest main.cpp
             ../Config/ConfigFactory/termConfig05.cpp
             ../Mockups/mockHal.cpp
             ../defaultHalImpl.c)
+
+set(CMAKE_CXX_FLAGS " -g " )
+
 add_executable(test2 ${srcTest})
 
 target_link_libraries(test2 

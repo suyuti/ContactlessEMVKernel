@@ -64,17 +64,22 @@ target_link_libraries(entryPoint    base)
 
 #-------------------------------------------------------------
 #   Python module
-
 add_subdirectory(Py)
-set(CMAKE_C_FLAGS " -fPIC " )
-add_library(emvClessPy  ${srcEntryPoint} ${srcPy} )
-target_link_libraries(emvClessPy    pcsclite)
+if (WIN32)
+    set(CMAKE_C_FLAGS " -fPIC " )
+    add_library(emvClessPy  ${srcEntryPoint} ${srcPy} )
+    target_link_libraries(emvClessPy    pcsclite)
+elseif (APPLE)
+    set(CMAKE_C_FLAGS " -fPIC -framework PCSC" )
+    add_library(emvClessPy  ${srcBase} ${srcEntryPoint} ${srcPy} )
+    target_link_libraries(emvClessPy)
+endif()
 
 #-------------------------------------------------------------
 # HAL linux default Impl
-include_directories(/usr/include/PCSC)
-add_library(halLinuxDefaultImpl  ${srcHalLinuxDefaultImpl})
-target_link_libraries(halLinuxDefaultImpl    pcsclite)
+#include_directories(/usr/include/PCSC)
+#add_library(halLinuxDefaultImpl  ${srcHalLinuxDefaultImpl})
+#target_link_libraries(halLinuxDefaultImpl    pcsclite)
 
 #-------------------------------------------------------------
 

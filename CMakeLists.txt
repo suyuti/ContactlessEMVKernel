@@ -8,12 +8,12 @@ SET(CMAKE_COLOR_MAKEFILE ON)
 
 #-----------------------------------------------------------------------
 #      Options
-Option(BUILD_DOC            " Create doxygen documentation for developers "     ON)
-Option(BUILD_WITH_COVERAGE  " Build with coverage analysis support "            ON)
-Option(BUILD_CODE_STYLE     " Build with code style checking "                  ON)
-Option(BUILD_PROFILING      " Build with profiling "                            ON)
+Option(BUILD_DOC            " Create doxygen documentation for developers "     OFF)
+Option(BUILD_WITH_COVERAGE  " Build with coverage analysis support "            OFF)
+Option(BUILD_CODE_STYLE     " Build with code style checking "                  OFF)
+Option(BUILD_PROFILING      " Build with profiling "                            OFF)
 Option(BUILD_MEMCHECK       " Build with memory check "                         OFF)
-Option(BUILD_SLOC           " Build with line counting "                        ON)
+Option(BUILD_SLOC           " Build with line counting "                        OFF)
 Option(BUILD_TESTING        " Build with testing "                              ON)
 Option(BUILD_FOR_PYTHON     " Build for Python "                                ON)
 
@@ -49,7 +49,6 @@ endif()
 if (BUILD_CODE_STYLE)
     include(EnableCodeStyle)
 endif()
-
 
 #-----------------------------------------------------------------------
 #      Testing
