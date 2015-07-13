@@ -17,7 +17,6 @@ void BaseTest::useTerminalConfig(TerminalConfigs::Configurations configType)
 
 void BaseTest::addCommandResponse(string cmd, string resp)
 {
-
 }
 
 void BaseTest::clearCommandResponse()
