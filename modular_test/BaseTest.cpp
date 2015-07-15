@@ -4,8 +4,8 @@
  * */
 
 #include "BaseTest.h"
-//#include "Config/ConfigFactory/termConfig01.h"
-//#include "Config/ConfigFactory/termConfig02.h"
+// #include "Config/ConfigFactory/termConfig01.h"
+// #include "Config/ConfigFactory/termConfig02.h"
 
 /*
 void BaseTest::useTerminalConfig(TerminalConfigs::Configurations configType)
@@ -24,7 +24,6 @@ void BaseTest::useTerminalConfig(TerminalConfigs::Configurations configType)
 
 void BaseTest::executeTest()
 {
-
 }
 
 void BaseTest::init() {
@@ -32,7 +31,7 @@ void BaseTest::init() {
     setCardReset(&mockCardReset);
     setCardClose(&mockCardClose);
     setCardTransmit(&mockCardTransmit);
-    //setReadConfig(&mockReadConfig);
+    // setReadConfig(&mockReadConfig);
     setFileOpen(&defaultFileOpen);
     setFileClose(&defaultFileClose);
     setFileRead(&defaultFileRead);

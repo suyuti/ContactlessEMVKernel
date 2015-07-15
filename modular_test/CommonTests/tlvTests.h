@@ -91,9 +91,9 @@ TEST_F(TestTlv, _tag)
     expectedConstructed = 0;
 
     actual = _tag(data3, &actualTagLen, &actualConstructed);
-    //EXPECT_EQ(expected, actual);
-    //EXPECT_EQ(expectedTagLen, actualTagLen);
-    //EXPECT_EQ(expectedConstructed, actualConstructed);
+    // EXPECT_EQ(expected, actual);
+    // EXPECT_EQ(expectedTagLen, actualTagLen);
+    // EXPECT_EQ(expectedConstructed, actualConstructed);
 
     unsigned char data4[] = {0x20, 0x03, 0x01, 0x01, 0xAA};
     actual              = 0;
@@ -149,7 +149,6 @@ TEST_F(TestTlv, _len)
     actual = _len(data2+1, &actualLenLen);
     EXPECT_EQ(expected, actual);
     EXPECT_EQ(expectedLenLen, actualLenLen);
-
 }
 
 
@@ -177,7 +176,7 @@ TEST_F(TestTlv, _parse_negative)
     EXPECT_EQ(INVALID_PARAMETER, _parse(NULL, 0, NULL, reinterpret_cast<int*>(&target)));
 
     unsigned char data[1024] = {0x00};
-    int size = EmvTest::TestUtils::str2bcd( "6FFF840E325041592E53"
+    int size = EmvTest::TestUtils::str2bcd("6FFF840E325041592E53"
                                             "59532E4444463031A547"
                                             "BF0C44610C4F07A00000"
                                             "00041010870101610C4F"
@@ -190,23 +189,22 @@ TEST_F(TestTlv, _parse_negative)
     // 6F FF (invalid size)
     int actual = _parse(data, size, onTag_Test, &target);
     EXPECT_EQ(INCORRECT_DATA, actual);
-
 }
 
 TEST_F(TestTlv, _parse)
 {
     DummyTestTarget target;
     unsigned char data[1024] = {0x00};
-    int size = EmvTest::TestUtils::str2bcd( "6F59840E325041592E53"
-                                            "59532E4444463031A547"
-                                            "BF0C44610C4F07A00000"
-                                            "00041010870101610C4F"
-                                            "07A00000000430608701"
-                                            "03610A4F05B012345678"
-                                            "870109610C4F07B01234"
-                                            "56781020870108610C4F"
-                                            "07B01234567810308701"
-                                            "07", data);
+    int size = EmvTest::TestUtils::str2bcd("6F59840E325041592E53"
+                                           "59532E4444463031A547"
+                                           "BF0C44610C4F07A00000"
+                                           "00041010870101610C4F"
+                                           "07A00000000430608701"
+                                           "03610A4F05B012345678"
+                                           "870109610C4F07B01234"
+                                           "56781020870108610C4F"
+                                           "07B01234567810308701"
+                                           "07", data);
     int actual = _parse(data, size, onTag_Test, &target);
     EXPECT_EQ(SUCCESS, actual);
 
@@ -214,4 +212,4 @@ TEST_F(TestTlv, _parse)
     EXPECT_EQ(-99, actual);
 }
 
-#endif// MODULAR_TEST_COMMONTESTS_TLVTESTS_H_
+#endif  // MODULAR_TEST_COMMONTESTS_TLVTESTS_H_

@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"si",
+				"sizeof"
+			],
+			[
+				"i",
+				"if"
+			],
+			[
 				"size",
 				"sizeof"
 			],
@@ -110,10 +118,6 @@
 			[
 				"pr",
 				"printFci"
-			],
-			[
-				"si",
-				"size"
 			],
 			[
 				"_",
@@ -424,69 +428,18 @@
 	"buffers":
 	[
 		{
-			"contents": "#include <stdlib.h>\n#include \"./epCombinationSelection.h\"\n#include \"./epIndicators.h\"\n#include \"../Base/err.h\"\n#include \"../Base/general.h\"\n\n\nstatic Steps                gsNextStep;\nstatic CandidateListItem    gsSelectedApp;\n//-----------------------------------------------------------------------------\n\nint epCombinationSelection(EpPtr pEp)\n{\n    if (!pEp) return NULL_PARAMETER;\n    int err;\n\n    gsNextStep = Step1;\n\n    while(gsNextStep != StepExit) {\n        switch(gsNextStep) {\n            case Step1:\n                err = _step1(pEp);\n            break;\n            case Step2:\n                err = _step2(pEp);\n            break;\n            case Step3:\n                err = _step3(pEp);\n            break;\n        }\n    }\n    return err;\n}\n\n/*---------------------------------------------\n    Book B v2.5 p.32\n    3.3.3\n    \n*/\n\nint epFinalCombinationSelection(EpPtr pEp) \n{\n    /*\n        Book B v2.5 p.32\n        3.3.3.1\n\n        If there is only one Combination in the Candidate List,\n        then Entry Point shall select the Combination.\n    */\n    if (pEp->candidateListCount == 1) {\n\n    }\n    else if (pEp->candidateListCount > 1) {\n        int i              = 0;\n        int maxPriority    = 0;\n        int curentPriority = 0;\n        for (i = 0; i < pEp->candidateListCount; ++i) {\n            curentPriority =  getApplicationPriority(&(pEp->candidateList[i]));\n            if (curentPriority > maxPriority) {\n                gsSelectedApp = pEp->candidateList[i];\n                maxPriority = curentPriority;\n            }\n        }\n\n        int err = se\n    }\n\n}\n\n//-----------------------------------------------------------------------------\n\nint _step1(EpPtr pEp)\n{\n    if (!pEp) return NULL_PARAMETER;\n\n    int i = 0;\n    int err = selectPpse(&(pEp->fci));\n    if (err != SUCCESS) return err;\n    if (getLastSw() == MAKEWORD(0x90, 0x00)) {\n        clearCandidateList(pEp->candidateList, MAX_CANDIDATE_LIST);\n        CandidateListItem item;\n        for(i = 0; i < pEp->fci._fciIssDataCount; ++i) {\n            fciToCandidateItem(&(pEp->fci._fciIssData[i]), &item);\n            addCandidateList(pEp->candidateList,\n                            &(pEp->candidateListCount),\n                            MAX_CANDIDATE_LIST,\n                            &item);\n        }\n        gsNextStep = Step2;\n    }\n    else {\n        gsNextStep = Step3;\n    }\n    return err;\n}\n\n//-----------------------------------------------------------------------------\n\nint _step2(EpPtr pEp) \n{\n    int err = SUCCESS;\n    if (!pEp) return NULL_PARAMETER;\n\n    /*\n        Book B v2.5 p.27\n        3.3.2.4\n\n        IF      there is no Directory Entry (Tag '61') in the FCI,\n        THEN    Entry Point shall add no Combinations to the Candidate List\n                and shall proceed to Step 3.\n    */\n    if (pEp->fci._fciIssDataCount == 0) {\n        gsNextStep = Step3;\n    }\n\n    /*\n        Book B v2.5 p.27\n        3.3.2.5\n\n    */\n    int i = 0;\n    int j = 0;\n    EpConfigPtr pConfig = NULL;\n    unsigned char matchingAid[30] = {0x00};\n    int selectetKernelId = 0;\n\n    for (i = 0; i < pEp->epConfigsCount; ++i) {\n        pConfig = &(pEp->epConfigs[i]);\n        if (!IS_EPIND_CLESS_APP_NOT_ALLOWED(pConfig->indicators)) {\n            for (j = 0; j < pEp->fci._fciIssDataCount; ++j) {\n                //---------------------\n                // Ref: A\n                if (!isAdfNameExist(&(pEp->fci), j) ||\n                    !isAdfNameValid(&(pEp->fci), j)) {\n                    continue;\n\n                }\n\n                //---------------------\n                // Ref: B\n                if ((getAdfNameLen(&(pEp->fci), j) == getEpConfigAidLen(pConfig)) ||\n                    startsWith(getAdfName(&(pEp->fci), j),\n                               pConfig->aid) == TRUE) {\n                    strncpy(matchingAid, pConfig->aid, getEpConfigAidLen(pConfig));\n                }\n                else {\n                    continue;\n                }\n\n                //---------------------\n                // Ref: C\n                if (!isKernelIdExist(&(pEp->fci), j)) {\n                }\n                else {\n\n                }\n            }\n            gsNextStep = Step3;\n        }\n    }\n    return err;\n}\n\n//-----------------------------------------------------------------------------\n\nint _step3(EpPtr pEp) \n{\n    int err = SUCCESS;\n    if (!pEp) return NULL_PARAMETER;\n    return err;\n}\n\n//-----------------------------------------------------------------------------\n\nint _3_3_1_1()\n{\n    /*\n        Book B v2.5 p.22\n        3.3.1.1\n\n        The coding of the Application Priority Indicator is indicated in Table 3-3.\n        \n        IF      The Application Priority Indicator is absent from a Directory Entry,\n        THEN    Entry Point shall assume b4-b1 to have a value of 0000b.    \n    */\n\n    return SUCCESS;\n}\n\n//-----------------------------------------------------------------------------\n\nint _3_3_2_1(EpPtr pEp)\n{\n    /*\n        Book B v2.5 p.26\n        3.3.2.1\n\n        IF      Entry Point is activated by the reader at Start B,\n        THEN:\n            -   IF       Issuer Authentication Data and/or Issuer Script is present,\n                THEN     processing shall continue at requirement 3.3.3.3 of Final\n                         Combination Selection with the Combination that was\n                         selected during the previous Final Combination Selection.\n            - OTHERWISE, Entry Point shall perform steps 1 to 3.\n\n        ELSE IF Entry Point is activated by the reader at Start C,\n        THEN    processing shall continue at Step 3.\n    */\n    if (!pEp) return NULL_PARAMETER;\n\n    if (pEp->startedByReader) {\n\n    }\n    return SUCCESS;\n}\n\n//-----------------------------------------------------------------------------\n\nint _3_3_2_2(EpPtr pEp)\n{\n    if (!pEp) return NULL_PARAMETER;\n\n    int err = selectPpse(&(pEp->fci));\n\n    return err;\n}\n\n//-----------------------------------------------------------------------------\n\nint _3_3_2_3()\n{\n    return SUCCESS;\n}\n\n//-----------------------------------------------------------------------------\n\nint _3_3_2_4()\n{\n    return SUCCESS;\n}\n\n//-----------------------------------------------------------------------------\n\nint _3_3_2_5()\n{\n    return SUCCESS;\n}\n\n//-----------------------------------------------------------------------------\n\nint _3_3_2_6()\n{\n    return SUCCESS;\n}\n\n//-----------------------------------------------------------------------------\n\nint _3_3_2_7()\n{\n    return SUCCESS;\n}\n\n//-----------------------------------------------------------------------------\n\nint _3_3_3_1()\n{\n    return SUCCESS;\n}\n\n//-----------------------------------------------------------------------------\n\nint _3_3_3_2()\n{\n    return SUCCESS;\n}\n\n//-----------------------------------------------------------------------------\n\nint _3_3_3_3()\n{\n    return SUCCESS;\n}\n\n//-----------------------------------------------------------------------------\n\nint _3_3_3_4()\n{\n    return SUCCESS;\n}\n\n//-----------------------------------------------------------------------------\n\nint _3_3_3_5()\n{\n    return SUCCESS;\n}\n\n//-----------------------------------------------------------------------------\n\nint _3_3_3_6()\n{\n    return SUCCESS;\n}\n\n//-----------------------------------------------------------------------------\n\nint _3_3_3_7()\n{\n    return SUCCESS;\n}\n\n//-----------------------------------------------------------------------------\n\nint t_getNextStep() \n{\n    return gsNextStep;\n}\n\nvoid t_setNextStep(Steps s) \n{\n    gsNextStep = s;\n}",
-			"file": "src/EntryPoint/epCombinationSelection.c",
-			"file_size": 7524,
-			"file_write_time": 130799238191749484,
+			"file": "test/Runner2/CMakeLists.txt",
 			"settings":
 			{
-				"buffer_size": 7536,
+				"buffer_size": 1432,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Base/utils.h",
+			"file": "Readme.md",
 			"settings":
 			{
-				"buffer_size": 596,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Base/utils.c",
-			"settings":
-			{
-				"buffer_size": 2857,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Base/fci.h",
-			"settings":
-			{
-				"buffer_size": 1597,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Base/fci.c",
-			"settings":
-			{
-				"buffer_size": 4183,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/EntryPoint/epCommon.h",
-			"settings":
-			{
-				"buffer_size": 2746,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Base/candidateList.h",
-			"settings":
-			{
-				"buffer_size": 1675,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Base/select.h",
-			"settings":
-			{
-				"buffer_size": 761,
+				"buffer_size": 2033,
 				"line_ending": "Unix"
 			}
 		},
@@ -494,55 +447,50 @@
 			"file": "test/Base/selectTests.h",
 			"settings":
 			{
-				"buffer_size": 15740,
+				"buffer_size": 15593,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Base/select.c",
+			"file": "CMakeLists.txt",
 			"settings":
 			{
-				"buffer_size": 4360,
+				"buffer_size": 2566,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Base/candidateList.c",
+			"file": "src/Base/fci.c",
 			"settings":
 			{
-				"buffer_size": 1744,
+				"buffer_size": 4637,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/EntryPoint/epConfig.h",
+			"file": "modular_test/EmvTests/selectTests.h",
 			"settings":
 			{
-				"buffer_size": 7167,
+				"buffer_size": 15676,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/EntryPoint/epConfig.c",
+			"contents": "/*\n    Copyright 2015\n*/\n\n#ifndef MODULAR_TEST_COMMONTESTS_TLVTESTS_H_\n#define MODULAR_TEST_COMMONTESTS_TLVTESTS_H_\n\n#include \"gtest/gtest.h\"\n\nextern \"C\" {\n    #include \"Common/tlv.h\"\n    #include \"Common/err.h\"\n}\n#include \"../testUtils.h\"\nusing namespace std;\n\nclass TestTlv : public ::testing::Test {\n};\n\nTEST_F(TestTlv, fail)\n{\n    EXPECT_TRUE(true);\n}\nTEST_F(TestTlv, _tag_negative)\n{\n    unsigned char d[] = {0x00};\n    int len = 0;\n    int constructed = 0;\n\n    int actual = _tag(NULL, NULL, NULL);\n    EXPECT_EQ(-1, actual);\n\n    actual = _tag(d, NULL, NULL);\n    EXPECT_EQ(-1, actual);\n\n    actual = _tag(NULL, &len, NULL);\n    EXPECT_EQ(-1, actual);\n\n    actual = _tag(NULL, NULL, &constructed);\n    EXPECT_EQ(-1, actual);\n\n    actual = _tag(d, NULL, &constructed);\n    EXPECT_EQ(-1, actual);\n\n    actual = _tag(d, &len, NULL);\n    EXPECT_EQ(-1, actual);\n\n    actual = _tag(NULL, &len, &constructed);\n    EXPECT_EQ(-1, actual);\n}\n\nTEST_F(TestTlv, _tag)\n{\n    unsigned char data1[] = {0x01, 0x01, 0x01};\n\n    int actual = 0;\n    int expected = 1;\n\n    int actualTagLen = 0;\n    int expectedTagLen = 1;\n\n    int actualConstructed = 0;\n    int expectedConstructed = 0;\n\n    actual = _tag(data1, &actualTagLen, &actualConstructed);\n    EXPECT_EQ(expected, actual);\n    EXPECT_EQ(expectedTagLen, actualTagLen);\n    EXPECT_EQ(expectedConstructed, actualConstructed);\n\n\n    unsigned char data2[] = {0x02, 0x02, 0x01, 0x02};\n    actual              = 0;\n    expected            = 0x02;\n    actualTagLen        = 0;\n    expectedTagLen      = 1;\n    actualConstructed   = 0;\n    expectedConstructed = 0;\n\n    actual = _tag(data2, &actualTagLen, &actualConstructed);\n    EXPECT_EQ(expected, actual);\n    EXPECT_EQ(expectedTagLen, actualTagLen);\n    EXPECT_EQ(expectedConstructed, actualConstructed);\n\n    // Two byte length tag\n    unsigned char data3[] = {0x81, 0x05, 0x02, 0x01, 0x02};\n    actual              = 0;\n    expected            = 0x05;\n    actualTagLen        = 0;\n    expectedTagLen      = 2;\n    actualConstructed   = 0;\n    expectedConstructed = 0;\n\n    actual = _tag(data3, &actualTagLen, &actualConstructed);\n    //EXPECT_EQ(expected, actual);\n    //EXPECT_EQ(expectedTagLen, actualTagLen);\n    //EXPECT_EQ(expectedConstructed, actualConstructed);\n\n    unsigned char data4[] = {0x20, 0x03, 0x01, 0x01, 0xAA};\n    actual              = 0;\n    expected            = 0x20;\n    actualTagLen        = 0;\n    expectedTagLen      = 1;\n    actualConstructed   = 0;\n    expectedConstructed = 1;\n\n    actual = _tag(data4, &actualTagLen, &actualConstructed);\n    EXPECT_EQ(expected, actual);\n    EXPECT_EQ(expectedTagLen, actualTagLen);\n    EXPECT_EQ(expectedConstructed, actualConstructed);\n}\n\nTEST_F(TestTlv, _len_negative)\n{\n    unsigned char d[] = {0x00};\n    int len = 0;\n\n    int actual = _len(NULL, NULL);\n    EXPECT_EQ(-1, actual);\n\n    actual = _len(d, NULL);\n    EXPECT_EQ(-1, actual);\n\n    actual = _len(NULL, &len);\n    EXPECT_EQ(-1, actual);\n}\n\nTEST_F(TestTlv, _len)\n{\n    unsigned char data1[] = {0x01, 0x02, 0x01, 0x02};\n\n    int actual = 0;\n    int expected = 2;\n\n    int actualLenLen = 0;\n    int expectedLenLen = 1;\n\n    actual = _len(data1+1, &actualLenLen);\n    EXPECT_EQ(expected, actual);\n    EXPECT_EQ(expectedLenLen, actualLenLen);\n\n    unsigned char data2[] = {0x01, 0x81, 0x02, 0x01, 0x02};\n\n    actual = 0;\n    expected = 2;\n\n    actualLenLen = 0;\n    expectedLenLen = 2;\n\n    actual = _len(data2+1, &actualLenLen);\n    EXPECT_EQ(expected, actual);\n    EXPECT_EQ(expectedLenLen, actualLenLen);\n}\n\n\ntypedef struct {\n    unsigned char dfName[32];\n} DummyTestTarget;\n\nint onTag_Test(int tag, int len, int constructed, const unsigned char* val, void* target)\n{\n    return SUCCESS;\n}\n\nint onTag_Test_False(int tag, int len, int constructed, const unsigned char* val, void* target)\n{\n    return -99;\n}\n\n\nTEST_F(TestTlv, _parse_negative)\n{\n    char target;\n\n    EXPECT_EQ(INVALID_PARAMETER, _parse(NULL, 0, NULL, NULL));\n    EXPECT_EQ(INVALID_PARAMETER, _parse(NULL, 1, NULL, NULL));\n    EXPECT_EQ(INVALID_PARAMETER, _parse(NULL, 0, NULL, reinterpret_cast<int*>(&target)));\n\n    unsigned char data[1024] = {0x00};\n    int size = EmvTest::TestUtils::str2bcd( \"6FFF840E325041592E53\"\n                                            \"59532E4444463031A547\"\n                                            \"BF0C44610C4F07A00000\"\n                                            \"00041010870101610C4F\"\n                                            \"07A00000000430608701\"\n                                            \"03610A4F05B012345678\"\n                                            \"870109610C4F07B01234\"\n                                            \"56781020870108610C4F\"\n                                            \"07B01234567810308701\"\n                                            \"07\", data);\n    // 6F FF (invalid size)\n    int actual = _parse(data, size, onTag_Test, &target);\n    EXPECT_EQ(INCORRECT_DATA, actual);\n}\n\nTEST_F(TestTlv, _parse)\n{\n    DummyTestTarget target;\n    unsigned char data[1024] = {0x00};\n    int size = EmvTest::TestUtils::str2bcd( \"6F59840E325041592E53\"\n                                            \"59532E4444463031A547\"\n                                            \"BF0C44610C4F07A00000\"\n                                            \"00041010870101610C4F\"\n                                            \"07A00000000430608701\"\n                                            \"03610A4F05B012345678\"\n                                            \"870109610C4F07B01234\"\n                                            \"56781020870108610C4F\"\n                                            \"07B01234567810308701\"\n                                            \"07\", data);\n    int actual = _parse(data, size, onTag_Test, &target);\n    EXPECT_EQ(SUCCESS, actual);\n\n    actual = _parse(data, size, onTag_Test_False, &target);\n    EXPECT_EQ(-99, actual);\n}\n\n#endif// MODULAR_TEST_COMMONTESTS_TLVTESTS_H_\n",
+			"file": "modular_test/CommonTests/tlvTests.h",
+			"file_size": 5909,
+			"file_write_time": 130814744220000000,
 			"settings":
 			{
-				"buffer_size": 9628,
+				"buffer_size": 5908,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Base/kernels.h",
+			"file": "modular_test/BaseTest.h",
 			"settings":
 			{
-				"buffer_size": 520,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "test/Base/utilsTests.h",
-			"settings":
-			{
-				"buffer_size": 1549,
+				"buffer_size": 2571,
 				"line_ending": "Unix"
 			}
 		}
@@ -595,12 +543,28 @@
 	"command_palette":
 	{
 		"height": 392.0,
-		"last_filter": "inst",
+		"last_filter": "in",
 		"selected_items":
 		[
 			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
 				"inst",
 				"Package Control: Install Package"
+			],
+			[
+				"Rem",
+				"Package Control: Remove Package"
+			],
+			[
+				"Remo",
+				"Package Control: Remove Package"
 			],
 			[
 				"insta",
@@ -663,7 +627,7 @@
 				"Build With: make - cmake"
 			]
 		],
-		"width": 593.0
+		"width": 575.0
 	},
 	"console":
 	{
@@ -684,18 +648,35 @@
 	},
 	"expanded_folders":
 	[
-		"/home/suyuti/projects/sil/sskernel",
-		"/home/suyuti/projects/sil/sskernel/build",
-		"/home/suyuti/projects/sil/sskernel/src",
-		"/home/suyuti/projects/sil/sskernel/src/Base",
-		"/home/suyuti/projects/sil/sskernel/src/EntryPoint",
-		"/home/suyuti/projects/sil/sskernel/test",
-		"/home/suyuti/projects/sil/sskernel/test/Base",
-		"/home/suyuti/projects/sil/sskernel/test/EntryPoint",
-		"/home/suyuti/projects/sil/sskernel/test/Runner2"
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/cmake",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/test",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/test/Base"
 	],
 	"file_history":
 	[
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/Readme.md",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/test/Runner2/main.cpp",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/test/Base/selectTests.h",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/CMakeLists.txt",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/cmake/modules/EnableTesting.cmake",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/src/CMakeLists.txt",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/src/Py/CMakeLists.txt",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/sssss",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/setting.sublime-project",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/src/EntryPoint/epCombinationSelection.c",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/src/Base/utils.c",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/src/Base/fci.h",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/src/Base/fci.c",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/src/EntryPoint/epCommon.h",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/src/Base/candidateList.h",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/src/Base/select.h",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/src/Base/select.c",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/src/Base/candidateList.c",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/src/EntryPoint/epConfig.h",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/src/EntryPoint/epConfig.c",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/src/Base/kernels.h",
+		"/Users/suyuti/Projects/ContactlessKernel/smartsoftcontactlesskernel/test/Base/utilsTests.h",
 		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epConfig.h",
 		"/home/suyuti/projects/sil/sskernel/src/EntryPoint/epConfig.c",
 		"/home/suyuti/projects/sil/sskernel/src/Base/select.h",
@@ -784,6 +765,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"setFci",
 			"fci",
 			"config"
 		],
@@ -803,362 +785,33 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 7,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/EntryPoint/epCombinationSelection.c",
+					"file": "test/Runner2/CMakeLists.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7536,
+						"buffer_size": 1432,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1582,
-								1582
+								105,
+								105
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
+							"syntax": "Packages/CMake/CMake.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1104.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/Base/utils.h",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 596,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								341,
-								341
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/Base/utils.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2857,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								261,
-								261
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "src/Base/fci.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1597,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1126,
-								1126
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 594.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 15,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/Base/fci.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4183,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4180,
-								4180
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2641.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 16,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 4,
-			"sheets":
-			[
-				{
-					"buffer": 5,
-					"file": "src/EntryPoint/epCommon.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2746,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2122,
-								2122
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1449.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "src/Base/candidateList.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1675,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								492,
-								492
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 138.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "src/Base/select.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 761,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								367,
-								367
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 252.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "test/Base/selectTests.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 15740,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								15543,
-								15543
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 9963.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "src/Base/select.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4360,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1269,
-								1269
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 801.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "src/Base/candidateList.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1744,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1499,
-								1499
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 414.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "src/EntryPoint/epConfig.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7167,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								334,
-								334
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": -0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
@@ -1166,63 +819,93 @@
 					"type": "text"
 				},
 				{
-					"buffer": 12,
-					"file": "src/EntryPoint/epConfig.c",
+					"buffer": 1,
+					"file": "Readme.md",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9628,
+						"buffer_size": 2033,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6148,
-								6148
+								1317,
+								1317
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
+							"syntax": "Packages/Markdown/Markdown.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1131.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "test/Base/selectTests.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15593,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8838,
+								8838
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4458.0,
+						"translation.y": 4775.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "src/Base/fci.h",
-					"semi_transient": false,
+					"file": "CMakeLists.txt",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 1597,
+						"buffer_size": 2566,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1428,
-								1428
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
+							"syntax": "Packages/CMake/CMake.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 276.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -1231,88 +914,116 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4183,
+						"buffer_size": 4637,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3472,
-								3472
+								1894,
+								1894
 							]
 						],
 						"settings":
 						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/C++/C++.tmLanguage",
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2480.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "src/Base/kernels.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 520,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								43,
-								43
-							]
-						],
-						"settings":
-						{
-							"open_with_edit": true,
-							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
-					"file": "test/Base/utilsTests.h",
+					"buffer": 5,
+					"file": "modular_test/EmvTests/selectTests.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1549,
+						"buffer_size": 15676,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								786,
-								786
+								10600,
+								10600
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
+							"syntax": "Packages/C Improved/C Improved.tmLanguage"
+						},
+						"translation.x": 300.0,
+						"translation.y": 5594.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "modular_test/CommonTests/tlvTests.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5908,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3525,
+								3525
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 44.0,
+						"translation.y": 2364.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "modular_test/BaseTest.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2571,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2532,
+								2532
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 751.0,
+						"translation.y": 1328.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -1320,7 +1031,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 25.0
+		"height": 23.0
 	},
 	"input":
 	{
@@ -1335,18 +1046,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.396981627296,
 			1.0
 		],
 		"rows":
@@ -1372,7 +1076,7 @@
 	"project": "setting.sublime-project",
 	"replace":
 	{
-		"height": 46.0
+		"height": 42.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1450,7 +1154,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},
@@ -1458,7 +1162,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 331.0,
+	"side_bar_width": 250.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

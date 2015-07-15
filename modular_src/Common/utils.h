@@ -5,7 +5,7 @@
 #ifndef MODULAR_SRC_COMMON_UTILS_H_
 #define MODULAR_SRC_COMMON_UTILS_H_
 
-#define MIN(a,b) ((a)<(b) ? (a) : (b))
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 int toInt(const unsigned char* ptag, int size);
 int bcd2str(const unsigned char* pIn, int size, unsigned char* pOut, int* pOutSize);
@@ -17,4 +17,4 @@ int startsWithBin(const unsigned char* pSource, int sourceLen,
 
 int _debugBin(unsigned char* buffer, int len);
 
-#endif// MODULAR_SRC_COMMON_UTILS_H_
+#endif  // MODULAR_SRC_COMMON_UTILS_H_

@@ -27,4 +27,4 @@ void* defaultAllocate(int size);
 void defaultRelease(void* p);
 
 
-#endif// MODULAR_TEST_DEFAULTHALIMPL_H_
+#endif  // MODULAR_TEST_DEFAULTHALIMPL_H_

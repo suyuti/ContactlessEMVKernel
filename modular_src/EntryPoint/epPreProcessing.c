@@ -18,7 +18,7 @@ int epPreProcessing(EpPtr epObj, int amount, int amountAuthorized)
     int err;
 
     int i = 0;
-    for(i = 0; i < epObj->epConfigsCount; ++i) {
+    for (i = 0; i < epObj->epConfigsCount; ++i) {
         err = _3_1_1_1(&(epObj->epConfigs[i]));
         err = _3_1_1_2(&(epObj->epConfigs[i]));
         err = _3_1_1_3(&(epObj->epConfigs[i]), amount, amountAuthorized);
@@ -153,8 +153,8 @@ int _3_1_1_5(EpConfigPtr pConfig, int amountAuthorized)
     */
     if (!pConfig) return NULL_PARAMETER;
 
-    //if (IS_EXIST_CLESS_TRNX_LIMIT()) {
-    //}
+    // if (IS_EXIST_CLESS_TRNX_LIMIT()) {
+    // }
     return SUCCESS;
 }
 

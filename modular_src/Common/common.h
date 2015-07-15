@@ -25,4 +25,4 @@ int setRelease(_release f);
 int setGenUnPredNum(genUnPredNum f);
 
 
-#endif// MODULAR_SRC_COMMON_COMMON_H_
+#endif  // MODULAR_SRC_COMMON_COMMON_H_

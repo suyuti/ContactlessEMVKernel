@@ -6,11 +6,11 @@
 #ifndef MODULAR_TEST_BASETEST_H_
 #define MODULAR_TEST_BASETEST_H_
 
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 #include <string>
 #include <vector>
 #include <utility>
-#include <gtest/gtest.h>
-#include <gmock/gmock.h>
 
 #include "Mockups/mockHal.h"
 #include "./testUtils.h"
@@ -53,16 +53,16 @@ typedef pair<string, string>        Command_Response;
 typedef vector<Command_Response>    Command_Response_Pairs;
 
 class BaseTest : public ::testing::Test {
-private:
+ private:
     string                      name;
     string                      objective;
 
-protected:
+ protected:
     HalInterfaces               hal;
-    //TerminalConfigs         terminalConfig;
+    // TerminalConfigs         terminalConfig;
     StrictMockHalFunctions      halApi;
 
-protected:
+ protected:
     BaseTest() {
         init();
     }
@@ -82,22 +82,21 @@ protected:
     virtual void TearDown() {}
 
     void initializeEmvKernel() {
-        //initialize(".");
+        // initialize(".");
     }
 
 
-    //void useTerminalConfig(TerminalConfigs::Configurations configType);
-    //void addCommandResponse(string cmd, string resp);
-    //void clearCommandResponse();
+    // void useTerminalConfig(TerminalConfigs::Configurations configType);
+    // void addCommandResponse(string cmd, string resp);
+    // void clearCommandResponse();
 
-public:
-    void    setName(string& name)               { this->name = name;            }
+ public:
+    void    setName(const string& name)               { this->name = name;            }
     string  getName()                           { return this->name;            }
-    void    setObjective(string& objective)     { this->objective = objective;  }
+    void    setObjective(const string& objective)     { this->objective = objective;  }
     string  getObjective()                      { return this->objective;       }
 
     void executeTest();
-
 };
 
-#endif// MODULAR_TEST_BASETEST_H_
+#endif  // MODULAR_TEST_BASETEST_H_

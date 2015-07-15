@@ -51,14 +51,14 @@ int _parse( const unsigned char* data,
     int err = SUCCESS;
 
     if (!data || !onTag || !target) return INVALID_PARAMETER;
-    if (size<3) return INCORRECT_DATA;
+    if (size < 3) return INCORRECT_DATA;
 
     tag = _tag(data, &tagLen, &constructed);
     len = _len(data+tagLen, &lenLen);
 
     if (len+tagLen+lenLen > size) {
         return INCORRECT_DATA;}
-    //gTagList[gTagListIndex++] = tag;
+    // gTagList[gTagListIndex++] = tag;
     if (constructed == 1) {
         err = onTag(tag, len, constructed, NULL, target);
         if (err != SUCCESS) return err;

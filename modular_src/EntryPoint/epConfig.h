@@ -81,13 +81,13 @@ int getEpConfigAidLen(EpConfigPtr p);
 #define RESET_TTQ(p, val4)                      SET_EXIST_TTQ(p);                       memset((p).ttq, 0x00, 4)
 #define RESET_EXTENDED_SELECTION_SUPP(p)        SET_EXIST_EXTENDED_SELECTION_SUPP(p);   (p).extendedSelectionSupport = RESET
 
-#define IS_STATUS_CHECK(p)                      (CHECK_BIT((p).bitmap, STATUS_CHECK_BIT           ) && ((p).statusCheck         == SET))
-#define IS_ZERO_AMOUT_ALLOWED(p)                (CHECK_BIT((p).bitmap, ZERO_AMOUT_ALLOWED_BIT     ) && ((p).zeroAmountAllowed   == SET))
-//#define IS_CLESS_TRNX_LIMIT(p, l)               (CHECK_BIT((p).bitmap, CLESS_TRNX_LIMIT_BIT       ) && ((p).clessTrnxLimit      == SET))
-//#define IS_CLESS_FLOOR_LIMIT(p, l)              (CHECK_BIT((p).bitmap, CLESS_FLOOR_LIMIT_BIT      ) && ((p).clessFloorLimit     == SET))
-//#define IS_TERM_FLOOR_LIMIT(p, l)               (CHECK_BIT((p).bitmap, TERM_FLOOR_LIMIT_BIT       ) && ((p).termFloorLimit      == SET))
-//#define IS_CVM_REQ_LIMIT(p, l)                  (CHECK_BIT((p).bitmap, CVM_REQ_BIT                ) && ((p).cvmReqLimit         == SET))
-//#define IS_TTQ(p, val4)                         (CHECK_BIT((p).bitmap, TTQ_BIT                    ) && ((p).ttq == SET))
+#define IS_STATUS_CHECK(p)                      (CHECK_BIT((p).bitmap, STATUS_CHECK_BIT         ) && ((p).statusCheck       == SET))
+#define IS_ZERO_AMOUT_ALLOWED(p)                (CHECK_BIT((p).bitmap, ZERO_AMOUT_ALLOWED_BIT   ) && ((p).zeroAmountAllowed == SET))
+// #define IS_CLESS_TRNX_LIMIT(p, l)               (CHECK_BIT((p).bitmap, CLESS_TRNX_LIMIT_BIT       ) && ((p).clessTrnxLimit      == SET))
+// #define IS_CLESS_FLOOR_LIMIT(p, l)              (CHECK_BIT((p).bitmap, CLESS_FLOOR_LIMIT_BIT      ) && ((p).clessFloorLimit     == SET))
+// #define IS_TERM_FLOOR_LIMIT(p, l)               (CHECK_BIT((p).bitmap, TERM_FLOOR_LIMIT_BIT       ) && ((p).termFloorLimit      == SET))
+// #define IS_CVM_REQ_LIMIT(p, l)                  (CHECK_BIT((p).bitmap, CVM_REQ_BIT                ) && ((p).cvmReqLimit         == SET))
+// #define IS_TTQ(p, val4)                         (CHECK_BIT((p).bitmap, TTQ_BIT                    ) && ((p).ttq == SET))
 #define IS_EXTENDED_SELECTION_SUPP(p)           (CHECK_BIT((p).bitmap, EXTENDED_SELECTION_SUPP_BIT) && ((p).extendedSelectionSupport == SET))
 
 
@@ -134,4 +134,4 @@ int fillEpConfigs();
 */
 
 
-#endif// MODULAR_SRC_ENTRYPOINT_EPCONFIG_H_
+#endif  // MODULAR_SRC_ENTRYPOINT_EPCONFIG_H_

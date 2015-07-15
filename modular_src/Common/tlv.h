@@ -14,4 +14,4 @@ int _parse(const unsigned char* data,
             OnTag onTag,
             void* target);
 
-#endif// MODULAR_SRC_COMMON_TLV_H_
+#endif  // MODULAR_SRC_COMMON_TLV_H_

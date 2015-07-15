@@ -30,4 +30,4 @@ int _resolveSelectAid(const unsigned char* pData, int size, FciPtr fci);
 
 
 
-#endif// MODULAR_SRC_EMV_SELECT_H_
+#endif  // MODULAR_SRC_EMV_SELECT_H_

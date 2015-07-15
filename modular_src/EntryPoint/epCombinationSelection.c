@@ -12,7 +12,7 @@
 #include "../Common/utils.h"
 #include "../Emv/fci.h"
 #include "./epConfig.h"
-//#include "../Base/kernels.h"
+// #include "../Base/kernels.h"
 
 
 static Steps                gsNextStep;
@@ -58,7 +58,6 @@ int epFinalCombinationSelection(EpPtr pEp)
         then Entry Point shall select the Combination.
     */
     if (pEp->candidateListCount == 1) {
-
     } else if (pEp->candidateListCount > 1) {
         int i              = 0;
         int maxPriority    = 0;
@@ -71,7 +70,7 @@ int epFinalCombinationSelection(EpPtr pEp)
             }
         }
 
-        //int err = se
+        // int err = se
     }
     return SUCCESS;
 }
@@ -131,7 +130,6 @@ int _step3(EpPtr pEp)
         // TODO
     } else {
         // 3.3.2.7
-
     }
 
     return err;
@@ -163,7 +161,6 @@ int _3_3_2_1(EpPtr pEp)
     if (pEp->startPoint == StartedAtB) {
         // TODO
         if (FALSE) {
-
         } else {
             gsNextStep = Step1;
         }
@@ -178,7 +175,7 @@ int _3_3_2_1(EpPtr pEp)
 int useDefaultKernelId(const unsigned char* aid, int aidLen)
 {
     // TODO ...
-    return 0;//DefultKernel_AmericanExpress;
+    return 0;  // DefultKernel_AmericanExpress;
 }
 
 //-----------------------------------------------------------------------------
@@ -210,7 +207,7 @@ int _3_3_2_5(EpPtr pEp)
                      ||
                     startsWith((const char*)getAdfName(directoryEntry), pConfig->aid) == TRUE) {
                     // TODO
-                    //strncpy(matchingAid, pConfig->aid, getEpConfigAidLen(pConfig));
+                    // strncpy(matchingAid, pConfig->aid, getEpConfigAidLen(pConfig));
                 } else {
                     continue;
                 }
@@ -221,7 +218,7 @@ int _3_3_2_5(EpPtr pEp)
                 } else {
                     if (getKernelIdLen(directoryEntry) == 0) {  // ? size = 0 means KernelId doesn't exist.
                         requestedKernelId = useDefaultKernelId(matchingAid, matchingAidLen);
-                        //return SUCCESS;
+                        // return SUCCESS;
                         // TODO
                     }
                     switch(getKernelType(directoryEntry)) {
@@ -248,7 +245,6 @@ int _3_3_2_5(EpPtr pEp)
                 } else {
                     // TODO
                     if (requestedKernelId == getKernelId(directoryEntry)) {
-
                     } else {
                         continue;
                     }
@@ -262,7 +258,6 @@ int _3_3_2_5(EpPtr pEp)
                                 &(pEp->candidateListCount),
                                 MAX_CANDIDATE_LIST,
                                 &item);
-
             }
         }
     }

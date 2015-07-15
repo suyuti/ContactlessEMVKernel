@@ -40,7 +40,7 @@ extern "C" {
 //---------------------------------------------------------------------
 
 class MockHalFunctions : public testing::MockerC<MockHalFunctions> {
-public:
+ public:
     //- SmartCard IO
     MOCK_CONST_METHOD0(cardOpen,        int(void));
     MOCK_CONST_METHOD0(cardReset,       int(void));
@@ -56,8 +56,7 @@ public:
 
     //- Config
     MOCK_CONST_METHOD2(readConfig,      int(const char*, EpConfigPtr));
-
 };
 
 typedef ::testing::StrictMock<MockHalFunctions> StrictMockHalFunctions;
-#endif // MODULAR_TEST_MOCKUPS_MOCKHAL_H_
+#endif  // MODULAR_TEST_MOCKUPS_MOCKHAL_H_

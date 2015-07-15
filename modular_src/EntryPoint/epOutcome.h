@@ -44,4 +44,4 @@ EpOutcomePtr withReceipt(EpOutcomePtr p);
 EpOutcomePtr withFieldOff(EpOutcomePtr p);
 EpOutcomePtr withRemovalTimeout(EpOutcomePtr p, int t);
 
-#endif// MODULAR_SRC_ENTRYPOINT_EPOUTCOME_H_
+#endif  // MODULAR_SRC_ENTRYPOINT_EPOUTCOME_H_

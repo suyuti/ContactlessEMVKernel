@@ -124,10 +124,10 @@ typedef struct {
     CandidateListItem   candidateList[MAX_CANDIDATE_LIST];
 } Ep, *EpPtr;
 
-extern Ep gEp; // define in entryPoint.c
+extern Ep gEp;  // define in entryPoint.c
 
 
 
 
 
-#endif// MODULAR_SRC_ENTRYPOINT_EPCOMMON_H_
+#endif  // MODULAR_SRC_ENTRYPOINT_EPCOMMON_H_

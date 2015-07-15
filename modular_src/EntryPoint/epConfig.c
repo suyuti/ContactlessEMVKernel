@@ -3,8 +3,8 @@
  *
  * */
 
-#include <string.h> // memset
-#include <stdlib.h> // atoi
+#include <string.h>  // memset
+#include <stdlib.h>  // atoi
 #include "epConfig.h"
 #include "../Common/err.h"
 #include "epCommon.h"
@@ -66,7 +66,7 @@ int loadConfigs(EpPtr pEp)
     }
     int size = GET_FILE_SIZE(&(pEp->hal), file);
 
-    char *tmp = reinterpret_cast<char*>(ALLOCATE(&(pEp->hal), size+1));
+    char *tmp = (char*)(ALLOCATE(&(pEp->hal), size+1));
     if (!tmp) { goto EXIT;}
     memset(tmp, 0x00, size);
     FILE_READ(&(pEp->hal), file, tmp, size);
@@ -80,8 +80,8 @@ int loadConfigs(EpPtr pEp)
     char line[120] = {0x00};
 
     int part = 0;
-    while(i<size) {
-        if (tmp[i]==':') {
+    while(i < size) {
+        if (tmp[i] == ':') {
             line[j] = '\0';
             j++;
             switch(part) {
@@ -112,9 +112,9 @@ int loadConfigs(EpPtr pEp)
             j = 0;
         } else if (tmp[i] == '\n') {
             if (part == 2) {
-                //parseEpconfig(line, &config);
-                //addEpConfig(pList, &);
-                //addConfigByAidKid(aid, kid, config);
+                // parseEpconfig(line, &config);
+                // addEpConfig(pList, &);
+                // addConfigByAidKid(aid, kid, config);
             }
             part = 0;
             j = 0;
@@ -136,10 +136,11 @@ EXIT:
 int parseEpconfig(EpConfigDataPtr obj, const char* line)
 {
     int i = 0;
-    char *token = strtok_r(reinterpret_cast<char*>(line), ".");
+    char* saveptr;
+    char *token = strtok_r((char*)(line), ".", &saveptr);
     while(token) {
         switch(i++) {
-            case 0: // Status check
+            case 0:  // Status check
             {
                 RESET_STATUS_CHECK(*obj);
                 if (token != NULL) {
@@ -148,7 +149,7 @@ int parseEpconfig(EpConfigDataPtr obj, const char* line)
                 }
             }
             break;
-            case 1: // Zero amount allowed
+            case 1:  // Zero amount allowed
             {
                 RESET_ZERO_AMOUT_ALLOWED(*obj);
                 if (token != NULL) {
@@ -157,7 +158,7 @@ int parseEpconfig(EpConfigDataPtr obj, const char* line)
                 }
             }
             break;
-            case 2: // clessTrnxLimit
+            case 2:  // clessTrnxLimit
             {
                 if (token != NULL) {
                     SET_EXIST_CLESS_TRNX_LIMIT(*obj);
@@ -165,7 +166,7 @@ int parseEpconfig(EpConfigDataPtr obj, const char* line)
                 }
             }
             break;
-            case 3: // clessFloorLimit
+            case 3:  // clessFloorLimit
             {
                 if (token != NULL) {
                     SET_EXIST_CLESS_FLOOR_LIMIT(*obj);
@@ -173,7 +174,7 @@ int parseEpconfig(EpConfigDataPtr obj, const char* line)
                 }
             }
             break;
-            case 4: // termFloorLimit
+            case 4:  // termFloorLimit
             {
                 if (token != NULL) {
                     SET_EXIST_TERM_FLOOR_LIMIT(*obj);
@@ -181,7 +182,7 @@ int parseEpconfig(EpConfigDataPtr obj, const char* line)
                 }
             }
             break;
-            case 5: // cvmRequiredLimit
+            case 5:  // cvmRequiredLimit
             {
                 if (token != NULL) {
                     SET_EXIST_CVM_REQ_LIMIT(*obj);
@@ -189,13 +190,13 @@ int parseEpconfig(EpConfigDataPtr obj, const char* line)
                 }
             }
             break;
-            case 6: // ttq
+            case 6:  // ttq
                 if (token != NULL) {
                     SET_EXIST_TTQ(*obj);
                     memcpy(obj->ttq, token, strlen(token));
                 }
             break;
-            case 7: // extendedSelectionSupport
+            case 7:  // extendedSelectionSupport
             {
                 RESET_EXTENDED_SELECTION_SUPP(*obj);
                 if (token != NULL) {
@@ -205,7 +206,7 @@ int parseEpconfig(EpConfigDataPtr obj, const char* line)
             }
             break;
         }
-        token = strtok_r(NULL, ".");
+        token = strtok_r(NULL, ".", &saveptr);
     }
     return SUCCESS;
 }
@@ -213,8 +214,8 @@ int parseEpconfig(EpConfigDataPtr obj, const char* line)
 
 int getEpConfigAidLen(EpConfigPtr p)
 {
-    //if (!p) return NULL_PARAMETER;
-    return static_cast<int>(p->aid[0]);
+    // if (!p) return NULL_PARAMETER;
+    return (int)(p->aid[0]);
 }
 
 unsigned char* getEpConfigAid(EpConfigPtr p)

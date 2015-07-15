@@ -32,18 +32,18 @@ using ::testing::InSequence;
 using namespace std;
 
 class TestMockups : public ::testing::Test {
-public:
-    TestMockups() {
+ public:
+    TestMockups()
+    {
         setCrOpen(&reset_Mock);
         setCrSendRecv(&sendrecv_Mock);
-
     }
-protected:
-    virtual void SetUp() {
-
+ protected:
+    virtual void SetUp()
+    {
     }
-    virtual void TearDown() {
-
+    virtual void TearDown()
+    {
     }
 
     StrictMockReaderFunctions readerApi;
@@ -55,7 +55,7 @@ int foo(const unsigned char*  pIn,
                       unsigned long*        pOutSize)
 {
     printf("%d\n\n", inSize);
-    for(int i = 0; i < inSize; ++i) {
+    for (int i = 0; i < inSize; ++i) {
         printf("%02X ", pIn[i]);
     }
     printf("\n");
@@ -94,16 +94,14 @@ TEST_F(TestMockups, _2EA_001_00_01)
                           0x01, 0x23, 0x87, 0x01, 0x01};
     EXPECT_CALL(readerApi, reset()).Times(Exactly(1)).WillOnce(Return(SUCCESS));
 
-    EXPECT_CALL(readerApi, sendRecv(_,Gt(0),_,_))
-        .With(Args<0,1>(ElementsAreArray(c1, sizeof(c1))))
+    EXPECT_CALL(readerApi, sendRecv(_, Gt(0), _, _))
+        .With(Args<0, 1>(ElementsAreArray(c1, sizeof(c1))))
         .Times(AtLeast(1))
         .WillOnce(
             DoAll(
                 SetArrayArgument<2>(r1, r1+sizeof(r1)),
                 SetArgPointee<3>((unsigned long)sizeof(r1)),
-                Return(SUCCESS)
-            )
-        );
+                Return(SUCCESS)));
 
     initialize();
     ep_process();
@@ -149,4 +147,4 @@ TEST_F(TestMockups, xxxx)
 */
 
 
-#endif// MODULAR_TEST_MOCKUPS_MOCKUP_TESTS_H_
+#endif  // MODULAR_TEST_MOCKUPS_MOCKUP_TESTS_H_

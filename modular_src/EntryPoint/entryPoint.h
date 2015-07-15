@@ -58,4 +58,4 @@ int _kernelProcessing();
 int t_getEpState();
 
 
-#endif// MODULAR_SRC_ENTRYPOINT_ENTRYPOINT_H_
+#endif  // MODULAR_SRC_ENTRYPOINT_ENTRYPOINT_H_

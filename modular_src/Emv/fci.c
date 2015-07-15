@@ -3,7 +3,7 @@
  *
  * */
 
-#include <string.h> // memset
+#include <string.h>  // memset
 
 #include "./fci.h"
 #include "../Common/err.h"
@@ -68,7 +68,7 @@ int _set84(FciPtr r, const unsigned char* val, int size)
 int _incFciIssDataCounter(FciPtr r)
 {
     if (!r) return NULL_PARAMETER;
-    if (r->_fciIssDataCount>=10) return INDEX_OUT_OF_RANGE;
+    if (r->_fciIssDataCount >= 10) return INDEX_OUT_OF_RANGE;
     r->_fciIssDataCount++;
     return SUCCESS;
 }
@@ -77,7 +77,7 @@ int _incFciIssDataCounter(FciPtr r)
 
 int getAdfNameLen(FciIssDataPtr p)
 {
-    return static_cast<int>(p->_4F[0]);
+    return (int)(p->_4F[0]);
 }
 
 //-----------------------------------------------------------------------
@@ -91,7 +91,7 @@ unsigned char* getAdfName(FciIssDataPtr p)
 
 int getApplicationLabelLen(FciIssDataPtr p)
 {
-    return static_cast<int>(p->_50[0]);
+    return (int)(p->_50[0]);
 }
 
 //-----------------------------------------------------------------------
@@ -105,21 +105,21 @@ unsigned char* getApplicationLabel(FciIssDataPtr p)
 
 int getAPILen(FciIssDataPtr p)
 {
-    return static_cast<int>(p->_87[0]);
+    return (int)(p->_87[0]);
 }
 
 //-----------------------------------------------------------------------
 
 int getAPI(FciIssDataPtr p)
 {
-    return static_cast<int>(p->_87[1]);
+    return (int)(p->_87[1]);
 }
 
 //-----------------------------------------------------------------------
 
 int getKernelIdLen(FciIssDataPtr p)
 {
-    return static_cast<int>(p->_9F2A[0]);
+    return (int)(p->_9F2A[0]);
 }
 
 //-----------------------------------------------------------------------
@@ -182,5 +182,5 @@ int getShortKernelId(FciIssDataPtr p)
         Book B v2.5 p.23
         Table 3-4
     */
-    return static_Cast<int>(p->_9F2A[1] & 0xC0);
+    return (int)(p->_9F2A[1] & 0xC0);
 }

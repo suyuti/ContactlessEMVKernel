@@ -72,7 +72,7 @@ MATCHER_P(isApdu, expected, "") {
         exSize,
         tmp,
         &size);
-    if (strncmp(reinterpret_cast<char*>expected, reinterpret_cast<char*>tmp, exSize) == 0) {
+    if (strncmp((char*)expected, (char*)tmp, exSize) == 0) {
         return true;
     }
     return false;
@@ -84,4 +84,4 @@ MATCHER_P(isConfig, name, "") {
 }
 
 
-#endif// MODULAR_TEST_MATCHERS_H_
+#endif  // MODULAR_TEST_MATCHERS_H_

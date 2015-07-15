@@ -11,11 +11,11 @@
 extern "C" {
     #include "Emv/candidateList.h"
     #include "Common/err.h"
-    //#include "Base/debug.h"
+    // #include "Base/debug.h"
 }
 
 class Test_CandidateList : public BaseTest {
-public:
+ public:
 };
 
 //-----------------------------------------------------------------------------
@@ -126,17 +126,17 @@ TEST_F(Test_CandidateList, fciToCandidateItem)
     err = _setFciIssData(&fci, 0x9F2A, _9F2AData, sizeof(_9F2AData));
     EXPECT_EQ(SUCCESS, err);
 
-    //printFci(&fci);
-    //printCandidateListItem(&item);
+    // printFci(&fci);
+    // printCandidateListItem(&item);
 
     int actual = fciToCandidateItem(&(fci._fciIssData[0]), &item);
 
-    //printFci(&fci);
-    //printCandidateListItem(&item);
+    // printFci(&fci);
+    // printCandidateListItem(&item);
 
     EXPECT_EQ(SUCCESS, actual);
-    //debugBin(_4FData, sizeof(_4FData), "_4FData");
-    //debugBin(item._4F, 17, "Item");
+    // debugBin(_4FData, sizeof(_4FData), "_4FData");
+    // debugBin(item._4F, 17, "Item");
     EXPECT_EQ(0, memcmp(item._4F+1, _4FData, sizeof(_4FData)));
 }
 
@@ -146,4 +146,4 @@ TEST_F(Test_CandidateList, fciToCandidateItem)
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 
-#endif// MODULAR_TEST_EMVTESTS_CANDIDATELISTTESTS_H_
+#endif  // MODULAR_TEST_EMVTESTS_CANDIDATELISTTESTS_H_

@@ -20,4 +20,4 @@
 #define CHECK_BIT(var, bit)         (((var) >> (bit)) & 1)
 #define CHANGE_NBIT(var, n, x)      ((var) ^= (-(x) ^ (var)) & (1 << (n)))
 
-#endif// MODULAR_SRC_COMMON_BITS_H_
+#endif  // MODULAR_SRC_COMMON_BITS_H_

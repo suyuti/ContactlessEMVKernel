@@ -17,7 +17,7 @@ Option(BUILD_WITH_COVERAGE  " Build with coverage analysis support "            
 Option(BUILD_CODE_STYLE     " Build with code style checking "                  ON )
 Option(BUILD_PROFILING      " Build with profiling "                            OFF)
 Option(BUILD_MEMCHECK       " Build with memory check "                         OFF)
-Option(BUILD_SLOC           " Build with line counting "                        OFF)
+Option(BUILD_SLOC           " Build with line counting "                        ON )
 Option(BUILD_TESTING        " Build with testing "                              ON )
 Option(BUILD_FOR_PYTHON     " Build for Python "                                OFF)
 Option(USE_CTEST            " CTest usage"                                      ON )

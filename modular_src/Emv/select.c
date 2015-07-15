@@ -9,7 +9,7 @@
 #include "../Common/err.h"
 #include "../Common/common.h"
 #include "../Common/hal.h"
-//#include "./kernel.h"
+// #include "./kernel.h"
 #include "../Common/general.h"
 
 #define PPSE        "2PAY.SYS.DDF01"
@@ -90,7 +90,7 @@ int _resolveSelectAid(const unsigned char* pData, int size, FciPtr fci)
 
 int _buildSelect(const unsigned char* aid, int size, unsigned char* pBuffer, unsigned long* pSize)
 {
-    if (!pBuffer || !pSize || !aid || size==0) return NULL_PARAMETER;
+    if (!pBuffer || !pSize || !aid || size == 0) return NULL_PARAMETER;
 
     pBuffer[0] = 0x00;
     pBuffer[1] = 0xA4;
@@ -130,9 +130,9 @@ int OnTag_resolvePpse(int tag, int len, int constructed, const unsigned char* va
 {
     int err;
     if (!target || len == 0) return NULL_PARAMETER;
-    //if (constructed == 1 && !val) return NULL_PARAMETER;
+    // if (constructed == 1 && !val) return NULL_PARAMETER;
     switch(tag) {
-        case 0x6F: // check mandatory
+        case 0x6F:  // check mandatory
             err = SUCCESS;
         break;
         case 0x84:

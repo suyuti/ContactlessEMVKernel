@@ -41,4 +41,4 @@ int _3_3_2_5(EpPtr pEp);
 int t_getNextStep();
 void t_setNextStep(Steps s);
 
-#endif// MODULAR_SRC_ENTRYPOINT_EPCOMBINATIONSELECTION_H_
+#endif  // MODULAR_SRC_ENTRYPOINT_EPCOMBINATIONSELECTION_H_

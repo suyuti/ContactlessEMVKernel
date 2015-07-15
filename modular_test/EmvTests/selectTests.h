@@ -5,7 +5,7 @@
 
 #ifndef MODULAR_TEST_EMVTESTS_SELECTTESTS_H_
 #define MODULAR_TEST_EMVTESTS_SELECTTESTS_H_
-
+#include <string>
 #include "../BaseTest.h"
 
 extern "C" {
@@ -15,7 +15,7 @@ extern "C" {
 }
 
 class Test_Select : public BaseTest {
-public:
+ public:
 };
 
 //-----------------------------------------------------------------------
@@ -339,7 +339,6 @@ TEST_F(Test_Select, OnTag_resolvePpse)
     actual = OnTag_resolvePpse(0x84, sizeof(value84), 0, value84, &fci);
     EXPECT_EQ(SUCCESS, actual);
     EXPECT_EQ(0, memcmp(fci._84, expectedValue84, sizeof(expectedValue84)));
-
 }
 
 //-----------------------------------------------------------------------
@@ -362,7 +361,7 @@ TEST_F(Test_Select, _resolveSelectPpse_Negative)
 
 TEST_F(Test_Select, _resolveSelectPpse)
 {
-    string ppseResponseStr( "6F""2D"
+    string ppseResponseStr("6F""2D"
                                 "84" "0E" "325041592E5359532E4444463031"
                                 "A5" "1B"
                                     "BF0C""18"
@@ -404,7 +403,7 @@ TEST_F(Test_Select, selectPpse_Negative)
 
 TEST_F(Test_Select, selectPpse)
 {
-    string ppseResponseStr( "6F""2D"
+    string ppseResponseStr("6F""2D"
                                 "84" "0E" "325041592E5359532E4444463031"
                                 "A5" "1B"
                                     "BF0C""18"
@@ -422,9 +421,7 @@ TEST_F(Test_Select, selectPpse)
                             DoAll(
                                 SetArrayArgument<2>(ppseResponse, ppseResponse+len),
                                 SetArgPointee<3>((unsigned long)len),
-                                Return(SUCCESS)
-                            )
-                        );
+                                Return(SUCCESS)));
     Fci fci;
     _clearFci(&fci);
 
@@ -448,7 +445,7 @@ TEST_F(Test_Select, selectPpse)
 
 TEST_F(Test_Select, selectPpse_invalidResponse)
 {
-    string ppseResponseStr( "6A85");
+    string ppseResponseStr("6A85");
     unsigned char ppseResponse[255];
     int len = TestUtils::str2bcd(ppseResponseStr, ppseResponse);
     EXPECT_CALL(halApi, cardTransmit(isApdu("00A404000E325041592E5359532E4444463031"), Ge(5), _, _))
@@ -457,9 +454,7 @@ TEST_F(Test_Select, selectPpse_invalidResponse)
                             DoAll(
                                 SetArrayArgument<2>(ppseResponse, ppseResponse+len),
                                 SetArgPointee<3>((unsigned long)len),
-                                Return(SUCCESS)
-                            )
-                        );
+                                Return(SUCCESS)));
     Fci fci;
     _clearFci(&fci);
 
@@ -470,4 +465,4 @@ TEST_F(Test_Select, selectPpse_invalidResponse)
 
 //-----------------------------------------------------------------------
 
-#endif// MODULAR_TEST_EMVTESTS_SELECTTESTS_H_
+#endif  // MODULAR_TEST_EMVTESTS_SELECTTESTS_H_

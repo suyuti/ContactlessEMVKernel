@@ -14,7 +14,7 @@
 namespace testing {
 template < typename T >
 class MockerC {
-   public:
+ public:
       static const T& instance() {
          const T* i = pointer();
          if (!i) {
@@ -23,7 +23,7 @@ class MockerC {
          return *i;
       }
 
-   protected:
+ protected:
       MockerC() {
          if (counter()++ == 0) {
             defaultInstance();
@@ -39,7 +39,7 @@ class MockerC {
          reset();
       }
 
-   private:
+ private:
       static T* defaultInstance() {
          static testing::StrictMock<T> strict;
          return &strict;
@@ -60,12 +60,12 @@ class MockerC {
          return i;
       }
 
-   private:
+ private:
       MockerC(const MockerC& that);
       MockerC& operator=(const MockerC& that);
 };
 
-} // namespace testing
+}  // namespace testing
 
 
-#endif // MODULAR_TEST_MOCKUPS_MOCKERC_H_
+#endif  // MODULAR_TEST_MOCKUPS_MOCKERC_H_

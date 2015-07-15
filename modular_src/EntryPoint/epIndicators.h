@@ -31,4 +31,4 @@ void epIndicators_reset(EpIndicatorsPtr epI);
 #define IS_EPIND_READER_CLESS_FLOOR_LIMIT_EXCEEDED(ep)      ((ep).readerClessFloorLimitExceeded != 0x00)
 
 
-#endif// MODULAR_SRC_ENTRYPOINT_EPINDICATORS_H_
+#endif  // MODULAR_SRC_ENTRYPOINT_EPINDICATORS_H_

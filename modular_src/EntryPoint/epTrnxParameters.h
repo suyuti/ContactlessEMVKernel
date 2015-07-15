@@ -28,4 +28,4 @@ typedef struct {
 int resetEpTrnxParameters(EpTrnxParamsPtr p);
 int updateEpTrnxParameters(EpTrnxParamsPtr p, HalInterfacesPtr pHal);
 
-#endif// MODULAR_SRC_ENTRYPOINT_EPTRNXPARAMETERS_H_
+#endif  // MODULAR_SRC_ENTRYPOINT_EPTRNXPARAMETERS_H_

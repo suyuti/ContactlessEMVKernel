@@ -32,7 +32,7 @@ typedef void    (*_release)(void* p);
 typedef int (*genUnPredNum)(unsigned char* pOut,
                             unsigned long* pOutSize);
 
-#define GENERATE_UNPREDICT_NUMBER(p, n,l)  (p)->_genUnPredNum((n), (l))
+#define GENERATE_UNPREDICT_NUMBER(p, n, l)  (p)->_genUnPredNum((n), (l))
 
 typedef struct {
     _card_open       card_open;
@@ -62,7 +62,7 @@ typedef enum {
 #define CARD_RESET(halPtr)                          (halPtr)->card_reset()
 #define CARD_OPEN(halPtr)                           (halPtr)->card_open()
 #define CARD_CLOSE(halPtr)                          (halPtr)->card_close()
-#define CARD_TRANSMIT(halPtr, i, is, o, os)         (halPtr)->card_transmit((i),(is),(o),(os))
+#define CARD_TRANSMIT(halPtr, i, is, o, os)         (halPtr)->card_transmit((i), (is), (o), (os))
 
 
 #define SET_DELEGATE_FILE_OPEN(halPtr, foo)         (halPtr)->fileOpen      = foo
@@ -70,8 +70,8 @@ typedef enum {
 #define SET_DELEGATE_FILE_READ(halPtr, foo)         (halPtr)->fileRead      = foo
 #define SET_DELEGATE_GET_FILE_SIZE(halPtr, foo)     (halPtr)->getFileSize   = foo
 
-#define FILE_OPEN_R(halPtr, name)                   FILE_OPEN((halPtr),(name), "r")  // ReadOnly mode
-#define FILE_OPEN(halPtr, name, mode)               (halPtr)->fileOpen((name),(mode))
+#define FILE_OPEN_R(halPtr, name)                   FILE_OPEN((halPtr), (name), "r")  // ReadOnly mode
+#define FILE_OPEN(halPtr, name, mode)               (halPtr)->fileOpen((name), (mode))
 #define FILE_CLOSE(halPtr, file)                    (halPtr)->fileClose((file))
 #define GET_FILE_SIZE(halPtr, file)                 (halPtr)->getFileSize((file))
 #define FILE_READ(halPtr, file, o, s)               (halPtr)->fileRead((file), (o), (s))
@@ -85,4 +85,4 @@ typedef enum {
 #define SET_DELEGATE_GENUNPREDNUM(halPtr, foo)      (halPtr)->_genUnPredNum   = foo
 #define GENERATE_UNPRED_NUM(halPtr)                 (halPtr)->_genUnPredNum()
 
-#endif// MODULAR_SRC_COMMON_HAL_H_
+#endif  // MODULAR_SRC_COMMON_HAL_H_

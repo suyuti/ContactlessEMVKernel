@@ -6,7 +6,7 @@
 #include <string.h>
 #include "./candidateList.h"
 #include "../Common/err.h"
-//#include "./debug.h"
+// #include "./debug.h"
 
 int clearCandidateList(CandidateListItemPtr pList, int size)
 {
@@ -36,12 +36,12 @@ int fciToCandidateItem(FciIssDataPtr pFciData, CandidateListItemPtr pItem)
 {
     if (!pFciData || !pItem) return NULL_PARAMETER;
 
-    //memcpy(pItem->_84,      pFciData->_84,      16);      // TODO
-    memcpy(pItem->_4F,   pFciData->_4F,      MAX_4F_LEN);   // TODO
-    memcpy(pItem->_50,   pFciData->_50,      MAX_50_LEN);   // TODO
-    memcpy(pItem->_87,   pFciData->_87,      MAX_87_LEN);   // TODO
-    memcpy(pItem->_9F2A, pFciData->_9F2A,    MAX_9F2A_LEN); // TODO
-    memcpy(pItem->_9F29, pFciData->_9F29,    MAX_9F29_LEN); // TODO
+    // memcpy(pItem->_84,      pFciData->_84,      16);       // TODO
+    memcpy(pItem->_4F,   pFciData->_4F,      MAX_4F_LEN);    // TODO
+    memcpy(pItem->_50,   pFciData->_50,      MAX_50_LEN);    // TODO
+    memcpy(pItem->_87,   pFciData->_87,      MAX_87_LEN);    // TODO
+    memcpy(pItem->_9F2A, pFciData->_9F2A,    MAX_9F2A_LEN);  // TODO
+    memcpy(pItem->_9F29, pFciData->_9F29,    MAX_9F29_LEN);  // TODO
 
     return SUCCESS;
 }
@@ -51,7 +51,7 @@ int fciToCandidateItem(FciIssDataPtr pFciData, CandidateListItemPtr pItem)
 int getApplicationPriority(CandidateListItemPtr p)
 {
     if (!p) return NULL_PARAMETER;
-    return static_cast<int>(p->_87[1]);
+    return (int)(p->_87[1]);
 }
 
 //-----------------------------------------------------------------------------

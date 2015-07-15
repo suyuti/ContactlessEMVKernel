@@ -85,4 +85,4 @@
 #define IS_ISS_UPDATE_SUPP(ttq)
 #define IS_CONS_DEV_CVM_SUPP(ttq)
 
-#endif // MODULAR_SRC_ENTRYPOINT_TTQ_H_
+#endif  // MODULAR_SRC_ENTRYPOINT_TTQ_H_

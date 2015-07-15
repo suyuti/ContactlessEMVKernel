@@ -3,8 +3,6 @@
  *
  * */
 
-#include "defaultHalImpl.h"
-#include "Common/err.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -12,6 +10,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include "defaultHalImpl.h"
+#include "Common/err.h"
 
 int defaultCard_open() {return SUCCESS;}
 int defaultCard_reset() {return SUCCESS;}

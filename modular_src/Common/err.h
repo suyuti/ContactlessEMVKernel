@@ -40,4 +40,4 @@
 #define ISS_CERT_NOT_FOUND          (ERR_ODA_BASE - 4)
 #define ISS_CERT_NOT_VALID          (ERR_ODA_BASE - 5)
 
-#endif //MODULAR_SRC_COMMON_ERR_H_
+#endif  // MODULAR_SRC_COMMON_ERR_H_

@@ -54,4 +54,4 @@ TEST_F(TestUtils, toInt)
     EXPECT_EQ(expected, actual);
 }
 
-#endif// MODULAR_TEST_COMMONTESTS_UTILSTESTS_H_
+#endif  // MODULAR_TEST_COMMONTESTS_UTILSTESTS_H_
