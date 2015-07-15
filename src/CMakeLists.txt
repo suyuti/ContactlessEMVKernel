@@ -1,5 +1,5 @@
-set(srcBase         Base/candidateList.c
-                    Base/select.c
+set(srcBase         Common/candidateList.c
+                    Common/select.c
                     Base/tlv.c
                     Base/utils.c
                     Base/kernel.c
@@ -55,6 +55,10 @@ endif()
 add_library(base ${srcBase})
 
 #-------------------------------------------------------------
+# Base Shared Library
+add_library(baseshared SHARED ${srcBase})
+
+#-------------------------------------------------------------
 #   Entry point library
 
 add_library(entryPoint  ${srcEntryPoint}
@@ -95,3 +99,7 @@ endif()
 #                                pthread
 #                                entryPoint
 #                                l2Pcsc)
+
+
+
+add_subdirectory(Common)

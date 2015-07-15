@@ -5,6 +5,10 @@ project(SSKernel C CXX)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 SET(CMAKE_COLOR_MAKEFILE ON)
 
+if (APPLE)
+    set(CMAKE_MACOSX_RPATH ON)
+endif()
+
 
 #-----------------------------------------------------------------------
 #      Options
@@ -14,9 +18,9 @@ Option(BUILD_CODE_STYLE     " Build with code style checking "                  
 Option(BUILD_PROFILING      " Build with profiling "                            OFF)
 Option(BUILD_MEMCHECK       " Build with memory check "                         OFF)
 Option(BUILD_SLOC           " Build with line counting "                        OFF)
-Option(BUILD_TESTING        " Build with testing "                              ON)
-Option(BUILD_FOR_PYTHON     " Build for Python "                                ON)
-
+Option(BUILD_TESTING        " Build with testing "                              ON )
+Option(BUILD_FOR_PYTHON     " Build for Python "                                OFF)
+Option(USE_CTEST            " CTest usage"                                      ON )
 
 
 #-----------------------------------------------------------------------
@@ -70,5 +74,11 @@ if (BUILD_SLOC)
     ENABLE_SLOCCOUNT(FOLDERS src)
 endif()
 
+#-----------------------------------------------------------------------
+#      CTest usage
+if (USE_CTEST)
+    include(CTest)
+endif()
 
-add_subdirectory(src)
+
+add_subdirectory(modular_src)
