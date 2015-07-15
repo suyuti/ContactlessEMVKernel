@@ -2,8 +2,8 @@
     Copyright 2015
 */
 
-#ifndef SRC_BASE_ERR_H_
-#define SRC_BASE_ERR_H_
+#ifndef MODULAR_SRC_COMMON_ERR_H_
+#define MODULAR_SRC_COMMON_ERR_H_
 
 #define SUCCESS                     0
 
@@ -18,7 +18,6 @@
 #define INDEX_OUT_OF_RANGE          (ERR_BASE - 8)
 #define OBJECT_NOT_FOUND            (ERR_BASE - 9)
 #define HAL_INTERFACE_IS_NULL       (ERR_BASE - 10)
-    
 
 #define ERR_EMV_BASE                (-100)
 #define SW_NOT_SUCCESS              (ERR_EMV_BASE - 1)
@@ -41,4 +40,4 @@
 #define ISS_CERT_NOT_FOUND          (ERR_ODA_BASE - 4)
 #define ISS_CERT_NOT_VALID          (ERR_ODA_BASE - 5)
 
-#endif //SRC_BASE_ERR_H_
+#endif //MODULAR_SRC_COMMON_ERR_H_

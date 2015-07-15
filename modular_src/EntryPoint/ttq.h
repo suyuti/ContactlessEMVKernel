@@ -1,5 +1,10 @@
-#ifndef _TTQ_H_
-#define _TTQ_H_
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
+#ifndef MODULAR_SRC_ENTRYPOINT_TTQ_H_
+#define MODULAR_SRC_ENTRYPOINT_TTQ_H_
 
 #include "../Common/bits.h"
 
@@ -80,4 +85,4 @@
 #define IS_ISS_UPDATE_SUPP(ttq)
 #define IS_CONS_DEV_CVM_SUPP(ttq)
 
-#endif // _TTQ_H_
+#endif // MODULAR_SRC_ENTRYPOINT_TTQ_H_

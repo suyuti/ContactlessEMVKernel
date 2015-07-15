@@ -1,3 +1,8 @@
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
 #include "BaseTest.h"
 //#include "Config/ConfigFactory/termConfig01.h"
 //#include "Config/ConfigFactory/termConfig02.h"
@@ -17,7 +22,7 @@ void BaseTest::useTerminalConfig(TerminalConfigs::Configurations configType)
 */
 
 
-void BaseTest::executeTest() 
+void BaseTest::executeTest()
 {
 
 }

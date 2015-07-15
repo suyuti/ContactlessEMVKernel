@@ -1,6 +1,7 @@
 /*
     Copyright 2015
 */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include "entryPoint.h"
@@ -26,7 +27,7 @@ int clearEntryPoint(EpPtr pEp)
     return SUCCESS;
 }
 
-int ep_init(HalInterfacesPtr pHal, const char* configFolder) 
+int ep_init(HalInterfacesPtr pHal, const char* configFolder)
 {
     int err;
 
@@ -70,13 +71,13 @@ int ep_process(int amount, int amountAuthorized)
             case EpStateStartD:
                 err = _ep_startD();
             break;
-            case EpStateKernelProcessing: 
+            case EpStateKernelProcessing:
                 err = _kernelProcessing();
             break;
-            case EpStateOutcomeProcessing: 
+            case EpStateOutcomeProcessing:
                 err = _outcomeProcessing(&(gEp.outcome));
             break;
-            case EpStateFinalOutcomeProcessing: 
+            case EpStateFinalOutcomeProcessing:
                 goto EXIT;
             break;
             default:
@@ -160,9 +161,9 @@ int _outcomeProcessing(EpOutcomePtr pOutcome)
 int _readConfigData()
 {
     typedef enum {
-        SALE = 0, 
-        CASH, 
-        CASHBACK, 
+        SALE = 0,
+        CASH,
+        CASHBACK,
         REFUND
     } TransactionTypes;
     return SUCCESS;

@@ -1,5 +1,10 @@
-#ifndef _EP_CONFIG_H_
-#define _EP_CONFIG_H_
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
+#ifndef MODULAR_SRC_ENTRYPOINT_EPCONFIG_H_
+#define MODULAR_SRC_ENTRYPOINT_EPCONFIG_H_
 
 #include "../Common/general.h"
 #include "./epCommon.h"
@@ -129,4 +134,4 @@ int fillEpConfigs();
 */
 
 
-#endif// _EP_CONFIG_H_
+#endif// MODULAR_SRC_ENTRYPOINT_EPCONFIG_H_

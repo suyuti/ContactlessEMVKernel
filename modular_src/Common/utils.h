@@ -2,8 +2,8 @@
     Copyright 2015
 */
 
-#ifndef SRC_BASE_UTILS_H_
-#define SRC_BASE_UTILS_H_
+#ifndef MODULAR_SRC_COMMON_UTILS_H_
+#define MODULAR_SRC_COMMON_UTILS_H_
 
 #define MIN(a,b) ((a)<(b) ? (a) : (b))
 
@@ -17,4 +17,4 @@ int startsWithBin(const unsigned char* pSource, int sourceLen,
 
 int _debugBin(unsigned char* buffer, int len);
 
-#endif// SRC_BASE_UTILS_H_
+#endif// MODULAR_SRC_COMMON_UTILS_H_

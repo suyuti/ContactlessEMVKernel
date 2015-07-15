@@ -1,5 +1,10 @@
-#ifndef _MATCHERS_H_
-#define _MATCHERS_H_
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
+#ifndef MODULAR_TEST_MATCHERS_H_
+#define MODULAR_TEST_MATCHERS_H_
 
 #include <gtest/gtest.h>
 
@@ -15,7 +20,7 @@ using ::testing::MatchResultListener;
 MATCHER_P(isSelectPPSE, a, "") {
     unsigned char selectPPSE[] = {  0x00, 0xA4, 0x04, 0x00,
                                     0x0D,
-                                    '2', 'P', 'A', 'Y', '.', 'S', 'Y', 'S', '.', 'D', 'D', 'F', '0', '1', 
+                                    '2', 'P', 'A', 'Y', '.', 'S', 'Y', 'S', '.', 'D', 'D', 'F', '0', '1',
                                 };
     if (memcmp(selectPPSE, arg, sizeof(selectPPSE)) == 0)
         return true;
@@ -26,7 +31,7 @@ MATCHER_P(isSelectAIP, aid, "") {
     unsigned char tmp[120] = {0x00};
 
 
-    if (arg[0] == 0x00 && 
+    if (arg[0] == 0x00 &&
         arg[1] == 0xA4 &&
         arg[2] == 0x04 &&
         arg[3] == 0x00) {
@@ -63,11 +68,11 @@ MATCHER_P(isApdu, expected, "") {
     unsigned char tmp[1024] = {0x00};
     int exSize = strlen(expected)/2;
     int size = 0;
-    bcd2str(arg, 
-        exSize, 
-        tmp, 
+    bcd2str(arg,
+        exSize,
+        tmp,
         &size);
-    if (strncmp((char*)expected, (char*)tmp, exSize) == 0) {
+    if (strncmp(reinterpret_cast<char*>expected, reinterpret_cast<char*>tmp, exSize) == 0) {
         return true;
     }
     return false;
@@ -79,4 +84,4 @@ MATCHER_P(isConfig, name, "") {
 }
 
 
-#endif// _MATCHERS_H_
+#endif// MODULAR_TEST_MATCHERS_H_

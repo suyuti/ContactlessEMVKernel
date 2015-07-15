@@ -1,5 +1,10 @@
-#ifndef _EP_OUTCOME_H_
-#define _EP_OUTCOME_H_
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
+#ifndef MODULAR_SRC_ENTRYPOINT_EPOUTCOME_H_
+#define MODULAR_SRC_ENTRYPOINT_EPOUTCOME_H_
 
 #include "epCommon.h"
 //--------------------------------------------------------------------
@@ -39,4 +44,4 @@ EpOutcomePtr withReceipt(EpOutcomePtr p);
 EpOutcomePtr withFieldOff(EpOutcomePtr p);
 EpOutcomePtr withRemovalTimeout(EpOutcomePtr p, int t);
 
-#endif// _EP_OUTCOME_H_
+#endif// MODULAR_SRC_ENTRYPOINT_EPOUTCOME_H_

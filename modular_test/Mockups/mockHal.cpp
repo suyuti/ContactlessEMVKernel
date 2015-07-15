@@ -1,5 +1,6 @@
 /*
  * MockHal.cpp
+ * Copyright 2015 Suyuti  [legal/copyright]
  *
  *  Created on: 15.06.2015
  *      Author: suyuti

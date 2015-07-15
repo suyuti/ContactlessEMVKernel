@@ -1,3 +1,7 @@
+/*
+    Copyright 2015
+*/
+
 #include "./common.h"
 #include "./err.h"
 

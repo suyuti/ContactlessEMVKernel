@@ -1,3 +1,8 @@
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
 #include "epProtocolActivation.h"
 #include "../Common/err.h"
 #include "./epIndicators.h"

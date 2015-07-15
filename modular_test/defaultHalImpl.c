@@ -1,3 +1,8 @@
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
 #include "defaultHalImpl.h"
 #include "Common/err.h"
 #include <stdio.h>
@@ -8,17 +13,17 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-int defaultCard_open() {return SUCCESS;};
-int defaultCard_reset() {return SUCCESS;};
-int defaultCard_close() {return SUCCESS;};
-int defaultCard_transmit(const unsigned char*  pIn, 
-                  int                   inSize, 
-                  unsigned char*        pOut, 
+int defaultCard_open() {return SUCCESS;}
+int defaultCard_reset() {return SUCCESS;}
+int defaultCard_close() {return SUCCESS;}
+int defaultCard_transmit(const unsigned char*  pIn,
+                  int                   inSize,
+                  unsigned char*        pOut,
                   unsigned long*        pOutSize) {
     return SUCCESS;
 }
 
-int defaultGenUnPredNum(unsigned char* pOut, 
+int defaultGenUnPredNum(unsigned char* pOut,
                             unsigned long* pOutSize)
 { return SUCCESS;}
 

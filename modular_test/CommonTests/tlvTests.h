@@ -2,8 +2,8 @@
     Copyright 2015
 */
 
-#ifndef TEST_BASE_TEST_TLVTESTS_H_
-#define TEST_BASE_TEST_TLVTESTS_H_
+#ifndef MODULAR_TEST_COMMONTESTS_TLVTESTS_H_
+#define MODULAR_TEST_COMMONTESTS_TLVTESTS_H_
 
 #include "gtest/gtest.h"
 
@@ -214,4 +214,4 @@ TEST_F(TestTlv, _parse)
     EXPECT_EQ(-99, actual);
 }
 
-#endif// TEST_BASE_TEST_TLVTESTS_H_
+#endif// MODULAR_TEST_COMMONTESTS_TLVTESTS_H_

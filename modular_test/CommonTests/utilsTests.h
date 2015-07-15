@@ -2,8 +2,8 @@
     Copyright 2015
 */
 
-#ifndef TEST_BASE_TEST_UTILSTESTS_H_
-#define TEST_BASE_TEST_UTILSTESTS_H_
+#ifndef MODULAR_TEST_COMMONTESTS_UTILSTESTS_H_
+#define MODULAR_TEST_COMMONTESTS_UTILSTESTS_H_
 
 #include "gtest/gtest.h"
 
@@ -54,4 +54,4 @@ TEST_F(TestUtils, toInt)
     EXPECT_EQ(expected, actual);
 }
 
-#endif// TEST_BASE_TEST_UTILSTESTS_H_
+#endif// MODULAR_TEST_COMMONTESTS_UTILSTESTS_H_

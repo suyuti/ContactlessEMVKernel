@@ -14,7 +14,7 @@ endif()
 #      Options
 Option(BUILD_DOC            " Create doxygen documentation for developers "     OFF)
 Option(BUILD_WITH_COVERAGE  " Build with coverage analysis support "            OFF)
-Option(BUILD_CODE_STYLE     " Build with code style checking "                  OFF)
+Option(BUILD_CODE_STYLE     " Build with code style checking "                  ON )
 Option(BUILD_PROFILING      " Build with profiling "                            OFF)
 Option(BUILD_MEMCHECK       " Build with memory check "                         OFF)
 Option(BUILD_SLOC           " Build with line counting "                        OFF)

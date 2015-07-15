@@ -1,3 +1,8 @@
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
 #include <string.h> // memset
 
 #include "./fci.h"
@@ -43,7 +48,7 @@ int _setFciIssData(FciPtr r, int tag, const unsigned char* value, int size)
             memcpy(r->_fciIssData[r->_fciIssDataCount-1]._9F2A+1, value, size);
         break;
         default:
-            return UNKNOWN_TAG; 
+            return UNKNOWN_TAG;
         break;
     }
     return SUCCESS;
@@ -72,7 +77,7 @@ int _incFciIssDataCounter(FciPtr r)
 
 int getAdfNameLen(FciIssDataPtr p)
 {
-    return (int)p->_4F[0];
+    return static_cast<int>(p->_4F[0]);
 }
 
 //-----------------------------------------------------------------------
@@ -86,7 +91,7 @@ unsigned char* getAdfName(FciIssDataPtr p)
 
 int getApplicationLabelLen(FciIssDataPtr p)
 {
-    return (int)(p->_50[0]);
+    return static_cast<int>(p->_50[0]);
 }
 
 //-----------------------------------------------------------------------
@@ -100,21 +105,21 @@ unsigned char* getApplicationLabel(FciIssDataPtr p)
 
 int getAPILen(FciIssDataPtr p)
 {
-    return (int)p->_87[0];
+    return static_cast<int>(p->_87[0]);
 }
 
 //-----------------------------------------------------------------------
 
 int getAPI(FciIssDataPtr p)
 {
-    return (int)p->_87[1];
+    return static_cast<int>(p->_87[1]);
 }
 
 //-----------------------------------------------------------------------
 
 int getKernelIdLen(FciIssDataPtr p)
 {
-    return (int)p->_9F2A[0];
+    return static_cast<int>(p->_9F2A[0]);
 }
 
 //-----------------------------------------------------------------------
@@ -142,7 +147,7 @@ int isAdfNameExist(FciIssDataPtr p)
 
 int isAdfNameValid(FciIssDataPtr p)
 {
-    // TODO 
+    // TODO
     // EMV 4.2 Book 1 12.2.1
     return TRUE;
 }
@@ -158,12 +163,10 @@ TypeOfKernels getKernelType(FciIssDataPtr p)
     if (CHECK_BIT(p->_9F2A[0], 8) == RESET && CHECK_BIT(p->_9F2A[0], 7) == RESET) {
         // b8, b7: 00b
         return InternationalKernel;
-    }
-    else if (CHECK_BIT(p->_9F2A[0], 8) == SET && CHECK_BIT(p->_9F2A[0], 7) == RESET) {
+    } else if (CHECK_BIT(p->_9F2A[0], 8) == SET && CHECK_BIT(p->_9F2A[0], 7) == RESET) {
         // b8, b7: 10b
         return DomesticKernelEmvCoFormat;
-    }
-    else if (CHECK_BIT(p->_9F2A[0], 8) == SET && CHECK_BIT(p->_9F2A[0], 7) == SET) {
+    } else if (CHECK_BIT(p->_9F2A[0], 8) == SET && CHECK_BIT(p->_9F2A[0], 7) == SET) {
         // b8, b7: 11b
         return DomesticKernelPropFormat;
     }
@@ -173,11 +176,11 @@ TypeOfKernels getKernelType(FciIssDataPtr p)
 
 //-----------------------------------------------------------------------
 
-int getShortKernelId(FciIssDataPtr p) 
+int getShortKernelId(FciIssDataPtr p)
 {
     /*
         Book B v2.5 p.23
         Table 3-4
     */
-    return (int)(p->_9F2A[1] & 0xC0);
+    return static_Cast<int>(p->_9F2A[1] & 0xC0);
 }

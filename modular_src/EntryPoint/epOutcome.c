@@ -1,3 +1,8 @@
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
 #include <string.h>
 #include "./epOutcome.h"
 #include "../Common/general.h"

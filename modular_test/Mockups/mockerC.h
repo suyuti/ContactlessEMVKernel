@@ -1,18 +1,19 @@
 /*
+ * Copyright 2015 Suyuti  [legal/copyright]
  * mockerC.h
  *
  *  Created on: Oct 22, 2014
  *      Author: suyuti
  */
 
-#ifndef MOCKERC_H_
-#define MOCKERC_H_
+#ifndef MODULAR_TEST_MOCKUPS_MOCKERC_H_
+#define MODULAR_TEST_MOCKUPS_MOCKERC_H_
 
 #include <gmock/gmock.h>
 
 namespace testing {
-   template < typename T >
-   class MockerC {
+template < typename T >
+class MockerC {
    public:
       static const T& instance() {
          const T* i = pointer();
@@ -62,9 +63,9 @@ namespace testing {
    private:
       MockerC(const MockerC& that);
       MockerC& operator=(const MockerC& that);
-   };
+};
 
-}
+} // namespace testing
 
 
-#endif /* MOCKERC_H_ */
+#endif // MODULAR_TEST_MOCKUPS_MOCKERC_H_

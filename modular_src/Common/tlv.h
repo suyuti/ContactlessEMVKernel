@@ -2,8 +2,8 @@
     Copyright 2015
 */
 
-#ifndef SRC_BASE_TLV_H_
-#define SRC_BASE_TLV_H_
+#ifndef MODULAR_SRC_COMMON_TLV_H_
+#define MODULAR_SRC_COMMON_TLV_H_
 
 typedef int (*OnTag)(int tag, int len, int constructed, const unsigned char* val, void* target);
 
@@ -14,4 +14,4 @@ int _parse(const unsigned char* data,
             OnTag onTag,
             void* target);
 
-#endif// SRC_BASE_TLV_H_
+#endif// MODULAR_SRC_COMMON_TLV_H_

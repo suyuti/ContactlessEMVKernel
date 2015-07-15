@@ -2,8 +2,8 @@
     Copyright 2015
 */
 
-#ifndef SRC_BASE_SELECT_H_
-#define SRC_BASE_SELECT_H_
+#ifndef MODULAR_SRC_EMV_SELECT_H_
+#define MODULAR_SRC_EMV_SELECT_H_
 
 #include "./err.h"
 #include "./fci.h"
@@ -30,4 +30,4 @@ int _resolveSelectAid(const unsigned char* pData, int size, FciPtr fci);
 
 
 
-#endif// SRC_BASE_SELECT_H_
+#endif// MODULAR_SRC_EMV_SELECT_H_

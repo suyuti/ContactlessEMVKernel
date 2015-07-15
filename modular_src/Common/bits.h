@@ -1,5 +1,9 @@
-#ifndef _BITS_H_
-#define _BITS_H_
+/*
+    Copyright 2015
+*/
+
+#ifndef MODULAR_SRC_COMMON_BITS_H_
+#define MODULAR_SRC_COMMON_BITS_H_
 
 #define BIT_0 0x01  // 00000001
 #define BIT_1 0x02  // 00000010
@@ -16,4 +20,4 @@
 #define CHECK_BIT(var, bit)         (((var) >> (bit)) & 1)
 #define CHANGE_NBIT(var, n, x)      ((var) ^= (-(x) ^ (var)) & (1 << (n)))
 
-#endif// _BITS_H_
+#endif// MODULAR_SRC_COMMON_BITS_H_

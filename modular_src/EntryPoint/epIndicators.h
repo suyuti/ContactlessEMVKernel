@@ -1,5 +1,10 @@
-#ifndef _EPINDICATORS_H_
-#define _EPINDICATORS_H_
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
+#ifndef MODULAR_SRC_ENTRYPOINT_EPINDICATORS_H_
+#define MODULAR_SRC_ENTRYPOINT_EPINDICATORS_H_
 
 #include "epCommon.h"
 
@@ -26,4 +31,4 @@ void epIndicators_reset(EpIndicatorsPtr epI);
 #define IS_EPIND_READER_CLESS_FLOOR_LIMIT_EXCEEDED(ep)      ((ep).readerClessFloorLimitExceeded != 0x00)
 
 
-#endif// _EPINDICATORS_H_
+#endif// MODULAR_SRC_ENTRYPOINT_EPINDICATORS_H_

@@ -1,5 +1,10 @@
-#ifndef _FCI_H_
-#define _FCI_H_
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
+#ifndef MODULAR_SRC_EMV_FCI_H_
+#define MODULAR_SRC_EMV_FCI_H_
 
 /*----------------------------------------------------------------------
     Book B p.21
@@ -41,7 +46,7 @@ unsigned char*  getApplicationLabel(FciIssDataPtr p);
 
 int             getAPILen(FciIssDataPtr p);
 int             getAPI(FciIssDataPtr p);
-            
+
 int             getKernelIdLen(FciIssDataPtr p);
 int             getKernelId(FciIssDataPtr p);
 int             isKernelIdExist(FciIssDataPtr p);
@@ -62,4 +67,4 @@ int             getShortKernelId(FciIssDataPtr p);
 
 TypeOfKernels getKernelType(FciIssDataPtr p);
 
-#endif// _FCI_H_
+#endif// MODULAR_SRC_EMV_FCI_H_

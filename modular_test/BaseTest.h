@@ -1,5 +1,10 @@
-#ifndef _BASE_TEST_H_
-#define _BASE_TEST_H_
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
+#ifndef MODULAR_TEST_BASETEST_H_
+#define MODULAR_TEST_BASETEST_H_
 
 #include <string>
 #include <vector>
@@ -17,10 +22,10 @@ extern "C" {
     #include "./defaultHalImpl.h"
 }
 
-#include "matchers.h"
+#include "./matchers.h"
 
 using namespace EmvTest;
-using namespace std; 
+using namespace std;
 using ::testing::Return;
 using ::testing::Exactly;
 using ::testing::_;
@@ -60,17 +65,17 @@ protected:
 protected:
     BaseTest() {
         init();
-    };
+    }
 
-    BaseTest(string name)  { 
-        setName(name); 
+    BaseTest(string name)  {
+        setName(name);
         init();
-    };
+    }
 
     void init();
-    virtual ~BaseTest()     {};
+    virtual ~BaseTest()     {}
 
-    virtual void SetUp()    { 
+    virtual void SetUp()    {
         ON_CALL(halApi, readConfig(isConfig("A000101_22"), _)).WillByDefault(Return(SUCCESS));
         ON_CALL(halApi, readConfig(isConfig("A000101_23"), _)).WillByDefault(Return(SUCCESS));
     }
@@ -86,13 +91,13 @@ protected:
     //void clearCommandResponse();
 
 public:
-    void    setName(string& name)               { this->name = name;            };
-    string  getName()                           { return this->name;            };
-    void    setObjective(string& objective)     { this->objective = objective;  };
-    string  getObjective()                      { return this->objective;       };
+    void    setName(string& name)               { this->name = name;            }
+    string  getName()                           { return this->name;            }
+    void    setObjective(string& objective)     { this->objective = objective;  }
+    string  getObjective()                      { return this->objective;       }
 
     void executeTest();
 
 };
 
-#endif// _BASE_TEST_H_
+#endif// MODULAR_TEST_BASETEST_H_

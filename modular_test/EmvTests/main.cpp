@@ -1,3 +1,6 @@
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ * */
 #include <iostream>
 #include<gtest/gtest.h>
 

@@ -2,8 +2,8 @@
     Copyright 2015
 */
 
-#ifndef TEST_TESTUTILS_H_
-#define TEST_TESTUTILS_H_
+#ifndef MODULAR_TEST_TESTUTILS_H_
+#define MODULAR_TEST_TESTUTILS_H_
 
 #include <string>
 
@@ -78,4 +78,4 @@ static inline void log(const unsigned char* pData, int size) {
 };
 } //namespace EmvTest
 
-#endif //TEST_TESTUTILS_H_
+#endif //MODULAR_TEST_TESTUTILS_H_

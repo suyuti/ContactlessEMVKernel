@@ -1,3 +1,8 @@
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
 #include <string.h> // memset
 #include <stdlib.h> // atoi
 #include "epConfig.h"
@@ -8,7 +13,6 @@
 int clearEpConfigData(EpConfigDataPtr obj)
 {
     if (!obj) return NULL_PARAMETER;
-    
     memset(obj, 0x00, sizeof(EpConfigData));
     return SUCCESS;
 }
@@ -30,7 +34,6 @@ int addEpConfig(EpPtr pEp, EpConfig config)
     if (pEp->epConfigsCount >= MAX_EP_CONFIG) {
         return INDEX_OUT_OF_RANGE;
     }
-    
     pEp->epConfigs[pEp->epConfigsCount] = config;
     pEp->epConfigsCount++;
     return SUCCESS;
@@ -58,12 +61,12 @@ int loadConfigs(EpPtr pEp)
 
 
     int file = FILE_OPEN_R(&(pEp->hal), pEp->configFolder);
-    if (file == -1) { 
-        return FILE_NOT_FOUND; 
+    if (file == -1) {
+        return FILE_NOT_FOUND;
     }
     int size = GET_FILE_SIZE(&(pEp->hal), file);
 
-    char *tmp = (char*)ALLOCATE(&(pEp->hal), size+1);
+    char *tmp = reinterpret_cast<char*>(ALLOCATE(&(pEp->hal), size+1));
     if (!tmp) { goto EXIT;}
     memset(tmp, 0x00, size);
     FILE_READ(&(pEp->hal), file, tmp, size);
@@ -89,16 +92,14 @@ int loadConfigs(EpPtr pEp)
                 case 1:
                     if (line[0] >= '0' && line[0] <= '9') {
                         kid = line[0] - '0';
-                    }
-                    else if (line[0] >= 'A' && line[0] <= 'F') {
+                    } else if (line[0] >= 'A' && line[0] <= 'F') {
                         kid = line[0] - 'A' + 0x0A;
                     }
                     kid <<= 4;
 
                     if (line[1] >= '0' && line[1] <= '9') {
                         kid |= line[1] - '0';
-                    }
-                    else if (line[1] >= 'A' && line[1] <= 'F') {
+                    } else if (line[1] >= 'A' && line[1] <= 'F') {
                         kid |= line[1] - 'A' + 0x0A;
                     }
                     part++;
@@ -109,8 +110,7 @@ int loadConfigs(EpPtr pEp)
                 break;
             }
             j = 0;
-        }
-        else if (tmp[i] == '\n') {
+        } else if (tmp[i] == '\n') {
             if (part == 2) {
                 //parseEpconfig(line, &config);
                 //addEpConfig(pList, &);
@@ -118,8 +118,7 @@ int loadConfigs(EpPtr pEp)
             }
             part = 0;
             j = 0;
-        }
-        else {
+        } else {
             line[j] = tmp[i];
             j++;
         }
@@ -134,13 +133,13 @@ EXIT:
 }
 
 //-----------------------------------------------------------------------------
-int parseEpconfig(EpConfigDataPtr obj, const char* line) 
+int parseEpconfig(EpConfigDataPtr obj, const char* line)
 {
     int i = 0;
-    char *token = strtok((char*)line, ".");
+    char *token = strtok_r(reinterpret_cast<char*>(line), ".");
     while(token) {
         switch(i++) {
-            case 0: // Status check 
+            case 0: // Status check
             {
                 RESET_STATUS_CHECK(*obj);
                 if (token != NULL) {
@@ -149,7 +148,7 @@ int parseEpconfig(EpConfigDataPtr obj, const char* line)
                 }
             }
             break;
-            case 1: // Zero amount allowed 
+            case 1: // Zero amount allowed
             {
                 RESET_ZERO_AMOUT_ALLOWED(*obj);
                 if (token != NULL) {
@@ -158,7 +157,7 @@ int parseEpconfig(EpConfigDataPtr obj, const char* line)
                 }
             }
             break;
-            case 2: // clessTrnxLimit 
+            case 2: // clessTrnxLimit
             {
                 if (token != NULL) {
                     SET_EXIST_CLESS_TRNX_LIMIT(*obj);
@@ -206,8 +205,8 @@ int parseEpconfig(EpConfigDataPtr obj, const char* line)
             }
             break;
         }
-        token = strtok(NULL, ".");
-    }    
+        token = strtok_r(NULL, ".");
+    }
     return SUCCESS;
 }
 
@@ -215,7 +214,7 @@ int parseEpconfig(EpConfigDataPtr obj, const char* line)
 int getEpConfigAidLen(EpConfigPtr p)
 {
     //if (!p) return NULL_PARAMETER;
-    return (int)p->aid[0];
+    return static_cast<int>(p->aid[0]);
 }
 
 unsigned char* getEpConfigAid(EpConfigPtr p)

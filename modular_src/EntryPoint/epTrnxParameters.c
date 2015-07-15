@@ -1,3 +1,8 @@
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
 #include <string.h>
 #include "epTrnxParameters.h"
 #include "../Common/err.h"
@@ -16,10 +21,10 @@ int resetEpTrnxParameters(EpTrnxParamsPtr p)
 int updateEpTrnxParameters(EpTrnxParamsPtr p, HalInterfacesPtr pHal)
 {
     if (!p || !pHal) return INVALID_PARAMETER;
-    
+
     resetEpTrnxParameters(p);
 
-    unsigned char unprdctnmbr[32]; 
+    unsigned char unprdctnmbr[32];
     unsigned long size = sizeof(p->unpredictableNumber);
 
     GENERATE_UNPREDICT_NUMBER(pHal, unprdctnmbr, &size);

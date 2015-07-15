@@ -1,3 +1,8 @@
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
 #include <stdlib.h>
 #include <string.h>
 #include "./epCombinationSelection.h"
@@ -43,7 +48,7 @@ int epCombinationSelection(EpPtr pEp)
 }
 
 
-int epFinalCombinationSelection(EpPtr pEp) 
+int epFinalCombinationSelection(EpPtr pEp)
 {
     /*
         Book B v2.5 p.32
@@ -54,8 +59,7 @@ int epFinalCombinationSelection(EpPtr pEp)
     */
     if (pEp->candidateListCount == 1) {
 
-    }
-    else if (pEp->candidateListCount > 1) {
+    } else if (pEp->candidateListCount > 1) {
         int i              = 0;
         int maxPriority    = 0;
         int curentPriority = 0;
@@ -83,8 +87,7 @@ int _step1(EpPtr pEp)
 
     if (getLastSw() == MAKEWORD(0x90, 0x00)) {
         gsNextStep = Step2;
-    }
-    else {
+    } else {
         gsNextStep = Step3;
     }
     return SUCCESS;
@@ -92,7 +95,7 @@ int _step1(EpPtr pEp)
 
 //-----------------------------------------------------------------------------
 
-int _step2(EpPtr pEp) 
+int _step2(EpPtr pEp)
 {
     int err = SUCCESS;
     if (!pEp) return NULL_PARAMETER;
@@ -118,7 +121,7 @@ int _step2(EpPtr pEp)
 
 //-----------------------------------------------------------------------------
 
-int _step3(EpPtr pEp) 
+int _step3(EpPtr pEp)
 {
     int err = SUCCESS;
     if (!pEp) return NULL_PARAMETER;
@@ -126,8 +129,7 @@ int _step3(EpPtr pEp)
     // 3.3.2.6
     if (pEp->candidateListCount >= 1) {
         // TODO
-    }
-    else {
+    } else {
         // 3.3.2.7
 
     }
@@ -162,12 +164,10 @@ int _3_3_2_1(EpPtr pEp)
         // TODO
         if (FALSE) {
 
-        }
-        else {
+        } else {
             gsNextStep = Step1;
         }
-    }
-    else if (pEp->startPoint == StartedAtC) {
+    } else if (pEp->startPoint == StartedAtC) {
         gsNextStep = Step3;
     }
     return SUCCESS;
@@ -206,21 +206,19 @@ int _3_3_2_5(EpPtr pEp)
                 }
 
                 // 3.3.2.5 B
-                if ((getAdfNameLen(directoryEntry) == getEpConfigAidLen(pConfig)) 
+                if ((getAdfNameLen(directoryEntry) == getEpConfigAidLen(pConfig))
                      ||
                     startsWith((const char*)getAdfName(directoryEntry), pConfig->aid) == TRUE) {
                     // TODO
                     //strncpy(matchingAid, pConfig->aid, getEpConfigAidLen(pConfig));
-                }
-                else {
+                } else {
                     continue;
                 }
 
                 // 3.3.2.5 C
                 if (isKernelIdExist(directoryEntry) == FALSE) {
                     requestedKernelId = useDefaultKernelId(matchingAid, matchingAidLen);
-                }
-                else {
+                } else {
                     if (getKernelIdLen(directoryEntry) == 0) {  // ? size = 0 means KernelId doesn't exist.
                         requestedKernelId = useDefaultKernelId(matchingAid, matchingAidLen);
                         //return SUCCESS;
@@ -236,8 +234,7 @@ int _3_3_2_5(EpPtr pEp)
                             // TODO p.29
                             if (getShortKernelId(directoryEntry) != 0x00) {
                                 // TODO
-                            }
-                            else {
+                            } else {
                                 // TODO
                             }
                         }
@@ -248,13 +245,11 @@ int _3_3_2_5(EpPtr pEp)
                 // 3.3.2.5 D
                 if (requestedKernelId == 0x00) {
                     // TODO
-                }
-                else {
+                } else {
                     // TODO
                     if (requestedKernelId == getKernelId(directoryEntry)) {
 
-                    }
-                    else {
+                    } else {
                         continue;
                     }
                 }
@@ -278,14 +273,14 @@ int _3_3_2_5(EpPtr pEp)
 
 //-----------------------------------------------------------------------------
 
-int t_getNextStep() 
+int t_getNextStep()
 {
     return gsNextStep;
 }
 
 //-----------------------------------------------------------------------------
 
-void t_setNextStep(Steps s) 
+void t_setNextStep(Steps s)
 {
     gsNextStep = s;
 }

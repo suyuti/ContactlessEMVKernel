@@ -1,6 +1,7 @@
 /*
-    Coyright 2015
-*/
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
 
 #include <string.h>
 #include "./select.h"
@@ -20,7 +21,7 @@ static unsigned short   gLastSW;
 
 //-----------------------------------------------------------------------
 
-unsigned short getLastSw() 
+unsigned short getLastSw()
 {
     return gLastSW;
 }
@@ -34,14 +35,13 @@ int _select(void)
 
     int err = CARD_TRANSMIT(&gHal, gTmp1, gSize, gTmp2, &gSize);
     IS_SUCCESS(err);
-    
-    else if (gSize >= 2) {
+
+    if (gSize >= 2) {
         gLastSW = MAKEWORD(gTmp2[gSize-2], gTmp2[gSize-1]);
         if (gSize == 2 && getLastSw() != MAKEWORD(0x90, 0x00)) {
             return SW_NOT_SUCCESS;
         }
-    }
-    else {
+    } else {
         return SW_NOT_FOUND;
     }
 

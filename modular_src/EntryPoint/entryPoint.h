@@ -2,8 +2,8 @@
     Copyright 2015
 */
 
-#ifndef SRC_ENTRYPOINT_ENTRYPOINT_H_
-#define SRC_ENTRYPOINT_ENTRYPOINT_H_
+#ifndef MODULAR_SRC_ENTRYPOINT_ENTRYPOINT_H_
+#define MODULAR_SRC_ENTRYPOINT_ENTRYPOINT_H_
 #include "epCommon.h"
 #include "epConfig.h"
 #include "epIndicators.h"
@@ -33,7 +33,7 @@ int ep_init(HalInterfacesPtr, const char* configFolder);
 
 //--------------------------------------------------------------------
 // Entry Point states. Should be private.
-#define EP_START_STATE_A        1   
+#define EP_START_STATE_A        1
 #define EP_START_STATE_B        2
 #define EP_START_STATE_C        3
 #define EP_START_STATE_D        4
@@ -58,4 +58,4 @@ int _kernelProcessing();
 int t_getEpState();
 
 
-#endif// SRC_ENTRYPOINT_ENTRYPOINT_H_
+#endif// MODULAR_SRC_ENTRYPOINT_ENTRYPOINT_H_

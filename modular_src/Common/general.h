@@ -1,5 +1,10 @@
-#ifndef _GENERAL_H_
-#define _GENERAL_H_
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
+#ifndef MODULAR_SRC_COMMON_GENERAL_H_
+#define MODULAR_SRC_COMMON_GENERAL_H_
 
 #define OK          1
 #define NOK         0
@@ -13,7 +18,7 @@
 typedef unsigned char   BYTE;
 typedef unsigned short  WORD;
 #define MAKEWORD(a,b)   ((WORD)(((BYTE)(a))|(((WORD)((BYTE)(b)))<<8)))
-    
+
 #define IS_SUCCESS(err) if ((err) != SUCCESS) return err
 
-#endif// _GENERAL_H_
+#endif// MODULAR_SRC_COMMON_GENERAL_H_

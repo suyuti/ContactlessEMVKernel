@@ -2,26 +2,26 @@
     Copyright 2015
 */
 
-#ifndef SRC_HAL_HAL_H_
-#define SRC_HAL_HAL_H_
+#ifndef MODULAR_SRC_COMMON_HAL_H_
+#define MODULAR_SRC_COMMON_HAL_H_
 
 
 //- SmartCard IO
 typedef int     (*_card_open)(void);
 typedef int     (*_card_reset)(void);
 typedef int     (*_card_close)(void);
-typedef int     (*_card_transmit)(  const unsigned char*  pIn, 
-                                    int                   inSize, 
-                                    unsigned char*        pOut, 
+typedef int     (*_card_transmit)(  const unsigned char*  pIn,
+                                    int                   inSize,
+                                    unsigned char*        pOut,
                                     unsigned long*        pOutSize);
 
 //- File IO
-typedef int     (*_fileOpen)(const char* fileName, 
+typedef int     (*_fileOpen)(const char* fileName,
                              const char* mode);
 typedef int     (*_fileClose)(int file);
 typedef int     (*_getFileSize)(int file);
-typedef int     (*_fileRead)(int    file, 
-                             char*  buffer, 
+typedef int     (*_fileRead)(int    file,
+                             char*  buffer,
                              int    size);
 
 //- Memory management
@@ -29,7 +29,7 @@ typedef void*   (*_allocate)(int size);
 typedef void    (*_release)(void* p);
 
 //- Generating unpredictable number
-typedef int (*genUnPredNum)(unsigned char* pOut, 
+typedef int (*genUnPredNum)(unsigned char* pOut,
                             unsigned long* pOutSize);
 
 #define GENERATE_UNPREDICT_NUMBER(p, n,l)  (p)->_genUnPredNum((n), (l))
@@ -85,4 +85,4 @@ typedef enum {
 #define SET_DELEGATE_GENUNPREDNUM(halPtr, foo)      (halPtr)->_genUnPredNum   = foo
 #define GENERATE_UNPRED_NUM(halPtr)                 (halPtr)->_genUnPredNum()
 
-#endif// SRC_HAL_HAL_H_
+#endif// MODULAR_SRC_COMMON_HAL_H_

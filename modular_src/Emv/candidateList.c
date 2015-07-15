@@ -1,3 +1,8 @@
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
 #include <string.h>
 #include "./candidateList.h"
 #include "../Common/err.h"
@@ -13,9 +18,9 @@ int clearCandidateList(CandidateListItemPtr pList, int size)
 
 //-----------------------------------------------------------------------------
 
-int addCandidateList(CandidateListItemPtr   pList, 
+int addCandidateList(CandidateListItemPtr   pList,
                      int*                   pCount,
-                     int                    maxSize, 
+                     int                    maxSize,
                      CandidateListItemPtr   pItem)
 {
     if (!pList || !pItem || !pCount) return NULL_PARAMETER;
@@ -37,7 +42,7 @@ int fciToCandidateItem(FciIssDataPtr pFciData, CandidateListItemPtr pItem)
     memcpy(pItem->_87,   pFciData->_87,      MAX_87_LEN);   // TODO
     memcpy(pItem->_9F2A, pFciData->_9F2A,    MAX_9F2A_LEN); // TODO
     memcpy(pItem->_9F29, pFciData->_9F29,    MAX_9F29_LEN); // TODO
-    
+
     return SUCCESS;
 }
 
@@ -46,7 +51,7 @@ int fciToCandidateItem(FciIssDataPtr pFciData, CandidateListItemPtr pItem)
 int getApplicationPriority(CandidateListItemPtr p)
 {
     if (!p) return NULL_PARAMETER;
-    return (int)p->_87[1];
+    return static_cast<int>(p->_87[1]);
 }
 
 //-----------------------------------------------------------------------------

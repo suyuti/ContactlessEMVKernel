@@ -1,5 +1,10 @@
-#ifndef _EP_COMMON_H_
-#define _EP_COMMON_H_
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
+#ifndef MODULAR_SRC_ENTRYPOINT_EPCOMMON_H_
+#define MODULAR_SRC_ENTRYPOINT_EPCOMMON_H_
 
 #include "../Common/hal.h"
 #include "../Emv/select.h"
@@ -125,4 +130,4 @@ extern Ep gEp; // define in entryPoint.c
 
 
 
-#endif// _EP_COMMON_H_
+#endif// MODULAR_SRC_ENTRYPOINT_EPCOMMON_H_

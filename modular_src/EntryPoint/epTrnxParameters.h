@@ -1,5 +1,10 @@
-#ifndef _EP_TRANSACTION_PARAMETERS_H_
-#define _EP_TRANSACTION_PARAMETERS_H_
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
+#ifndef MODULAR_SRC_ENTRYPOINT_EPTRNXPARAMETERS_H_
+#define MODULAR_SRC_ENTRYPOINT_EPTRNXPARAMETERS_H_
 
 #include "../Common/hal.h"
 
@@ -23,4 +28,4 @@ typedef struct {
 int resetEpTrnxParameters(EpTrnxParamsPtr p);
 int updateEpTrnxParameters(EpTrnxParamsPtr p, HalInterfacesPtr pHal);
 
-#endif// _EP_TRANSACTION_PARAMETERS_H_
+#endif// MODULAR_SRC_ENTRYPOINT_EPTRNXPARAMETERS_H_

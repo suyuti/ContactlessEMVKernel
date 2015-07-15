@@ -1,7 +1,12 @@
-#ifndef _CANDIDATE_LIST_H_
-#define _CANDIDATE_LIST_H_
-#include "select.h"
-#include "fci.h"
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
+#ifndef MODULAR_SRC_EMV_CANDIDATELIST_H_
+#define MODULAR_SRC_EMV_CANDIDATELIST_H_
+#include "./select.h"
+#include "./fci.h"
 
 #define CANDLIST_84_BIT         0
 #define CANDLIST_DFNAME_BIT     CANDLIST_84_BIT
@@ -40,10 +45,10 @@ typedef struct {
 #define IS_EXIST_CANDLIST_EXTENTED_SELECTION(l) CHECK_BIT((l), CANDLIST_EXTENDEDSELECTION_BIT   )
 
 int clearCandidateList(CandidateListItemPtr pList, int size);
-int addCandidateList(CandidateListItemPtr   pList, 
+int addCandidateList(CandidateListItemPtr   pList,
                      int*                   pSize,
-                     int                    maxSize, 
+                     int                    maxSize,
                      CandidateListItemPtr   item);
 int fciToCandidateItem(FciIssDataPtr pFciData, CandidateListItemPtr pItem);
 int getApplicationPriority(CandidateListItemPtr p);
-#endif// _CANDIDATE_LIST_H_
+#endif// MODULAR_SRC_EMV_CANDIDATELIST_H_

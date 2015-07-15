@@ -1,3 +1,8 @@
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
 #include <string.h>
 #include "epPreProcessing.h"
 #include "epTrnxParameters.h"
@@ -22,7 +27,7 @@ int epPreProcessing(EpPtr epObj, int amount, int amountAuthorized)
         err = _3_1_1_6(&(epObj->epConfigs[i]), amountAuthorized);
         err = _3_1_1_7(&(epObj->epConfigs[i]), amountAuthorized);
         err = _3_1_1_8(&(epObj->epConfigs[i]), amountAuthorized);
-        
+
         if (IS_EXIST_TTQ(epObj->epConfigs[i].configData)) {
             err = _3_1_1_9(&(epObj->epConfigs[i]));
             err = _3_1_1_10(&(epObj->epConfigs[i]));
@@ -93,16 +98,16 @@ int _3_1_1_3(EpConfigPtr pConfig, int amount, int amountAuthorized)
 
     if (IS_EXIST_STATUS_CHECK(pConfig->configData)
         && IS_STATUS_CHECK(pConfig->configData)
-        // TODO && 
+        // TODO &&
         ) {
-        SET_EPIND_STATUS_CHECK_REQ(pConfig->indicators);            
+        SET_EPIND_STATUS_CHECK_REQ(pConfig->indicators);
     }
     return SUCCESS;
 }
 
 //-----------------------------------------------------------------------------
 
-int _3_1_1_4(EpConfigPtr pConfig, int amount, int amountAuthorized) 
+int _3_1_1_4(EpConfigPtr pConfig, int amount, int amountAuthorized)
 {
     /*
         Book B v2.5 p.13
@@ -124,8 +129,7 @@ int _3_1_1_4(EpConfigPtr pConfig, int amount, int amountAuthorized)
         if (IS_EXIST_ZERO_AMOUNT_ALLOWED(pConfig->configData)
             && !IS_ZERO_AMOUT_ALLOWED(pConfig->configData)) {
             SET_EPIND_CLESS_APP_NOT_ALLOWED(pConfig->indicators);
-        }
-        else {
+        } else {
             SET_EPIND_ZERO_AMOUNT(pConfig->indicators);
         }
     }
@@ -156,8 +160,8 @@ int _3_1_1_5(EpConfigPtr pConfig, int amountAuthorized)
 
 //----------------------------------------------------------------------------------------------------
 
-int _3_1_1_6(EpConfigPtr pConfig, int amountAuthorized) 
-{ 
+int _3_1_1_6(EpConfigPtr pConfig, int amountAuthorized)
+{
     /*
         Book B v2.5 p.14
         3.1.1.6
@@ -169,7 +173,7 @@ int _3_1_1_6(EpConfigPtr pConfig, int amountAuthorized)
     */    
     if (!pConfig) return NULL_PARAMETER;
 
-    if (IS_EXIST_CLESS_FLOOR_LIMIT(pConfig->configData) 
+    if (IS_EXIST_CLESS_FLOOR_LIMIT(pConfig->configData)
         && (amountAuthorized > pConfig->configData.clessFloorLimit)
         ) {
         SET_EPIND_READER_CLESS_FLOOR_LIMIT_EXCEEDED(pConfig->indicators);
@@ -179,8 +183,8 @@ int _3_1_1_6(EpConfigPtr pConfig, int amountAuthorized)
 
 //----------------------------------------------------------------------------------------------------
 
-int _3_1_1_7(EpConfigPtr pConfig, int amountAuthorized) 
-{ 
+int _3_1_1_7(EpConfigPtr pConfig, int amountAuthorized)
+{
     /*
         Book B v2.5 p.14
         3.1.1.7
@@ -206,8 +210,8 @@ int _3_1_1_7(EpConfigPtr pConfig, int amountAuthorized)
 
 //----------------------------------------------------------------------------------------------------
 
-int _3_1_1_8(EpConfigPtr pConfig, int amountAuthorized) 
-{ 
+int _3_1_1_8(EpConfigPtr pConfig, int amountAuthorized)
+{
     /*
         Book B v2.5 p.14
         3.1.1.8
@@ -223,14 +227,14 @@ int _3_1_1_8(EpConfigPtr pConfig, int amountAuthorized)
     if (IS_EXIST_CVM_REQ_LIMIT(pConfig->configData)
         && (amountAuthorized >= pConfig->configData.cvmRequiredLimit)) {
         SET_EPIND_READER_CVM_REQ_LIMIT_EXCEEDED(pConfig->indicators);
-    } 
+    }
     return SUCCESS;
 }
 
 //----------------------------------------------------------------------------------------------------
 
-int _3_1_1_9(EpConfigPtr pConfig) 
-{ 
+int _3_1_1_9(EpConfigPtr pConfig)
+{
     /*
         Book B v2.5 p.15
         3.1.1.9
@@ -247,7 +251,7 @@ int _3_1_1_9(EpConfigPtr pConfig)
     return SUCCESS;
 }
 //----------------------------------------------------------------------------------------------------
-int _3_1_1_10(EpConfigPtr pConfig) 
+int _3_1_1_10(EpConfigPtr pConfig)
 {
     /*
         Book B v2.5 p.15
@@ -265,8 +269,8 @@ int _3_1_1_10(EpConfigPtr pConfig)
     return SUCCESS;
 }
 //----------------------------------------------------------------------------------------------------
-int _3_1_1_11(EpConfigPtr pConfig) 
-{ 
+int _3_1_1_11(EpConfigPtr pConfig)
+{
     /*
         Book B v2.5 p.15
         3.1.1.11
@@ -290,8 +294,8 @@ int _3_1_1_11(EpConfigPtr pConfig)
     return SUCCESS;
 }
 //----------------------------------------------------------------------------------------------------
-int _3_1_1_12(EpConfigPtr pConfig) 
-{ 
+int _3_1_1_12(EpConfigPtr pConfig)
+{
     /*
         Book B v2.5 p.15
         3.1.1.12
@@ -308,8 +312,8 @@ int _3_1_1_12(EpConfigPtr pConfig)
     return SUCCESS;
 }
 //----------------------------------------------------------------------------------------------------
-int _3_1_1_13(EpPtr pEp) 
-{ 
+int _3_1_1_13(EpPtr pEp)
+{
     /*
         Book B v2.5 p.16
         3.1.1.13

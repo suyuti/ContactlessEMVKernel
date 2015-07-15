@@ -21,7 +21,7 @@ int toInt(const unsigned char* ptag, int size)
 }
 
 //-----------------------------------------------------------------------------
-int str2bcd(const unsigned char* str, int size, unsigned char* pOut, int* pOutSize) 
+int str2bcd(const unsigned char* str, int size, unsigned char* pOut, int* pOutSize)
 {
     if ((size % 2) != 0) return INCORRECT_DATA;
     int j = 0;
@@ -31,23 +31,19 @@ int str2bcd(const unsigned char* str, int size, unsigned char* pOut, int* pOutSi
         c = str[i];
         if (c>='0' && c<='9') {
             c -= '0';
-        }
-        else if (c>='a' && c<='f') {
+        } else if (c>='a' && c<='f') {
             c -= 'a';
             c+=0x0A;
-        }
-        else if (c>='A' && c<='F') {
+        } else if (c>='A' && c<='F') {
             c -= 'A';
             c+=0x0A;
-        }
-        else {
+        } else {
             return INCORRECT_DATA;
         }
 
         if ((i%2) == 0) {
             pOut[j] = c << 4;
-        }
-        else {
+        } else {
             pOut[j] |= c & 0x0f;
             j++;
         }
@@ -57,7 +53,7 @@ int str2bcd(const unsigned char* str, int size, unsigned char* pOut, int* pOutSi
 }
 
 //-----------------------------------------------------------------------------
-int bcd2str(const unsigned char* pIn, int size, unsigned char* pOut, int* pOutSize) 
+int bcd2str(const unsigned char* pIn, int size, unsigned char* pOut, int* pOutSize)
 {
     if (size <= 0 || pIn == NULL) return NULL_PARAMETER;
     char c, t;
@@ -68,8 +64,7 @@ int bcd2str(const unsigned char* pIn, int size, unsigned char* pOut, int* pOutSi
         c = pIn[i] >> 4;
         if (c >= 0x00 && c <= 0x09) {
             c += '0';
-        }
-        else if (c>=0x0A && c <= 0x0F) {
+        } else if (c>=0x0A && c <= 0x0F) {
             c += 'A' - 0x0a;
         }
         pOut[(*pOutSize)++] = c;
@@ -77,8 +72,7 @@ int bcd2str(const unsigned char* pIn, int size, unsigned char* pOut, int* pOutSi
         c = pIn[i] & 0x0F;
         if (c >= 0x00 && c <= 0x09) {
             c += '0';
-        }
-        else if (c>=0x0A && c <= 0x0F) {
+        } else if (c>=0x0A && c <= 0x0F) {
             c += 'A' - 0x0A;
         }
         pOut[(*pOutSize)++] = c;
@@ -88,7 +82,7 @@ int bcd2str(const unsigned char* pIn, int size, unsigned char* pOut, int* pOutSi
 
 //-----------------------------------------------------------------------------
 
-    int _debugBin(unsigned char* buffer, int len) 
+    int _debugBin(unsigned char* buffer, int len)
     {
         int i = 0;
         for(i=0; i < len; ++i) {

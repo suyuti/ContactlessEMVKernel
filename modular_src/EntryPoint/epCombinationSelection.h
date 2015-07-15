@@ -1,5 +1,10 @@
-#ifndef _EPCOMBINATION_SELECTION_H_
-#define _EPCOMBINATION_SELECTION_H_
+/*
+ * Copyright 2015 Suyuti  [legal/copyright]
+ *
+ * */
+
+#ifndef MODULAR_SRC_ENTRYPOINT_EPCOMBINATIONSELECTION_H_
+#define MODULAR_SRC_ENTRYPOINT_EPCOMBINATIONSELECTION_H_
 
 #include "./epCommon.h"
 /*-----------------------------------------------------------------------------
@@ -36,4 +41,4 @@ int _3_3_2_5(EpPtr pEp);
 int t_getNextStep();
 void t_setNextStep(Steps s);
 
-#endif// _EPCOMBINATION_SELECTION_H_
+#endif// MODULAR_SRC_ENTRYPOINT_EPCOMBINATIONSELECTION_H_
