@@ -7,6 +7,7 @@
 #define MODULAR_TEST_EMVTESTS_SELECTTESTS_H_
 #include <string>
 #include "../BaseTest.h"
+#include "../testUtils.h"
 
 extern "C" {
     #include "Emv/select.h"
@@ -371,7 +372,7 @@ TEST_F(Test_Select, _resolveSelectPpse)
                                             "9F2A""01""23"
                                             "87""01""01");
     unsigned char ppseResponse[255];
-    int len = TestUtils::str2bcd(ppseResponseStr, ppseResponse);
+    int len = EmvTest::TestUtils::str2bcd(ppseResponseStr, ppseResponse);
     Fci fci;
     _clearFci(&fci);
 
@@ -414,7 +415,7 @@ TEST_F(Test_Select, selectPpse)
                                             "87""01""01"
                                             "9000");
     unsigned char ppseResponse[255];
-    int len = TestUtils::str2bcd(ppseResponseStr, ppseResponse);
+    int len = EmvTest::TestUtils::str2bcd(ppseResponseStr, ppseResponse);
     EXPECT_CALL(halApi, cardTransmit(isApdu("00A404000E325041592E5359532E4444463031"), Ge(5), _, _))
                         .Times(Exactly(1))
                         .WillOnce(
@@ -447,7 +448,7 @@ TEST_F(Test_Select, selectPpse_invalidResponse)
 {
     string ppseResponseStr("6A85");
     unsigned char ppseResponse[255];
-    int len = TestUtils::str2bcd(ppseResponseStr, ppseResponse);
+    int len = EmvTest::TestUtils::str2bcd(ppseResponseStr, ppseResponse);
     EXPECT_CALL(halApi, cardTransmit(isApdu("00A404000E325041592E5359532E4444463031"), Ge(5), _, _))
                         .Times(Exactly(1))
                         .WillOnce(

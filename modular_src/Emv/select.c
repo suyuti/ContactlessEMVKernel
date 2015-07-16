@@ -30,10 +30,11 @@ unsigned short getLastSw()
 
 int _select(void)
 {
+    HalInterfacesPtr pHal = getHal();
     gLastSW = MAKEWORD(0, 0);
     memset(gTmp2, 0x00, sizeof(gTmp2));
 
-    int err = CARD_TRANSMIT(&gHal, gTmp1, gSize, gTmp2, &gSize);
+    int err = CARD_TRANSMIT(pHal, gTmp1, gSize, gTmp2, &gSize);
     IS_SUCCESS(err);
 
     if (gSize >= 2) {

@@ -11,6 +11,7 @@ extern HalInterfaces gHal;
 
 
 //------------------------------------------------------------------------------------
+HalInterfacesPtr  getHal();
 
 int setCardOpen(_card_open f);
 int setCardReset(_card_reset f);

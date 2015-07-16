@@ -9,5 +9,5 @@ set(entryPointSrc   entryPoint.c
 
 add_library(entryPoint ${entryPointSrc})
 
-add_library(entryPointShared SHARED ${entryPointSrc})
-target_link_libraries(entryPointShared emvShared)
+#add_library(entryPointShared SHARED ${entryPointSrc})
+#target_link_libraries(entryPointShared emvShared)

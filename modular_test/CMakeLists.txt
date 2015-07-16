@@ -1,3 +1,4 @@
 add_subdirectory(CommonTests)
 add_subdirectory(EmvTests)
 add_subdirectory(EntryPointTests)
+add_subdirectory(AllTests)

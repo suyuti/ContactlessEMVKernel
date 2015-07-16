@@ -7,6 +7,12 @@
 
 HalInterfaces gHal;
 
+
+HalInterfacesPtr  getHal()
+{
+    return &gHal;
+}
+
 //------------------------------------------------------------------------------------
 
 int setCardOpen(_card_open f)
