@@ -19,6 +19,8 @@ typedef unsigned char   BYTE;
 typedef unsigned short  WORD;
 #define MAKEWORD(a, b)   ((WORD)(((BYTE)(a))|(((WORD)((BYTE)(b))) << 8)))
 
+#define MAKE_SW(buff, size) MAKEWORD((buff)[(size)-2], (buff)[(size)-1])
+
 #define IS_SUCCESS(err) if ((err) != SUCCESS) return err
 
 #endif  // MODULAR_SRC_COMMON_GENERAL_H_

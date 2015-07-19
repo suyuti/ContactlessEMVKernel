@@ -35,18 +35,21 @@ typedef int (*genUnPredNum)(unsigned char* pOut,
 #define GENERATE_UNPREDICT_NUMBER(p, n, l)  (p)->_genUnPredNum((n), (l))
 
 typedef struct {
-    _card_open       card_open;
-    _card_reset      card_reset;
-    _card_close      card_close;
-    _card_transmit   card_transmit;
+    _card_open      card_open;
+    _card_reset     card_reset;
+    _card_close     card_close;
+    _card_transmit  card_transmit;
     _fileOpen       fileOpen;
     _fileClose      fileClose;
     _fileRead       fileRead;
     _getFileSize    getFileSize;
-    _allocate         allocate;
-    _release           release;
+    _allocate       allocate;
+    _release        release;
     genUnPredNum    _genUnPredNum;
 } HalInterfaces, *HalInterfacesPtr;
+
+
+
 
 typedef enum {
     RandomNumberGenerator,
@@ -63,7 +66,6 @@ typedef enum {
 #define CARD_OPEN(halPtr)                           (halPtr)->card_open()
 #define CARD_CLOSE(halPtr)                          (halPtr)->card_close()
 #define CARD_TRANSMIT(halPtr, i, is, o, os)         (halPtr)->card_transmit((i), (is), (o), (os))
-
 
 #define SET_DELEGATE_FILE_OPEN(halPtr, foo)         (halPtr)->fileOpen      = foo
 #define SET_DELEGATE_FILE_CLOSE(halPtr, foo)        (halPtr)->fileClose     = foo
@@ -84,5 +86,23 @@ typedef enum {
 
 #define SET_DELEGATE_GENUNPREDNUM(halPtr, foo)      (halPtr)->_genUnPredNum   = foo
 #define GENERATE_UNPRED_NUM(halPtr)                 (halPtr)->_genUnPredNum()
+
+
+
+int card_transmit(const unsigned char* pIn, int inSize, unsigned char* pOut, unsigned long* pOutSize);
+
+
+int setCardOpen(_card_open f);
+int setCardReset(_card_reset f);
+int setCardClose(_card_close f);
+int setCardTransmit(_card_transmit f);
+int setFileOpen(_fileOpen f);
+int setFileClose(_fileClose f);
+int setFileRead(_fileRead f);
+int setGetFileSize(_getFileSize f);
+int setAllocate(_allocate f);
+int setRelease(_release f);
+int setGenUnPredNum(genUnPredNum f);
+
 
 #endif  // MODULAR_SRC_COMMON_HAL_H_

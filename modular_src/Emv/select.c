@@ -14,9 +14,10 @@
 
 #define PPSE        "2PAY.SYS.DDF01"
 
-static unsigned char    gTmp1[1024];    // output buffer: Terminal writes
-static unsigned char    gTmp2[1024];    // input buffer : Card writes
-static unsigned long    gSize = 0;
+static unsigned char    gsTmp1[256 + 1];    // output buffer: Terminal writes
+static unsigned char    gsTmp2[256 + 1];    // input buffer : Card writes
+static unsigned long    gsSize1 = 0;
+static unsigned long    gsSize2 = 0;
 static unsigned short   gLastSW;
 
 //-----------------------------------------------------------------------
@@ -30,36 +31,28 @@ unsigned short getLastSw()
 
 int _select(void)
 {
-    HalInterfacesPtr pHal = getHal();
-    gLastSW = MAKEWORD(0, 0);
-    memset(gTmp2, 0x00, sizeof(gTmp2));
-
-    int err = CARD_TRANSMIT(pHal, gTmp1, gSize, gTmp2, &gSize);
-    IS_SUCCESS(err);
-
-    if (gSize >= 2) {
-        gLastSW = MAKEWORD(gTmp2[gSize-2], gTmp2[gSize-1]);
-        if (gSize == 2 && getLastSw() != MAKEWORD(0x90, 0x00)) {
-            return SW_NOT_SUCCESS;
-        }
-    } else {
-        return SW_NOT_FOUND;
+    memset(gsTmp2, 0x00, sizeof(gsTmp2));
+    int err = card_transmit(gsTmp1, gsSize1, gsTmp2, &gsSize2);
+    if (err != SUCCESS) return err;
+    if (gsSize2 < 2) return SW_NOT_FOUND;
+    gLastSW = MAKE_SW(gsTmp2, gsSize2);
+    if (gLastSW != MAKEWORD(0x90, 0x00)) {
+        return SW_NOT_SUCCESS;
     }
-
-    return err;
+    return SUCCESS;
 }
 
 //-----------------------------------------------------------------------
 
 int selectAid(FciPtr pFci, const unsigned char* aid, int aidLen)
 {
-    int err = _buildSelect(aid, aidLen, gTmp1, &gSize);
+    int err = _buildSelect(aid, aidLen, gsTmp1, &gsSize1);
     IS_SUCCESS(err);
 
     err = _select();
     IS_SUCCESS(err);
 
-    err = _resolveSelectAid(gTmp2, gSize, pFci);
+    err = _resolveSelectAid(gsTmp2, gsSize2-2, pFci);
     IS_SUCCESS(err);
 
     return err;
@@ -68,13 +61,13 @@ int selectAid(FciPtr pFci, const unsigned char* aid, int aidLen)
 int selectPpse(FciPtr pFci)
 {
     if (!pFci) return NULL_PARAMETER;
-    int err = _buildSelectPpse(gTmp1, &gSize);
+    int err = _buildSelectPpse(gsTmp1, &gsSize1);
     IS_SUCCESS(err);
 
     err = _select();
     IS_SUCCESS(err);
 
-    err = _resolveSelectPpse(gTmp2, gSize-2, pFci);
+    err = _resolveSelectPpse(gsTmp2, gsSize2 - 2, pFci);
 
     return err;
 }
