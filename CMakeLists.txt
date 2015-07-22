@@ -12,15 +12,16 @@ endif()
 
 #-----------------------------------------------------------------------
 #      Options
-Option(BUILD_DOC            " Create doxygen documentation for developers "     OFF)
-Option(BUILD_WITH_COVERAGE  " Build with coverage analysis support "            ON )
-Option(BUILD_CODE_STYLE     " Build with code style checking "                  ON )
-Option(BUILD_PROFILING      " Build with profiling "                            ON )
-Option(BUILD_MEMCHECK       " Build with memory check "                         OFF)
-Option(BUILD_SLOC           " Build with line counting "                        ON )
-Option(BUILD_TESTING        " Build with testing "                              ON )
-Option(BUILD_FOR_PYTHON     " Build for Python "                                ON )
-Option(USE_CTEST            " CTest usage"                                      ON )
+Option(BUILD_DOC                " Create doxygen documentation for developers "     OFF)
+Option(BUILD_WITH_COVERAGE      " Build with coverage analysis support "            ON )
+Option(BUILD_CODE_STYLE         " Build with code style checking "                  ON )
+Option(BUILD_PROFILING          " Build with profiling "                            ON )
+Option(BUILD_MEMCHECK           " Build with memory check "                         OFF)
+Option(BUILD_SLOC               " Build with line counting "                        ON )
+Option(BUILD_TESTING            " Build with testing "                              ON )
+Option(BUILD_FOR_PYTHON         " Build for Python "                                ON )
+Option(USE_CTEST                " CTest usage "                                     ON )
+Option(USE_CPPCHECK             " Cppcheck usage "                                  ON )
 
 
 #-----------------------------------------------------------------------
@@ -78,6 +79,12 @@ endif()
 #      CTest usage
 if (USE_CTEST)
     include(CTest)
+endif()
+
+#-----------------------------------------------------------------------
+#      Cppcheck usage
+if (USE_CPPCHECK)
+    include(CppcheckTargets)
 endif()
 
 

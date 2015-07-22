@@ -72,11 +72,11 @@ typedef enum {
 #define SET_DELEGATE_FILE_READ(halPtr, foo)         (halPtr)->fileRead      = foo
 #define SET_DELEGATE_GET_FILE_SIZE(halPtr, foo)     (halPtr)->getFileSize   = foo
 
-#define FILE_OPEN_R(halPtr, name)                   FILE_OPEN((halPtr), (name), "r")  // ReadOnly mode
-#define FILE_OPEN(halPtr, name, mode)               (halPtr)->fileOpen((name), (mode))
-#define FILE_CLOSE(halPtr, file)                    (halPtr)->fileClose((file))
-#define GET_FILE_SIZE(halPtr, file)                 (halPtr)->getFileSize((file))
-#define FILE_READ(halPtr, file, o, s)               (halPtr)->fileRead((file), (o), (s))
+//#define FILE_OPEN_R(halPtr, name)                   FILE_OPEN((halPtr), (name), "r")  // ReadOnly mode
+//#define FILE_OPEN(halPtr, name, mode)               (halPtr)->fileOpen((name), (mode))
+//#define FILE_CLOSE(halPtr, file)                    (halPtr)->fileClose((file))
+//#define GET_FILE_SIZE(halPtr, file)                 (halPtr)->getFileSize((file))
+//#define FILE_READ(halPtr, file, o, s)               (halPtr)->fileRead((file), (o), (s))
 
 
 #define SET_DELEGATE_ALLOCATE(halPtr, foo)          (halPtr)->allocate  = foo
@@ -88,8 +88,17 @@ typedef enum {
 #define GENERATE_UNPRED_NUM(halPtr)                 (halPtr)->_genUnPredNum()
 
 
+int checkHalInterfaces(void);
 
 int card_transmit(const unsigned char* pIn, int inSize, unsigned char* pOut, unsigned long* pOutSize);
+int fileOpen(const char* fileName, const char* mode);
+int fileClose(int file);
+int getFileSize(int file);
+int fileRead(int file, char* buffer, int size);
+void* allocate(int size);
+void release(void* p);
+
+
 
 
 int setCardOpen(_card_open f);

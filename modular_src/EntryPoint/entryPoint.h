@@ -23,7 +23,7 @@
 int clearEntryPoint(EpPtr pEp);
 
 int ep_process(int amount, int amountAuthorized);
-int ep_init(HalInterfacesPtr, const char* configFolder);
+int ep_init(const char* configFolder);
 
 
 //--------------------------------------------------------------------

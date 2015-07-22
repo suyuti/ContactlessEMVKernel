@@ -8,6 +8,6 @@ set(entryPointSrc   entryPoint.c
                     epTrnxParameters.c)
 
 add_library(entryPoint ${entryPointSrc})
-
+add_
 #add_library(entryPointShared SHARED ${entryPointSrc})
 #target_link_libraries(entryPointShared emvShared)

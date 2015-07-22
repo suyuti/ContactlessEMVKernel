@@ -35,14 +35,14 @@ int getEpConfigAidLen(EpConfigPtr p);
 #define EXTENDED_SELECTION_SUPP_BIT             8
 
 
-#define IS_EXIST_STATUS_CHECK(p)                CHECK_BIT((p).bitmap, STATUS_CHECK_BIT              )
-#define IS_EXIST_ZERO_AMOUNT_ALLOWED(p)         CHECK_BIT((p).bitmap, ZERO_AMOUT_ALLOWED_BIT        )
-#define IS_EXIST_CLESS_TRNX_LIMIT(p)            CHECK_BIT((p).bitmap, CLESS_TRNX_LIMIT_BIT          )
-#define IS_EXIST_CLESS_FLOOR_LIMIT(p)           CHECK_BIT((p).bitmap, CLESS_FLOOR_LIMIT_BIT         )
-#define IS_EXIST_TERM_FLOOR_LIMIT(p)            CHECK_BIT((p).bitmap, TERM_FLOOR_LIMIT_BIT          )
-#define IS_EXIST_CVM_REQ_LIMIT(p)               CHECK_BIT((p).bitmap, CVM_REQ_BIT                   )
-#define IS_EXIST_TTQ(p)                         CHECK_BIT((p).bitmap, TTQ_BIT                       )
-#define IS_EXIST_EXTENDED_SELECTION_SUPP(p)     CHECK_BIT((p).bitmap, EXTENDED_SELECTION_SUPP_BIT   )
+#define IS_EXIST_STATUS_CHECK(o)                CHECK_BIT((o).bitmap, STATUS_CHECK_BIT              )
+#define IS_EXIST_ZERO_AMOUNT_ALLOWED(o)         CHECK_BIT((o).bitmap, ZERO_AMOUT_ALLOWED_BIT        )
+#define IS_EXIST_CLESS_TRNX_LIMIT(o)            CHECK_BIT((o).bitmap, CLESS_TRNX_LIMIT_BIT          )
+#define IS_EXIST_CLESS_FLOOR_LIMIT(o)           CHECK_BIT((o).bitmap, CLESS_FLOOR_LIMIT_BIT         )
+#define IS_EXIST_TERM_FLOOR_LIMIT(o)            CHECK_BIT((o).bitmap, TERM_FLOOR_LIMIT_BIT          )
+#define IS_EXIST_CVM_REQ_LIMIT(o)               CHECK_BIT((o).bitmap, CVM_REQ_BIT                   )
+#define IS_EXIST_TTQ(o)                         CHECK_BIT((o).bitmap, TTQ_BIT                       )
+#define IS_EXIST_EXTENDED_SELECTION_SUPP(o)     CHECK_BIT((o).bitmap, EXTENDED_SELECTION_SUPP_BIT   )
 
 #define SET_EXIST_STATUS_CHECK(p)               SET_BIT((p).bitmap, STATUS_CHECK_BIT              )
 #define SET_EXIST_ZERO_AMOUNT_ALLOWED(p)        SET_BIT((p).bitmap, ZERO_AMOUT_ALLOWED_BIT        )
@@ -89,6 +89,14 @@ int getEpConfigAidLen(EpConfigPtr p);
 // #define IS_CVM_REQ_LIMIT(p, l)                  (CHECK_BIT((p).bitmap, CVM_REQ_BIT                ) && ((p).cvmReqLimit         == SET))
 // #define IS_TTQ(p, val4)                         (CHECK_BIT((p).bitmap, TTQ_BIT                    ) && ((p).ttq == SET))
 #define IS_EXTENDED_SELECTION_SUPP(p)           (CHECK_BIT((p).bitmap, EXTENDED_SELECTION_SUPP_BIT) && ((p).extendedSelectionSupport == SET))
+
+
+
+
+//- Testing purposes
+void t_printEpConfig(const EpConfigDataPtr p);
+
+
 
 
 

@@ -27,20 +27,9 @@ int clearEntryPoint(EpPtr pEp)
     return SUCCESS;
 }
 
-int ep_init(HalInterfacesPtr pHal, const char* configFolder)
+int ep_init(const char* configFolder)
 {
     int err;
-
-    SET_DELEGATE_CARD_OPEN      (&gEp.hal,  pHal->card_open     );
-    SET_DELEGATE_CARD_RESET     (&gEp.hal,  pHal->card_reset    );
-    SET_DELEGATE_CARD_CLOSE     (&gEp.hal,  pHal->card_close    );
-    SET_DELEGATE_CARD_TRANSMIT  (&gEp.hal,  pHal->card_transmit );
-    SET_DELEGATE_FILE_OPEN      (&gEp.hal,  pHal->fileOpen      );
-    SET_DELEGATE_FILE_CLOSE     (&gEp.hal,  pHal->fileClose     );
-    SET_DELEGATE_FILE_READ      (&gEp.hal,  pHal->fileRead      );
-    SET_DELEGATE_GET_FILE_SIZE  (&gEp.hal,  pHal->getFileSize   );
-    SET_DELEGATE_ALLOCATE       (&gEp.hal,  pHal->allocate      );
-    SET_DELEGATE_RELEASE        (&gEp.hal,  pHal->release       );
 
     setEpNextState(EpStateStartA);
 

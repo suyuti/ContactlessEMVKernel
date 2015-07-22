@@ -103,13 +103,12 @@ typedef enum {
 #define MAX_CANDIDATE_LIST  10
 
 typedef struct {
-    HalInterfaces   hal;
     EpStates        state;
 
     //- Config data
     int             epConfigsCount;
     EpConfig        epConfigs[MAX_EP_CONFIG];
-    char            configFolder[120];
+    char            configFolder[255];
 
     //- Outcome
     EpOutcome       outcome;

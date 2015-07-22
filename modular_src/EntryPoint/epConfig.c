@@ -4,12 +4,15 @@
  * */
 
 #include <string.h>  // memset
+#include <stddef.h>
 #include <stdlib.h>  // atoi
 #include "epConfig.h"
 #include "../Common/err.h"
 #include "epCommon.h"
+#include "../Common/hal.h"
 
 //-----------------------------------------------------------------------------
+
 int clearEpConfigData(EpConfigDataPtr obj)
 {
     if (!obj) return NULL_PARAMETER;
@@ -18,6 +21,7 @@ int clearEpConfigData(EpConfigDataPtr obj)
 }
 
 //-----------------------------------------------------------------------------
+
 int clearEpConfigs(EpPtr pEp)
 {
     if (!pEp) return NULL_PARAMETER;
@@ -28,6 +32,7 @@ int clearEpConfigs(EpPtr pEp)
 }
 
 //-----------------------------------------------------------------------------
+
 int addEpConfig(EpPtr pEp, EpConfig config)
 {
     if (!pEp) return NULL_PARAMETER;
@@ -40,6 +45,7 @@ int addEpConfig(EpPtr pEp, EpConfig config)
 }
 
 //-----------------------------------------------------------------------------
+
 int findEpConfig(EpPtr pEp, const char* aid, unsigned char kid, EpConfigPtr obj)
 {
     if (!pEp || !obj) return NULL_PARAMETER;
@@ -55,21 +61,22 @@ int findEpConfig(EpPtr pEp, const char* aid, unsigned char kid, EpConfigPtr obj)
 }
 
 //-----------------------------------------------------------------------------
+
 int loadConfigs(EpPtr pEp)
 {
+    int count = 0;
     if (!pEp) return NULL_PARAMETER;
 
-
-    int file = FILE_OPEN_R(&(pEp->hal), pEp->configFolder);
+    int file = fileOpen(pEp->configFolder, "r");
     if (file == -1) {
         return FILE_NOT_FOUND;
     }
-    int size = GET_FILE_SIZE(&(pEp->hal), file);
+    int size = getFileSize(file);
 
-    char *tmp = (char*)(ALLOCATE(&(pEp->hal), size+1));
+    char *tmp = (char*)allocate(size+1);
     if (!tmp) { goto EXIT;}
     memset(tmp, 0x00, size);
-    FILE_READ(&(pEp->hal), file, tmp, size);
+    fileRead(file, tmp, size);
 
     clearEpConfigs(pEp);
     int i = 0;
@@ -112,9 +119,12 @@ int loadConfigs(EpPtr pEp)
             j = 0;
         } else if (tmp[i] == '\n') {
             if (part == 2) {
-                // parseEpconfig(line, &config);
-                // addEpConfig(pList, &);
-                // addConfigByAidKid(aid, kid, config);
+                memset(&config, 0x00, sizeof(EpConfig));
+                parseEpconfig(&(config.configData), line);
+                strcpy(config.aid, aid);
+                config.kid = kid;
+                addEpConfig(pEp, config);
+                count++;
             }
             part = 0;
             j = 0;
@@ -126,87 +136,92 @@ int loadConfigs(EpPtr pEp)
     }
 
 EXIT:
-    RELEASE(&gEp.hal, tmp);
-    FILE_CLOSE(&gEp.hal, file);
+    release(tmp);
+    fileClose(file);
 
-    return SUCCESS;
+    return count;
 }
 
 //-----------------------------------------------------------------------------
+
 int parseEpconfig(EpConfigDataPtr obj, const char* line)
 {
-    int i = 0;
-    char* saveptr;
-    char *token = strtok_r((char*)(line), ".", &saveptr);
-    while(token) {
+    const char delimiters[] = ".";
+    char *running;
+    char *token;
+    int  i= 0;
+
+    memset(obj, 0x00, sizeof(EpConfigData));
+
+    while((token = strsep (&line, delimiters))) {
         switch(i++) {
             case 0:  // Status check
             {
                 RESET_STATUS_CHECK(*obj);
-                if (token != NULL) {
+                if (token[0] != 0x00) {
                     if (token[0] == '1')
-                        SET_STATUS_CHECK(*obj);
+                    SET_STATUS_CHECK(*obj);
                 }
             }
-            break;
+                break;
             case 1:  // Zero amount allowed
             {
                 RESET_ZERO_AMOUT_ALLOWED(*obj);
-                if (token != NULL) {
+                if (token[0] != 0x00) {
                     if (token[0] == '1')
                         SET_ZERO_AMOUT_ALLOWED(*obj);
                 }
             }
-            break;
+                break;
             case 2:  // clessTrnxLimit
             {
-                if (token != NULL) {
+                if (token[0] != 0x00) {
                     SET_EXIST_CLESS_TRNX_LIMIT(*obj);
                     obj->clessTrnxLimit = atoi(token);
                 }
             }
-            break;
+                break;
             case 3:  // clessFloorLimit
             {
-                if (token != NULL) {
+                if (token[0] != 0x00) {
                     SET_EXIST_CLESS_FLOOR_LIMIT(*obj);
                     obj->clessFloorLimit = atoi(token);
                 }
             }
-            break;
+                break;
             case 4:  // termFloorLimit
             {
-                if (token != NULL) {
+                if (token[0] != 0x00) {
                     SET_EXIST_TERM_FLOOR_LIMIT(*obj);
                     obj->termFloorLimit = atoi(token);
                 }
             }
-            break;
+                break;
             case 5:  // cvmRequiredLimit
             {
-                if (token != NULL) {
+                if (token[0] != 0x00) {
                     SET_EXIST_CVM_REQ_LIMIT(*obj);
                     obj->cvmRequiredLimit = atoi(token);
                 }
             }
-            break;
+                break;
             case 6:  // ttq
-                if (token != NULL) {
+                if (token[0] != 0x00) {
                     SET_EXIST_TTQ(*obj);
-                    memcpy(obj->ttq, token, strlen(token));
+                    int _i = 0;
+                    str2bcd(token, strlen(token), obj->ttq, &_i);
                 }
-            break;
+                break;
             case 7:  // extendedSelectionSupport
             {
                 RESET_EXTENDED_SELECTION_SUPP(*obj);
-                if (token != NULL) {
+                if (token[0] != 0x00) {
                     if (token[0] == '1')
                         SET_EXTENDED_SELECTION_SUPP(*obj);
                 }
             }
-            break;
+                break;
         }
-        token = strtok_r(NULL, ".", &saveptr);
     }
     return SUCCESS;
 }
@@ -388,3 +403,52 @@ int resetEpConfigs(EpConfigsPtr pConfigs)
     return SUCCESS;
 }
 */
+
+
+void t_printEpConfig(const EpConfigDataPtr p)
+{
+    printf("Status check [%s] ", IS_EXIST_STATUS_CHECK(*p) ? "YES" : "NO");
+    if (IS_EXIST_STATUS_CHECK(*p))
+        printf(": %02X", p->statusCheck);
+    printf("\n");
+
+    printf("Zero amount allowed [%s] ", IS_EXIST_ZERO_AMOUNT_ALLOWED(*p) ? "YES" : "NO");
+    if (IS_EXIST_ZERO_AMOUNT_ALLOWED(*p))
+        printf(": %02X", p->zeroAmountAllowed);
+    printf("\n");
+
+    printf("Cless Trnx Limit [%s] ", IS_EXIST_CLESS_TRNX_LIMIT(*p) ? "YES" : "NO");
+    if (IS_EXIST_CLESS_TRNX_LIMIT(*p))
+        printf(": %d", p->clessTrnxLimit);
+    printf("\n");
+
+    printf("Cless Floor Limit [%s] ", IS_EXIST_CLESS_FLOOR_LIMIT(*p) ? "YES" : "NO");
+    if (IS_EXIST_CLESS_FLOOR_LIMIT(*p))
+        printf(": %d", p->clessFloorLimit);
+    printf("\n");
+
+    printf("Term Floor Limit [%s] ", IS_EXIST_TERM_FLOOR_LIMIT(*p) ? "YES" : "NO");
+    if (IS_EXIST_TERM_FLOOR_LIMIT(*p))
+        printf(": %d", p->termFloorLimit);
+    printf("\n");
+
+    printf("Cvm Req Limit [%s] ", IS_EXIST_CVM_REQ_LIMIT(*p) ? "YES" : "NO");
+    if (IS_EXIST_CVM_REQ_LIMIT(*p))
+        printf(": %d", p->cvmRequiredLimit);
+    printf("\n");
+
+    printf("TTQ [%s] ", IS_EXIST_TTQ(*p) ? "YES" : "NO");
+    if (IS_EXIST_TTQ(*p)) {
+        printf(": %02X", p->ttq[0]);
+        printf(" %02X", p->ttq[1]);
+        printf(" %02X", p->ttq[2]);
+        printf(" %02X", p->ttq[3]);
+    }
+    printf("\n");
+
+    printf("Ext Sel Sup[%s] ", IS_EXIST_EXTENDED_SELECTION_SUPP(*p) ? "YES" : "NO");
+    if (IS_EXIST_EXTENDED_SELECTION_SUPP(*p))
+        printf(": %02X", p->extendedSelectionSupport);
+    printf("\n");
+}
+

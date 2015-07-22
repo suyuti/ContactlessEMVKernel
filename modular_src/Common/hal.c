@@ -4,6 +4,7 @@
 
 #include "./err.h"
 #include "./hal.h"
+#include "hal.h"
 
 static HalInterfaces gHal;
 
@@ -17,6 +18,38 @@ int card_transmit(const unsigned char* pIn, int inSize, unsigned char* pOut, uns
 {
     return gHal.card_transmit(pIn, inSize, pOut, pOutSize);
 }
+
+int fileOpen(const char* fileName, const char* mode)
+{
+    return gHal.fileOpen(fileName, mode);
+}
+int fileClose(int file)
+{
+    return gHal.fileClose(file);
+}
+int getFileSize(int file)
+{
+    return gHal.getFileSize(file);
+}
+int fileRead(int file, char* buffer, int size)
+{
+    return gHal.fileRead(file, buffer, size);
+}
+void* allocate(int size)
+{
+    return gHal.allocate(size);
+}
+void release(void* p)
+{
+    gHal.release(p);
+}
+
+
+
+
+
+
+
 
 int setCardOpen(_card_open f)
 {
@@ -103,3 +136,24 @@ int setGenUnPredNum(genUnPredNum f)
     SET_DELEGATE_GENUNPREDNUM(&gHal, f);
     return SUCCESS;
 }
+
+//------------------------------------------------------------------------------------
+
+int checkHalInterfaces(void)
+{
+    if (!gHal.card_open     ||
+        !gHal.card_reset    ||
+        !gHal.card_close    ||
+        !gHal.card_transmit ||
+        !gHal.fileOpen      ||
+        !gHal.fileClose     ||
+        !gHal.fileRead      ||
+        !gHal.getFileSize   ||
+        !gHal.allocate      ||
+        !gHal.release       ||
+        !gHal._genUnPredNum
+            )
+        return HAL_INTERFACE_IS_NULL;
+    return SUCCESS;
+}
+
