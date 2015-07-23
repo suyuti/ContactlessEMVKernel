@@ -11,11 +11,9 @@
 #include <stdlib.h>
 #include <iostream>
 
-#include "../CommonTests/tlvTests.h"
-#include "../CommonTests/utilsTests.h"
-
-#include "../EmvTests/candidateListTests.h"
-#include "../EmvTests/selectTests.h"
+#include "../CommonTests/CommonTests.h"
+#include "../EmvTests/EmvTests.h"
+#include "../EntryPointTests/EntryPointTests.h"
 
 using namespace std;
 

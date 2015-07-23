@@ -1,4 +1,5 @@
 include_directories(../../modular_src)
+include_directories(..)
 
 set(allTestsSrc main.cpp
                 ../BaseTest.cpp
@@ -12,5 +13,7 @@ target_link_libraries(allTests
                             ${GMOCK_LIBRARIES}
                             pthread
                             common
-                            emv)
+                            emv
+                            entryPoint
+                            kernel)
 add_test(allTests allTests)

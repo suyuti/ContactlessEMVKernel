@@ -2,10 +2,12 @@
  * Copyright 2015 Suyuti  [legal/copyright]
  *
  * */
-
+#include <memory.h>
 #include "epProtocolActivation.h"
 #include "../Common/err.h"
 #include "./epIndicators.h"
+#include "epCommon.h"
+#include "../Common/general.h"
 
 //-----------------------------------------------------------------------------
 
@@ -37,11 +39,22 @@ int _3_2_1_1(EpPtr pEp)
 
     */
     int i = 0;
-    if (pEp->startedByReader) {
-        for (i = 0; i < pEp->epConfigsCount; ++i) {
-            epIndicators_reset(&(pEp->epConfigs[i].indicators));
+    if (!pEp) return NULL_PARAMETER;
+
+    if (pEp->restartFlag == RESET) {
+        if (pEp->startPoint == StartedAtB) {
+            for (i = 0; i < pEp->epConfigsCount; ++i) {
+                epIndicators_reset(&(pEp->epConfigs[i].indicators));
+
+                // TODO: if ttq configured
+                memcpy(pEp->epConfigs[i].indicators.ttq, pEp->epConfigs[i].configData.ttq, 4);  // TODO magic number
+            }
         }
-     }
+
+        clearCandidateList(pEp->candidateList, MAX_CANDIDATE_LIST);
+        pEp->candidateListCount = 0;  // TODO, counter resetting should be in helper function
+    }
+
     return SUCCESS;
 }
 

@@ -23,6 +23,7 @@ extern "C" {
 }
 
 #include "./matchers.h"
+#include "./testUtils.h"
 
 using namespace EmvTest;
 using namespace std;

@@ -13,10 +13,18 @@
 #include "../Common/hal.h"
 #include "./epConfig.h"
 #include "./epCombinationSelection.h"
+#include "epCommon.h"
 
 // TODO
 
 Ep gEp;
+
+//--------------------------------------------------------------------
+/**
+ *
+ * Clears EntryPoint object
+ *
+ * */
 
 int clearEntryPoint(EpPtr pEp)
 {
@@ -27,15 +35,28 @@ int clearEntryPoint(EpPtr pEp)
     return SUCCESS;
 }
 
+//--------------------------------------------------------------------
+/**
+ *
+ * Initialize EntryPoint object.
+ * Clears it and loads entry point configuration from related folder.
+ * This folder is given in configFolder parameter.
+ * Entry point configuration data stored on config.txt file.
+ *
+ * */
 int ep_init(const char* configFolder)
 {
     int err;
+
+    err = clearEntryPoint(&gEp);
+    if (err != SUCCESS) return err;
 
     setEpNextState(EpStateStartA);
 
     sprintf(gEp.configFolder, "%s/config.txt", configFolder);
     err = loadConfigs(&gEp);
-    if (err != SUCCESS) return err;
+    if (err < 0) return err;
+    if (err == 0) return NO_CONFIG;
 
     return SUCCESS;
 }

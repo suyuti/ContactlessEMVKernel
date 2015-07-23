@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-import scardreadermodule
-import emvclessmodule
+#import scardreadermodule
+#import emvclessmodule
 from Tkinter import *
 
-print scardreadermodule.SelectReader(-1)
+#print scardreadermodule.SelectReader(-1)
 
        
 def call(num):

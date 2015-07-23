@@ -38,7 +38,19 @@ int mockCardTransmit(const unsigned char*   p1,
                   unsigned char*         p3,
                   unsigned long*         p4)
 {
-    return MockHalFunctions::instance().cardTransmit(p1, p2, p3, p4);
+    printf(">\n");
+    for (int i = 0; i < p2; ++i) {
+        printf("%02X ", p1[i]);
+    }
+    printf("\n");
+    int r = MockHalFunctions::instance().cardTransmit(p1, p2, p3, p4);
+
+    printf("<\n");
+    for (int i = 0; i < *p4; ++i) {
+        printf("%02X ", p3[i]);
+    }
+    printf("\n");
+    return r;
 }
 
 //-------------------------------------------------------------------------

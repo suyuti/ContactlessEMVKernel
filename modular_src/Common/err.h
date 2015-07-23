@@ -18,6 +18,7 @@
 #define INDEX_OUT_OF_RANGE          (ERR_BASE - 8)
 #define OBJECT_NOT_FOUND            (ERR_BASE - 9)
 #define HAL_INTERFACE_IS_NULL       (ERR_BASE - 10)
+#define NO_CONFIG                   (ERR_BASE - 11)
 
 #define ERR_EMV_BASE                (-100)
 #define SW_NOT_SUCCESS              (ERR_EMV_BASE - 1)

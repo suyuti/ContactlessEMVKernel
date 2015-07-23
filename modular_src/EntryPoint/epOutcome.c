@@ -10,6 +10,7 @@
 
 int resetOutcome(EpOutcomePtr p)
 {
+    if (!p) return NULL_PARAMETER;
     memset(p, 0x00, sizeof(EpOutcome));
 
     p->start                        = Start_NA;

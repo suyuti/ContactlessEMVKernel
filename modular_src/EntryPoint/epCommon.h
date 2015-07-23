@@ -31,7 +31,7 @@ typedef struct {
     unsigned char   zeroAmount;
     unsigned char   readerCvmReqLimitExceeded;
     unsigned char   readerClessFloorLimitExceeded;
-    unsigned char   ttq[4];
+    unsigned char   ttq[4];                         // Copy of TTQ
 } EpIndicators, *EpIndicatorsPtr;
 
 typedef struct {
@@ -115,6 +115,7 @@ typedef struct {
 
     Fci             fci;
     //- Started by reader
+    int             restartFlag;            // for Entry Point Protocol Activation
     int             startedByReader;
     EpStartPoint    startPoint;
 

@@ -21,3 +21,9 @@ int initialize(const char* path)
 
     return err;
 }
+
+int execute(int amount, int amountOther)
+{
+    int err = ep_process(amount, amountOther);
+    return SUCCESS;
+}

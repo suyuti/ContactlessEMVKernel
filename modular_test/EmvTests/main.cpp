@@ -9,8 +9,7 @@
 #include <stdlib.h>
 #include <iostream>
 
-#include "./candidateListTests.h"
-#include "./selectTests.h"
+#include "./EmvTests.h"
 
 using namespace std;
 

@@ -11,8 +11,7 @@
 #include <stdlib.h>
 #include <iostream>
 
-#include "./tlvTests.h"
-#include "./utilsTests.h"
+#include "./CommonTests.h"
 
 using namespace std;
 

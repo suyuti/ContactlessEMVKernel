@@ -35,7 +35,7 @@ int epPreProcessing(EpPtr epObj, int amount, int amountAuthorized)
             err = _3_1_1_12(&(epObj->epConfigs[i]));
         }
     }
-    err = _3_1_1_13();
+    err = _3_1_1_13(epObj);
 
     return err;
 }
@@ -342,7 +342,7 @@ int _3_1_1_13(EpPtr pEp)
                 retain the Entry Point Pre-Processing Indicators for each allowed
                 Combination.
     */
-    resetOutcome(&pEp->outcome);
+    resetOutcome(&(pEp->outcome));
     // TODO UI Request on Outcome Present
     return SUCCESS;
 }

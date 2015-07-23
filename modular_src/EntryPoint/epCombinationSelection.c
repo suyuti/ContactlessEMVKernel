@@ -130,6 +130,8 @@ int _step3(EpPtr pEp)
         // TODO
     } else {
         // 3.3.2.7
+        // TODO
+        gsNextStep = StepExit;
     }
 
     return err;
