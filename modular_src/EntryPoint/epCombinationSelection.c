@@ -15,7 +15,7 @@
 // #include "../Base/kernels.h"
 
 
-static Steps                gsNextStep;
+static Steps                gsNextStep = Step1;
 static CandidateListItem    gsSelectedApp;
 
 //-----------------------------------------------------------------------------
@@ -76,14 +76,28 @@ int epFinalCombinationSelection(EpPtr pEp)
 }
 
 //-----------------------------------------------------------------------------
+/*
+ * 3.3.2.2
+ * Entry Point shall send a SELECT (PPSE) command (as described in [EMV 4.2 Book 1], section 11.3.2)
+ * to the card, with a file name of ‘2PAY.SYS.DDF01’.
+ *
+ * 3.3.2.3
+ * IF         Entry Point receives SW1 SW2 = '9000' in response to the SELECT (PPSE) command,
+ * THEN       Entry Point shall proceed to Step 2.
+ * OTHERWISE, Entry Point shall add no Combinations to the
+ *            Candidate List and shall proceed to Step 3.
+ *
+ * */
 
 int _step1(EpPtr pEp)
 {
     if (!pEp) return NULL_PARAMETER;
 
+    // 3.3.2.2
     int err = selectPpse(&(pEp->fci));
     if (err == SW_NOT_FOUND) return err;
 
+    // 3.3.2.3
     if (getLastSw() == MAKEWORD(0x90, 0x00)) {
         gsNextStep = Step2;
     } else {
@@ -93,6 +107,11 @@ int _step1(EpPtr pEp)
 }
 
 //-----------------------------------------------------------------------------
+/*
+ * 3.3.2.4
+ * 3.3.2.5 A,B,C,D
+ *
+ * */
 
 int _step2(EpPtr pEp)
 {

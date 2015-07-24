@@ -31,6 +31,8 @@ int clearEntryPoint(EpPtr pEp)
     if (!pEp) return NULL_PARAMETER;
 
     clearEpConfigs(pEp);
+    pEp->candidateListCount = 0;
+    clearCandidateList(pEp->candidateList, MAX_CANDIDATE_LIST);
 
     return SUCCESS;
 }
