@@ -116,7 +116,7 @@ int _ep_startA(int amount, int amountAuthorized)
 
 int _ep_startB()
 {
-    int err = epProtocolActivation();
+    int err = epProtocolActivation(&gEp);
     setEpNextState(EpStateStartC);
     return SUCCESS;
 }

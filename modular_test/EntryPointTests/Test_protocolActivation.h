@@ -20,10 +20,21 @@ extern "C" {
 class Test_ProtocolActivation : public BaseTest {
 };
 
+//-----------------------------------------------------------------------------
+
+TEST_F(Test_ProtocolActivation, epProtocolActivation_Negative) {
+    int actual = epProtocolActivation(NULL);
+    EXPECT_EQ(NULL_PARAMETER, actual);
+}
+
+//-----------------------------------------------------------------------------
+
 TEST_F(Test_ProtocolActivation, _3_2_1_1_negative) {
     int actual = _3_2_1_1(NULL);
     EXPECT_EQ(NULL_PARAMETER, actual);
 }
+
+//-----------------------------------------------------------------------------
 
 TEST_F(Test_ProtocolActivation, _3_2_1_1) {
     /*
@@ -97,5 +108,46 @@ TEST_F(Test_ProtocolActivation, _3_2_1_1) {
     EXPECT_EQ(0x00, ep.candidateList[0]._50[0]);
     EXPECT_EQ(0x00, ep.candidateList[1]._50[0]);
 }
+
+//-----------------------------------------------------------------------------
+
+TEST_F(Test_ProtocolActivation, _3_2_1_2_Negative) {
+    int actual = _3_2_1_2(NULL);
+    EXPECT_EQ(NULL_PARAMETER, actual);
+}
+
+//-----------------------------------------------------------------------------
+
+TEST_F(Test_ProtocolActivation, _3_2_1_3_Negative) {
+    int actual = _3_2_1_3(NULL);
+    EXPECT_EQ(NULL_PARAMETER, actual);
+}
+
+//-----------------------------------------------------------------------------
+
+TEST_F(Test_ProtocolActivation, _3_2_1_4_Negative) {
+    int actual = _3_2_1_4(NULL);
+    EXPECT_EQ(NULL_PARAMETER, actual);
+}
+
+//-----------------------------------------------------------------------------
+
+TEST_F(Test_ProtocolActivation, _3_2_1_5_Negative) {
+    int actual = _3_2_1_5(NULL);
+    EXPECT_EQ(NULL_PARAMETER, actual);
+}
+
+//-----------------------------------------------------------------------------
+
+TEST_F(Test_ProtocolActivation, _3_2_1_6_Negative) {
+    int actual = _3_2_1_6(NULL);
+    EXPECT_EQ(NULL_PARAMETER, actual);
+}
+
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 #endif  // MODULAR_TEST_PROTOCOLACTIVATION_H_
