@@ -4,7 +4,8 @@ include_directories(..)
 set(allTestsSrc main.cpp
                 ../BaseTest.cpp
                 ../Mockups/mockHal.cpp
-                ../defaultHalImpl.c)
+                ../defaultHalImpl.c
+                ../Configurations/ConfigFactory.cpp)
 
 
 add_executable(allTests ${allTestsSrc})

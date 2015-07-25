@@ -8,7 +8,7 @@
 
 #include <EntryPoint/epCommon.h>
 #include "../BaseTest.h"
-
+#include "../Configurations/ConfigFactory.h"
 extern "C" {
     #include "Common/err.h"
     #include "EntryPoint/epCombinationSelection.h"
@@ -148,6 +148,37 @@ TEST_F(Test_CombinationSelection, _step1_3_3_2_4)
     EXPECT_EQ(Step2, t_getNextStep());
 }
 
+//-----------------------------------------------------------------------------
+
+TEST_F(Test_CombinationSelection, _3_3_2_5)
+{
+    Ep ep;
+    clearEntryPoint(&ep);
+
+    TerminalConfigs config = TerminalConfigs::TerminalConfigBuilder()
+    .Build();
+
+    //
+    ep.epConfigsCount = 2;
+    SET_EPIND_CLESS_APP_NOT_ALLOWED(ep.epConfigs[0].indicators);
+    SET_EPIND_CLESS_APP_NOT_ALLOWED(ep.epConfigs[1].indicators);
+
+    int actual = _3_3_2_5(&ep);
+    EXPECT_EQ(SUCCESS, actual);
+    EXPECT_EQ(Step3, t_getNextStep());
+    EXPECT_EQ(0, ep.candidateListCount);
+}
+
+//-----------------------------------------------------------------------------
+
+TEST_F(Test_CombinationSelection, _3_3_2_5_A)
+{
+
+}
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 
 #endif  // MODULAR_TEST_COMBINATIONSELECTION_H_

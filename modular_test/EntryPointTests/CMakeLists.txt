@@ -11,7 +11,8 @@ include_directories(../../modular_src)
 set(entryPointTestsSrc  ./main.cpp
                         ../BaseTest.cpp
                         ../Mockups/mockHal.cpp
-                        ../defaultHalImpl.c)
+                        ../defaultHalImpl.c
+                        ../Configurations/ConfigFactory.cpp)
 
 add_executable(entryPointTests ${entryPointTestsSrc})
 target_link_libraries(entryPointTests
