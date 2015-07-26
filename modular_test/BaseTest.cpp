@@ -8,13 +8,13 @@
 // #include "Config/ConfigFactory/termConfig02.h"
 
 /*
-void BaseTest::useTerminalConfig(TerminalConfigs::Configurations configType)
+void BaseTest::useTerminalConfig(EntryPointConfigs::Configurations configType)
 {
     switch(configType) {
-        case TerminalConfigs::Config01:
+        case EntryPointConfigs::Config01:
             terminalConfig = TerminalConfig01().generate();
         break;
-        case TerminalConfigs::Config02:
+        case EntryPointConfigs::Config02:
             terminalConfig = TerminalConfig02().generate();
         break;
     }

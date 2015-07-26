@@ -60,7 +60,7 @@ class BaseTest : public ::testing::Test {
 
  protected:
     HalInterfaces               hal;
-    // TerminalConfigs         terminalConfig;
+    // EntryPointConfigs         terminalConfig;
     StrictMockHalFunctions      halApi;
 
  protected:
@@ -87,7 +87,7 @@ class BaseTest : public ::testing::Test {
     }
 
 
-    // void useTerminalConfig(TerminalConfigs::Configurations configType);
+    // void useTerminalConfig(EntryPointConfigs::Configurations configType);
     // void addCommandResponse(string cmd, string resp);
     // void clearCommandResponse();
 

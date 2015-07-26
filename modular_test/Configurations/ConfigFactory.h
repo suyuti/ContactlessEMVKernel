@@ -59,15 +59,16 @@ public:
         TerminalConfigBuilder& WithReaderClessFloorLimitExceeded(bool v);   // indicator
         TerminalConfigBuilder& WithCopyTtq(bool v);                         // indicator
 
-        TerminalConfigs Build();
+        EntryPointConfigs Build();
 
     private:
         TerminalConfigProperties fProperties;
     };
 public:
-//    virtual TerminalConfigs generate(string kid, string aid, string trnx = "");
+//    virtual EntryPointConfigs generate(string kid, string aid, string trnx = "");
     string toString();
     void save(string name);
+
 
 private:
     TerminalConfigs(const TerminalConfigProperties& properties) : fProperties(properties) {}

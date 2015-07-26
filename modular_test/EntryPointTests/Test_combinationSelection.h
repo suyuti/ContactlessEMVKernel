@@ -8,7 +8,7 @@
 
 #include <EntryPoint/epCommon.h>
 #include "../BaseTest.h"
-#include "../Configurations/ConfigFactory.h"
+#include "../Configurations/EntryPointConfigFactory.h"
 extern "C" {
     #include "Common/err.h"
     #include "EntryPoint/epCombinationSelection.h"
@@ -155,13 +155,12 @@ TEST_F(Test_CombinationSelection, _3_3_2_5)
     Ep ep;
     clearEntryPoint(&ep);
 
-    TerminalConfigs config = TerminalConfigs::TerminalConfigBuilder()
-    .Build();
-
-    //
-    ep.epConfigsCount = 2;
-    SET_EPIND_CLESS_APP_NOT_ALLOWED(ep.epConfigs[0].indicators);
-    SET_EPIND_CLESS_APP_NOT_ALLOWED(ep.epConfigs[1].indicators);
+    EntryPointConfigs config = EntryPointConfigs::EntryPointConfigBuilder()
+            .WithAid("TEST_AID")
+            .WithClessAppNotAllowed(false)
+            .Build();
+    config.copy(&(ep.epConfigs[0]));
+    ep.epConfigsCount++;
 
     int actual = _3_3_2_5(&ep);
     EXPECT_EQ(SUCCESS, actual);
