@@ -40,5 +40,7 @@ int _3_3_2_5(EpPtr pEp);
 //- Testing purposes
 int t_getNextStep();
 void t_setNextStep(Steps s);
+unsigned char* t_getMatchingAid();
+int t_getMatchingAidLen();
 
 #endif  // MODULAR_SRC_ENTRYPOINT_EPCOMBINATIONSELECTION_H_

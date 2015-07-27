@@ -188,41 +188,35 @@ TEST_F(Test_CombinationSelection, _3_3_2_5_there_is_no_cless_app)
     EXPECT_EQ(0, ep.candidateListCount);
 }
 
-TEST_F(Test_CombinationSelection, _3_3_2_5_A)
+//-----------------------------------------------------------------------------
+/**
+ *
+ * Entry Point shall examine the format of the ADF Name of the Directory Entry.
+ *
+ * IF the ADF Name is missing
+ * OR is not coded according to [EMV 4.2 Book 1], section 12.2.1,
+ * THEN Entry Point shall proceed with the next Directory Entry.
+ *
+ * */
+
+TEST_F(Test_CombinationSelection, _3_3_2_5_A_without_adfName)
 {
     Ep ep;
 
     clearEntryPoint(&ep);
 
-    EntryPointConfigs config = EntryPointConfigs::EntryPointConfigBuilder()
+    EntryPointConfigs::EntryPointConfigBuilder()
             .WithAid("A00001")
-            .WithClessAppNotAllowed()
-            .Build();
-    config.copy(&(ep.epConfigs[0]));
+            .Build()
+            .copy(&(ep.epConfigs[0]));
     ep.epConfigsCount++;
 
     FciFactory::FciBuilder()
             .WithDirectoryEntry(
                     DirectoryEntryFactory::DirectoryEntryBuilder()
-                            .WithADFName("A00001")
+                            // .WithADFName("A00001")              // <- without ADFName
                             .WithKernelIdentifier(1)
                             .WithApplicationLabel("LABEL")
-                            .Build()
-                            .getData()
-            )
-            .WithDirectoryEntry(
-                    DirectoryEntryFactory::DirectoryEntryBuilder()
-                            .WithADFName("A00002")
-                            .WithKernelIdentifier(2)
-                            .WithApplicationLabel("LABEL2")
-                            .Build()
-                            .getData()
-            )
-            .WithDirectoryEntry(
-                    DirectoryEntryFactory::DirectoryEntryBuilder()
-                            .WithADFName("A00003")
-                            .WithKernelIdentifier(3)
-                            .WithApplicationLabel("LABEL2")
                             .Build()
                             .getData()
             )
@@ -235,14 +229,172 @@ TEST_F(Test_CombinationSelection, _3_3_2_5_A)
     EXPECT_EQ(Step3, t_getNextStep());
     EXPECT_EQ(0, ep.candidateListCount);
 }
+
 //-----------------------------------------------------------------------------
 
-TEST_F(Test_CombinationSelection, _3_3_2_5_B)
+TEST_F(Test_CombinationSelection, _3_3_2_5_A_adfName_misformatted_smallAdfName)
 {
+    Ep ep;
+
+    clearEntryPoint(&ep);
+
+    EntryPointConfigs::EntryPointConfigBuilder()
+            .WithAid("A00001")
+            .Build()
+            .copy(&(ep.epConfigs[0]));
+    ep.epConfigsCount++;
+
+    FciFactory::FciBuilder()
+            .WithDirectoryEntry(
+                    DirectoryEntryFactory::DirectoryEntryBuilder()
+                            .WithADFName("A00001")              // <- ADFName must be min 5 bytes len
+                            .WithKernelIdentifier(1)
+                            .WithApplicationLabel("LABEL")
+                            .Build()
+                            .getData()
+            )
+            .Build()
+            .copy(&ep.fci);
+
+
+    int actual = _3_3_2_5(&ep);
+    EXPECT_EQ(SUCCESS, actual);
+    EXPECT_EQ(Step3, t_getNextStep());
+    EXPECT_EQ(0, ep.candidateListCount);
+}
+
+//-----------------------------------------------------------------------------
+
+TEST_F(Test_CombinationSelection, _3_3_2_5_A_adfName_misformatted_longAdfName)
+{
+    Ep ep;
+
+    clearEntryPoint(&ep);
+
+    EntryPointConfigs::EntryPointConfigBuilder()
+            .WithAid("A00001")
+            .Build()
+            .copy(&(ep.epConfigs[0]));
+    ep.epConfigsCount++;
+
+    FciFactory::FciBuilder()
+            .WithDirectoryEntry(
+                    DirectoryEntryFactory::DirectoryEntryBuilder()
+                            .WithADFName("A00102030405060708090A0B0C0D0E0F111213") // <- ADFName must be max 16 bytes len
+                            .WithKernelIdentifier(1)
+                            .WithApplicationLabel("LABEL")
+                            .Build()
+                            .getData()
+            )
+            .Build()
+            .copy(&ep.fci);
+
+
+    int actual = _3_3_2_5(&ep);
+    EXPECT_EQ(SUCCESS, actual);
+    EXPECT_EQ(Step3, t_getNextStep());
+    EXPECT_EQ(0, ep.candidateListCount);
+}
+
+//-----------------------------------------------------------------------------
+
+/*
+ *
+ * Entry Point shall examine whether the ADF Name matches the AID of the reader Combination.
+ *
+ * IF        the ADF Name has the same length and value as the AID (full match),
+ * OR        the ADF Name begins with the AID (partial match),
+ * THEN      the ADF Name matches the AID and the AID is referred to as the “matching AID”.
+ * OTHERWISE Entry Point shall return to bullet A and proceed with the next Directory Entry.
+ *
+ * */
+
+TEST_F(Test_CombinationSelection, _3_3_2_5_B_fullMatch)
+{
+    Ep ep;
+
+    clearEntryPoint(&ep);
+
+    EntryPointConfigs::EntryPointConfigBuilder()
+            .WithAid("A102030405")
+            .Build()
+            .copy(&(ep.epConfigs[0]));
+    ep.epConfigsCount++;
+
+    FciFactory::FciBuilder()
+            .WithDirectoryEntry(
+                    DirectoryEntryFactory::DirectoryEntryBuilder()
+                            .WithADFName("A102030405")
+                            .WithKernelIdentifier(1)
+                            .WithApplicationLabel("LABEL")
+                            .Build()
+                            .getData()
+            )
+            .Build()
+            .copy(&ep.fci);
+
+
+    int actual = _3_3_2_5(&ep);
+    EXPECT_EQ(SUCCESS, actual);
+    EXPECT_EQ(5, t_getMatchingAidLen());
+    unsigned char expectedMatchingAid[] = {0x05, 0xA1, 0x02, 0x03, 0x04, 0x05};
+
+    for(int i = 0; i < t_getMatchingAidLen()+1; ++i) {
+        printf("%02X ", t_getMatchingAid()[i]);
+    }
+    printf("\n");
+
+    EXPECT_EQ(0, memcmp(t_getMatchingAid(), expectedMatchingAid, sizeof(expectedMatchingAid)));
+
+    //EXPECT_EQ(Step3, t_getNextStep());
+    //EXPECT_EQ(0, ep.candidateListCount);
 
 }
+
 //-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
+
+TEST_F(Test_CombinationSelection, _3_3_2_5_B_partialMatch)
+{
+    Ep ep;
+
+    clearEntryPoint(&ep);
+
+    EntryPointConfigs::EntryPointConfigBuilder()
+            .WithAid("A102030405")
+            .Build()
+            .copy(&(ep.epConfigs[0]));
+    ep.epConfigsCount++;
+
+    FciFactory::FciBuilder()
+            .WithDirectoryEntry(
+                    DirectoryEntryFactory::DirectoryEntryBuilder()
+                            .WithADFName("A102030405AABBCCDDEEFF")    // <- Adf begins with AID
+                            .WithKernelIdentifier(1)
+                            .WithApplicationLabel("LABEL")
+                            .Build()
+                            .getData()
+            )
+            .Build()
+            .copy(&ep.fci);
+
+
+    int actual = _3_3_2_5(&ep);
+    EXPECT_EQ(SUCCESS, actual);
+    EXPECT_EQ(5, t_getMatchingAidLen());
+    unsigned char expectedMatchingAid[] = {0x05, 0xA1, 0x02, 0x03, 0x04, 0x05};
+
+    for(int i = 0; i < t_getMatchingAidLen()+1; ++i) {
+        printf("%02X ", t_getMatchingAid()[i]);
+    }
+    printf("\n");
+
+    EXPECT_EQ(0, memcmp(t_getMatchingAid(), expectedMatchingAid, sizeof(expectedMatchingAid)));
+
+    //EXPECT_EQ(Step3, t_getNextStep());
+    //EXPECT_EQ(0, ep.candidateListCount);
+
+}
+
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------

@@ -12,11 +12,15 @@
 #include "../Common/utils.h"
 #include "../Emv/fci.h"
 #include "./epConfig.h"
+#include "epCommon.h"
 // #include "../Base/kernels.h"
 
 
 static Steps                gsNextStep = Step1;
 static CandidateListItem    gsSelectedApp;
+static unsigned char        gsMatchingAid[30]  = {0x00};
+static int                  gsMatchingAidLen   = 0;
+
 
 //-----------------------------------------------------------------------------
 
@@ -208,8 +212,6 @@ int _3_3_2_5(EpPtr pEp)
     int                 j                = 0;
     DirectoryEntryPtr directoryEntry   = NULL;
     int                 requestedKernelId = 0xFF;
-    unsigned char       matchingAid[30]  = {0x00};
-    int                 matchingAidLen   = 0;
 
     for (i = 0; i < pEp->epConfigsCount; ++i) {
         pConfig = &(pEp->epConfigs[i]);
@@ -224,6 +226,26 @@ int _3_3_2_5(EpPtr pEp)
                 }
 
                 // 3.3.2.5 B
+                int cardAdfNameLen = getAdfNameLen(directoryEntry);
+                int termAidLen = getEpConfigAidLen(pConfig);
+
+                if (cardAdfNameLen == termAidLen) {
+                    // Full match
+                    memcpy(gsMatchingAid, pConfig->aid, getEpConfigAidLen(pConfig)+1);
+                    gsMatchingAidLen = getEpConfigAidLen(pConfig);
+                }
+                else if (cardAdfNameLen > termAidLen) {
+                    if (startsWith((const char*)getAdfName(directoryEntry), pConfig->aid+1) == TRUE) {
+                        // Partial match
+                        memcpy(gsMatchingAid, pConfig->aid, getEpConfigAidLen(pConfig)+1);
+                        gsMatchingAidLen = getEpConfigAidLen(pConfig);
+                    }
+                }
+                else {
+                    continue;
+                }
+/*
+
                 if ((getAdfNameLen(directoryEntry) == getEpConfigAidLen(pConfig))
                      ||
                     startsWith((const char*)getAdfName(directoryEntry), pConfig->aid) == TRUE) {
@@ -232,13 +254,13 @@ int _3_3_2_5(EpPtr pEp)
                 } else {
                     continue;
                 }
-
+*/
                 // 3.3.2.5 C
                 if (isKernelIdExist(directoryEntry) == FALSE) {
-                    requestedKernelId = useDefaultKernelId(matchingAid, matchingAidLen);
+                    requestedKernelId = useDefaultKernelId(gsMatchingAid, gsMatchingAidLen);
                 } else {
                     if (getKernelIdLen(directoryEntry) == 0) {  // ? size = 0 means KernelId doesn't exist.
-                        requestedKernelId = useDefaultKernelId(matchingAid, matchingAidLen);
+                        requestedKernelId = useDefaultKernelId(gsMatchingAid, gsMatchingAidLen);
                         // return SUCCESS;
                         // TODO
                     }
@@ -300,3 +322,19 @@ void t_setNextStep(Steps s)
 {
     gsNextStep = s;
 }
+
+//-----------------------------------------------------------------------------
+
+unsigned char* t_getMatchingAid()
+{
+    return gsMatchingAid;
+}
+
+//-----------------------------------------------------------------------------
+
+int t_getMatchingAidLen()
+{
+    return gsMatchingAidLen;
+}
+
+//-----------------------------------------------------------------------------

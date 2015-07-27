@@ -9,6 +9,7 @@
 #include "../Common/err.h"
 #include "../Common/general.h"
 #include "../Common/bits.h"
+#include "fci.h"
 
 //-----------------------------------------------------------------------
 
@@ -149,6 +150,16 @@ int isAdfNameValid(DirectoryEntryPtr p)
 {
     // TODO
     // EMV 4.2 Book 1 12.2.1
+    /*
+     * ADF and DF Names consists of two parts:
+     *     1. RID (Registered Application Provider Identifier)              5 bytes
+     *     2. PIX (Optional field assigned by application provider) up to   11 bytes, 0 is ok
+     * */
+
+    if (!p) return NULL_PARAMETER;
+
+    if (p->_4F[0] < 5 || p->_4F[0] > 16)
+        return FALSE;
     return TRUE;
 }
 
