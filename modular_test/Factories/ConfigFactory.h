@@ -59,7 +59,7 @@ public:
         TerminalConfigBuilder& WithReaderClessFloorLimitExceeded(bool v);   // indicator
         TerminalConfigBuilder& WithCopyTtq(bool v);                         // indicator
 
-        EntryPointConfigs Build();
+        TerminalConfigs Build();
 
     private:
         TerminalConfigProperties fProperties;

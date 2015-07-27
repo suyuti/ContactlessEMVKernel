@@ -14,7 +14,7 @@
 #define MAX_4F_LEN          (1+16)   // First byte keeps length
 #define MAX_50_LEN          (1+16)
 #define MAX_87_LEN          (1+ 1)
-#define MAX_9F2A_LEN        (1+ 2)
+#define MAX_9F2A_LEN        (1+ 8)
 #define MAX_9F29_LEN        (1+20)  // TODO unknown max
 #define MAX_84_LEN          (1+16)
 #define MAX_ISSDATA         10

@@ -8,7 +8,10 @@
 
 #include <EntryPoint/epCommon.h>
 #include "../BaseTest.h"
-#include "../Configurations/EntryPointConfigFactory.h"
+#include "../Factories/EntryPointConfigFactory.h"
+#include "../Factories/FciFactory.h"
+#include "../Factories/FciDataFactory.h"
+
 extern "C" {
     #include "Common/err.h"
     #include "EntryPoint/epCombinationSelection.h"
@@ -153,14 +156,44 @@ TEST_F(Test_CombinationSelection, _step1_3_3_2_4)
 TEST_F(Test_CombinationSelection, _3_3_2_5)
 {
     Ep ep;
+
     clearEntryPoint(&ep);
 
     EntryPointConfigs config = EntryPointConfigs::EntryPointConfigBuilder()
-            .WithAid("TEST_AID")
+            .WithAid("A00001")
             .WithClessAppNotAllowed(false)
             .Build();
     config.copy(&(ep.epConfigs[0]));
     ep.epConfigsCount++;
+
+    FciFactory::FciBuilder()
+            .WithFciData(
+                    FciDataFactory::FciDataBuilder()
+                            .WithADFName("A00001")
+                            .WithKernelIdentifier(1)
+                            .WithApplicationLabel("LABEL")
+                            .Build()
+                            .getData()
+            )
+            .WithFciData(
+                    FciDataFactory::FciDataBuilder()
+                            .WithADFName("A00002")
+                            .WithKernelIdentifier(2)
+                            .WithApplicationLabel("LABEL2")
+                            .Build()
+                            .getData()
+            )
+            .WithFciData(
+                    FciDataFactory::FciDataBuilder()
+                            .WithADFName("A00003")
+                            .WithKernelIdentifier(3)
+                            .WithApplicationLabel("LABEL2")
+                            .Build()
+                            .getData()
+            )
+    .Build()
+    .copy(&ep.fci);
+
 
     int actual = _3_3_2_5(&ep);
     EXPECT_EQ(SUCCESS, actual);

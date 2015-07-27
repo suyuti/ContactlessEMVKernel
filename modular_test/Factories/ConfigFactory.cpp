@@ -4,15 +4,15 @@
 #include <fstream>
 
 extern "C" {
-#include "EntryPoint/epCommon.h"
-#include "EntryPoint/epIndicators.h"
+    #include "EntryPoint/epCommon.h"
+    #include "EntryPoint/epIndicators.h"
 }
 
-#include "EntryPointConfigFactory.h"
+#include "ConfigFactory.h"
 
 using namespace std;
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithStatusCheck(unsigned char v)
+TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithStatusCheck(unsigned char v)
 {
     //fProperties.config.statusCheck = v;
     if (v == YES) {
@@ -24,67 +24,67 @@ EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigB
     return *this;
 }
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithZeroAmountAllowed(unsigned char v)
+TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithZeroAmountAllowed(unsigned char v)
 {
     fProperties.config.configData.zeroAmountAllowed = v;
     return *this;
 }
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithClessTrnxLimit(int v)
+TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithClessTrnxLimit(int v)
 {
     fProperties.config.configData.clessTrnxLimit = v;
     return *this;
 }
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithClessFloorLimit(int v)
+TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithClessFloorLimit(int v)
 {
     fProperties.config.configData.clessFloorLimit = v;
     return *this;
 }
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithTermFloorLimit(int v)
+TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithTermFloorLimit(int v)
 {
     fProperties.config.configData.termFloorLimit = v;
     return *this;
 }
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithCvmRequiredLimit(int v)
+TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithCvmRequiredLimit(int v)
 {
     fProperties.config.configData.cvmRequiredLimit = v;
     return *this;
 }
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithTtq(string v)
+TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithTtq(string v)
 {
     // TODO
     return *this;
 }
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithTtq(unsigned char v[4])
+TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithTtq(unsigned char v[4])
 {
     memcpy(fProperties.config.configData.ttq, v, 4);
     return *this;
 }
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithExtendedSelectionSupport(unsigned char v)
+TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithExtendedSelectionSupport(unsigned char v)
 {
     fProperties.config.configData.extendedSelectionSupport = v;
     return *this;
 }
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithAid(string aid)
+TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithAid(string aid)
 {
     strcpy(fProperties.config.aid, aid.c_str());
     return *this;
 }
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithKernelId(unsigned char kid)
+TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithKernelId(unsigned char kid)
 {
     fProperties.config.kid = kid;
     return *this;
 }
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithStatusCheckTequested(bool v)
+TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithStatusCheckTequested(bool v)
 {
     if (v)
         SET_EPIND_STATUS_CHECK_REQ(fProperties.config.indicators);
@@ -94,7 +94,7 @@ EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigB
     return *this;
 }
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithClessAppNotAllowed(bool v)
+TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithClessAppNotAllowed(bool v)
 {
     if (v)
         SET_EPIND_CLESS_APP_NOT_ALLOWED(fProperties.config.indicators);
@@ -104,7 +104,7 @@ EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigB
     return *this;
 }
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithZeroAmount(bool v)
+TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithZeroAmount(bool v)
 {
     if (v)
         SET_EPIND_ZERO_AMOUNT(fProperties.config.indicators);
@@ -113,7 +113,7 @@ EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigB
     return *this;
 }
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithReaderCVMReqLimitExceeded(bool v)
+TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithReaderCVMReqLimitExceeded(bool v)
 {
     if (v)
         SET_EPIND_READER_CVM_REQ_LIMIT_EXCEEDED(fProperties.config.indicators);
@@ -122,7 +122,7 @@ EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigB
     return *this;
 }
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithReaderClessFloorLimitExceeded(bool v)
+TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithReaderClessFloorLimitExceeded(bool v)
 {
     if (v)
         SET_EPIND_READER_CLESS_FLOOR_LIMIT_EXCEEDED(fProperties.config.indicators);
@@ -131,19 +131,19 @@ EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigB
     return *this;
 }
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithCopyTtq(bool v)
+TerminalConfigs::TerminalConfigBuilder& TerminalConfigs::TerminalConfigBuilder::WithCopyTtq(bool v)
 {
     // TODO
     return *this;
 }
 
 
-EntryPointConfigs EntryPointConfigs::EntryPointConfigBuilder::Build()
+TerminalConfigs TerminalConfigs::TerminalConfigBuilder::Build()
 {
-    return EntryPointConfigs(fProperties);
+    return TerminalConfigs(fProperties);
 }
 
-string EntryPointConfigs::toString()
+string TerminalConfigs::toString()
 {
     char tmp[255];
     string str = "";
@@ -179,15 +179,9 @@ string EntryPointConfigs::toString()
     return str;
 }
 
-void EntryPointConfigs::save(string name)
+void TerminalConfigs::save(string name)
 {
     ofstream file;
     file.open(name.c_str());
     file.close();
-}
-
-void EntryPointConfigs::copy(EpConfigPtr p)
-{
-    if (!p) return;
-    memcpy(p, &(this->fProperties.config), sizeof(EpConfig));
 }

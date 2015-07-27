@@ -5,7 +5,10 @@ set(allTestsSrc main.cpp
                 ../BaseTest.cpp
                 ../Mockups/mockHal.cpp
                 ../defaultHalImpl.c
-                ../Configurations/ConfigFactory.cpp)
+                ../Factories/ConfigFactory.cpp
+                ../Factories/EntryPointConfigFactory.cpp
+                ../Factories/FciFactory.cpp
+                ../Factories/FciDataFactory.cpp)
 
 
 add_executable(allTests ${allTestsSrc})

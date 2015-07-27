@@ -12,7 +12,9 @@ set(entryPointTestsSrc  ./main.cpp
                         ../BaseTest.cpp
                         ../Mockups/mockHal.cpp
                         ../defaultHalImpl.c
-                        ../Configurations/EntryPointConfigFactory.cpp)
+                        ../Factories/EntryPointConfigFactory.cpp
+                        ../Factories/FciFactory.cpp
+                        ../Factories/FciDataFactory.cpp)
 
 add_executable(entryPointTests ${entryPointTestsSrc})
 target_link_libraries(entryPointTests
