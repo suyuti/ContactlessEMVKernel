@@ -10,6 +10,7 @@ extern "C" {
 
 #include "./DirectoryEntryFactory.h"
 #include "../testUtils.h"
+#include "../../modular_src/Emv/fci.h"
 
 using namespace std;
 
@@ -37,12 +38,18 @@ DirectoryEntryFactory::DirectoryEntryBuilder& DirectoryEntryFactory::DirectoryEn
     return *this;
 }
 
-DirectoryEntryFactory::DirectoryEntryBuilder& DirectoryEntryFactory::DirectoryEntryBuilder::WithKernelIdentifier(int v)
+DirectoryEntryFactory::DirectoryEntryBuilder& DirectoryEntryFactory::DirectoryEntryBuilder::WithKernelIdentifier(KernelIdentifier kid)
 {
-    // TODO
-    // fProperties.directoryEntry._9F2A[0] = 0x00;
-    // fProperties.directoryEntry._9F2A[1] = 0x00;
-    // fProperties.directoryEntry._9F2A[1] = 0x00;
+    fProperties.directoryEntry._9F2A[0] = 8;
+    memcpy(fProperties.directoryEntry._9F2A+1, kid, sizeof(KernelIdentifier));
+
+    return *this;
+}
+
+DirectoryEntryFactory::DirectoryEntryBuilder& DirectoryEntryFactory::DirectoryEntryBuilder::WithKernelIdentifierWithZeroLen()
+{
+    fProperties.directoryEntry._9F2A[0] = 0;
+
     return *this;
 }
 

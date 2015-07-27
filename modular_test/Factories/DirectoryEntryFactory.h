@@ -8,6 +8,7 @@ using namespace std;
 
 extern "C" {
     #include "Emv/fci.h"
+    #include "Common/kernelIdentifier.h"
 }
 
 class DirectoryEntryFactory {
@@ -32,7 +33,8 @@ public:
         DirectoryEntryBuilder& WithADFName(string adfName);
         DirectoryEntryBuilder& WithApplicationLabel(string label);
         DirectoryEntryBuilder& WithApplicationPriorityIndicator(int v);
-        DirectoryEntryBuilder& WithKernelIdentifier(int v);
+        DirectoryEntryBuilder& WithKernelIdentifier(KernelIdentifier kid);
+        DirectoryEntryBuilder& WithKernelIdentifierWithZeroLen();
         DirectoryEntryBuilder& WithExtendedSelection(unsigned char* v, int len);
 
         DirectoryEntryFactory Build();

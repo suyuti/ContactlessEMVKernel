@@ -7,6 +7,7 @@
 #define MODULAR_SRC_ENTRYPOINT_EPCOMBINATIONSELECTION_H_
 
 #include "./epCommon.h"
+#include "../Common/aid.h"
 /*-----------------------------------------------------------------------------
     Book B p.22
     Table 3-3
@@ -34,7 +35,7 @@ int _step3(EpPtr pEp);
 
 int epFinalCombinationSelection(EpPtr pEp);
 
-int useDefaultKernelId(const unsigned char* aid, int aidLen);
+DefaulKernelIds useDefaultKernelId(const unsigned char* aid, int aidLen);
 int _3_3_2_5(EpPtr pEp);
 
 //- Testing purposes
@@ -42,5 +43,6 @@ int t_getNextStep();
 void t_setNextStep(Steps s);
 unsigned char* t_getMatchingAid();
 int t_getMatchingAidLen();
+DefaulKernelIds t_getRequestedKernelId();
 
 #endif  // MODULAR_SRC_ENTRYPOINT_EPCOMBINATIONSELECTION_H_

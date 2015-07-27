@@ -5,6 +5,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include "./epCombinationSelection.h"
 #include "./epIndicators.h"
 #include "../Common/err.h"
@@ -12,6 +13,7 @@
 #include "../Common/utils.h"
 #include "../Emv/fci.h"
 #include "./epConfig.h"
+#include "../Common/aid.h"
 #include "epCommon.h"
 // #include "../Base/kernels.h"
 
@@ -20,7 +22,7 @@ static Steps                gsNextStep = Step1;
 static CandidateListItem    gsSelectedApp;
 static unsigned char        gsMatchingAid[30]  = {0x00};
 static int                  gsMatchingAidLen   = 0;
-
+static DefaulKernelIds      gsRequestedKernelId = OtherDefaultKernelId;
 
 //-----------------------------------------------------------------------------
 
@@ -197,10 +199,16 @@ int _3_3_2_1(EpPtr pEp)
 
 //-----------------------------------------------------------------------------
 
-int useDefaultKernelId(const unsigned char* aid, int aidLen)
+DefaulKernelIds useDefaultKernelId(const unsigned char* aid, int aidLen)
 {
     // TODO ...
-    return 0;  // DefultKernel_AmericanExpress;
+    int i = 0;
+    for(i = 0; i < KernelRidTypesCount; ++i) {
+        if (memcmp(aid, gKernelRids[i].rid, 5) == 0) {
+            return gKernelRids[i].defaultKernelId;
+        }
+    }
+    return OtherDefaultKernelId;  // DefultKernel
 }
 
 //-----------------------------------------------------------------------------
@@ -210,8 +218,11 @@ int _3_3_2_5(EpPtr pEp)
     EpConfigPtr         pConfig          = NULL;
     int                 i                = 0;
     int                 j                = 0;
-    DirectoryEntryPtr directoryEntry   = NULL;
-    int                 requestedKernelId = 0xFF;
+    DirectoryEntryPtr   directoryEntry   = NULL;
+
+    memset(gsMatchingAid, 0x00, sizeof(gsMatchingAid));
+    gsMatchingAidLen = 0;
+    gsRequestedKernelId = OtherDefaultKernelId;
 
     for (i = 0; i < pEp->epConfigsCount; ++i) {
         pConfig = &(pEp->epConfigs[i]);
@@ -240,6 +251,9 @@ int _3_3_2_5(EpPtr pEp)
                         memcpy(gsMatchingAid, pConfig->aid, getEpConfigAidLen(pConfig)+1);
                         gsMatchingAidLen = getEpConfigAidLen(pConfig);
                     }
+                    else {
+                        continue;
+                    }
                 }
                 else {
                     continue;
@@ -257,17 +271,17 @@ int _3_3_2_5(EpPtr pEp)
 */
                 // 3.3.2.5 C
                 if (isKernelIdExist(directoryEntry) == FALSE) {
-                    requestedKernelId = useDefaultKernelId(gsMatchingAid, gsMatchingAidLen);
+                    gsRequestedKernelId = useDefaultKernelId(gsMatchingAid+1, gsMatchingAidLen);
                 } else {
                     if (getKernelIdLen(directoryEntry) == 0) {  // ? size = 0 means KernelId doesn't exist.
-                        requestedKernelId = useDefaultKernelId(gsMatchingAid, gsMatchingAidLen);
+                        gsRequestedKernelId = useDefaultKernelId(gsMatchingAid, gsMatchingAidLen);
                         // return SUCCESS;
                         // TODO
                     }
                     switch(getKernelType(directoryEntry)) {
                         case RfuKernel:
                         case InternationalKernel:
-                            requestedKernelId = getShortKernelId(directoryEntry);
+                            gsRequestedKernelId = getShortKernelId(directoryEntry);
                         break;
                         case DomesticKernelEmvCoFormat:
                         case DomesticKernelPropFormat: {
@@ -283,11 +297,11 @@ int _3_3_2_5(EpPtr pEp)
                 }
 
                 // 3.3.2.5 D
-                if (requestedKernelId == 0x00) {
+                if (gsRequestedKernelId == 0x00) {
                     // TODO
                 } else {
                     // TODO
-                    if (requestedKernelId == getKernelId(directoryEntry)) {
+                    if (gsRequestedKernelId == getKernelId(directoryEntry)) {
                     } else {
                         continue;
                     }
@@ -338,3 +352,8 @@ int t_getMatchingAidLen()
 }
 
 //-----------------------------------------------------------------------------
+
+DefaulKernelIds t_getRequestedKernelId()
+{
+    return gsRequestedKernelId;
+}
