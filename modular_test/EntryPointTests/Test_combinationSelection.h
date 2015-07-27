@@ -152,8 +152,43 @@ TEST_F(Test_CombinationSelection, _step1_3_3_2_4)
 }
 
 //-----------------------------------------------------------------------------
+/*
+ *
+ * For each reader Combination {AID – Kernel ID} supported by the reader for
+ * which the ‘Contactless Application Not Allowed’ indicator is 0, Entry Point
+ * shall process each Directory Entry (Tag '61') from the FCI
+ *
+ * */
 
-TEST_F(Test_CombinationSelection, _3_3_2_5)
+TEST_F(Test_CombinationSelection, _3_3_2_5_there_is_no_cless_app)
+{
+    Ep ep;
+    clearEntryPoint(&ep);
+
+    EntryPointConfigs::EntryPointConfigBuilder()
+            .WithAid("A00001")
+            .WithClessAppNotAllowed()  // <- Contactless application not allowed
+            .Build()
+            .copy(&(ep.epConfigs[0]));
+    ep.epConfigsCount++;
+
+    EntryPointConfigs::EntryPointConfigBuilder()
+            .WithAid("A00002")
+            .WithClessAppNotAllowed()  // <- Contactless application not allowed
+            .Build()
+            .copy(&(ep.epConfigs[1]));
+    ep.epConfigsCount++;
+
+    // Two entry point configuration those have Contactless Application Not Allowed added.
+
+
+    int actual = _3_3_2_5(&ep);
+    EXPECT_EQ(SUCCESS, actual);
+    EXPECT_EQ(Step3, t_getNextStep());
+    EXPECT_EQ(0, ep.candidateListCount);
+}
+
+TEST_F(Test_CombinationSelection, _3_3_2_5_A)
 {
     Ep ep;
 
@@ -161,7 +196,7 @@ TEST_F(Test_CombinationSelection, _3_3_2_5)
 
     EntryPointConfigs config = EntryPointConfigs::EntryPointConfigBuilder()
             .WithAid("A00001")
-            .WithClessAppNotAllowed(false)
+            .WithClessAppNotAllowed()
             .Build();
     config.copy(&(ep.epConfigs[0]));
     ep.epConfigsCount++;
@@ -191,8 +226,8 @@ TEST_F(Test_CombinationSelection, _3_3_2_5)
                             .Build()
                             .getData()
             )
-    .Build()
-    .copy(&ep.fci);
+            .Build()
+            .copy(&ep.fci);
 
 
     int actual = _3_3_2_5(&ep);
@@ -200,10 +235,9 @@ TEST_F(Test_CombinationSelection, _3_3_2_5)
     EXPECT_EQ(Step3, t_getNextStep());
     EXPECT_EQ(0, ep.candidateListCount);
 }
-
 //-----------------------------------------------------------------------------
 
-TEST_F(Test_CombinationSelection, _3_3_2_5_A)
+TEST_F(Test_CombinationSelection, _3_3_2_5_B)
 {
 
 }

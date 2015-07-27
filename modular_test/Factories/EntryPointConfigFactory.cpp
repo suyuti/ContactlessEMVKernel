@@ -99,12 +99,9 @@ EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigB
     return *this;
 }
 
-EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithClessAppNotAllowed(bool v)
+EntryPointConfigs::EntryPointConfigBuilder& EntryPointConfigs::EntryPointConfigBuilder::WithClessAppNotAllowed()
 {
-    if (v)
-        SET_EPIND_CLESS_APP_NOT_ALLOWED(fProperties.config.indicators);
-    else
-        RESET_EPIND_CLESS_APP_NOT_ALLOWED(fProperties.config.indicators);
+    SET_EPIND_CLESS_APP_NOT_ALLOWED(fProperties.config.indicators);
 
     return *this;
 }

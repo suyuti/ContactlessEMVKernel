@@ -41,7 +41,7 @@ public:
         EntryPointConfigBuilder& WithAid(string aid);
         EntryPointConfigBuilder& WithKernelId(unsigned char kid);
         EntryPointConfigBuilder& WithStatusCheckTequested(bool v);            // indicator
-        EntryPointConfigBuilder& WithClessAppNotAllowed(bool v);              // indicator
+        EntryPointConfigBuilder& WithClessAppNotAllowed();                    // indicator
         EntryPointConfigBuilder& WithZeroAmount(bool v);                      // indicator
         EntryPointConfigBuilder& WithReaderCVMReqLimitExceeded(bool v);       // indicator
         EntryPointConfigBuilder& WithReaderClessFloorLimitExceeded(bool v);   // indicator
