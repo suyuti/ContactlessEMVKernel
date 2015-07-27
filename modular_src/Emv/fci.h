@@ -25,39 +25,40 @@ typedef struct {
     unsigned char   _87     [MAX_87_LEN  ];     // Application priority indicator
     unsigned char   _9F2A   [MAX_9F2A_LEN];     // Kernel identifier
     unsigned char   _9F29   [MAX_9F29_LEN];     // Extended selection
-} FciIssData, *FciIssDataPtr;
+} DirectoryEntry, *DirectoryEntryPtr;
 
 typedef struct {
-    unsigned char   _84     [MAX_84_LEN];
-    FciIssData      _fciIssData[MAX_ISSDATA];
-    int             _fciIssDataCount;
+    unsigned char    _84     [MAX_84_LEN];
+    DirectoryEntry  _directoryEntry[MAX_ISSDATA];
+    int             _directoryEntryCount;
 } Fci, *FciPtr;
 
 int _clearFci(FciPtr r);
-int _setFciIssData(FciPtr r, int tag, const unsigned char* value, int size);
+int _setDirectoryEntry(FciPtr r, int tag, const unsigned char *value, int size);
+int foo(FciPtr r, int tag, const unsigned char *value, int size);
 int _set84(FciPtr r, const unsigned char* val, int size);
-int _incFciIssDataCounter(FciPtr r);
+int _incDirectoryEntryCounter(FciPtr r);
 
-int             getAdfNameLen(FciIssDataPtr p);
-unsigned char*  getAdfName(FciIssDataPtr p);
+int             getAdfNameLen(DirectoryEntryPtr p);
+unsigned char*  getAdfName(DirectoryEntryPtr p);
 
-int             getApplicationLabelLen(FciIssDataPtr p);
-unsigned char*  getApplicationLabel(FciIssDataPtr p);
+int             getApplicationLabelLen(DirectoryEntryPtr p);
+unsigned char*  getApplicationLabel(DirectoryEntryPtr p);
 
-int             getAPILen(FciIssDataPtr p);
-int             getAPI(FciIssDataPtr p);
+int             getAPILen(DirectoryEntryPtr p);
+int             getAPI(DirectoryEntryPtr p);
 
-int             getKernelIdLen(FciIssDataPtr p);
-int             getKernelId(FciIssDataPtr p);
-int             isKernelIdExist(FciIssDataPtr p);
+int             getKernelIdLen(DirectoryEntryPtr p);
+int             getKernelId(DirectoryEntryPtr p);
+int             isKernelIdExist(DirectoryEntryPtr p);
 
-int             isAdfNameExist(FciIssDataPtr p);
-int             isAdfNameValid(FciIssDataPtr p);
+int             isAdfNameExist(DirectoryEntryPtr p);
+int             isAdfNameValid(DirectoryEntryPtr p);
 
-int             getShortKernelId(FciIssDataPtr p);
+int             getShortKernelId(DirectoryEntryPtr p);
 
 
-        typedef enum {
+typedef enum {
     InternationalKernel,
     DomesticKernelEmvCoFormat,
     DomesticKernelPropFormat,
@@ -65,6 +66,6 @@ int             getShortKernelId(FciIssDataPtr p);
 } TypeOfKernels;
 #define INTERNATIONALKERNEL_MASK    0x00
 
-TypeOfKernels getKernelType(FciIssDataPtr p);
+TypeOfKernels getKernelType(DirectoryEntryPtr p);
 
 #endif  // MODULAR_SRC_EMV_FCI_H_

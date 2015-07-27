@@ -2,7 +2,6 @@
 #include <stdio.h> // sprintf
 #include <iostream>
 #include <fstream>
-#include <Emv/fci.h>
 
 extern "C" {
     #include "Emv/fci.h"
@@ -12,10 +11,10 @@ extern "C" {
 
 using namespace std;
 
-FciFactory::FciBuilder& FciFactory::FciBuilder::WithFciData(const FciIssData &d)
+FciFactory::FciBuilder& FciFactory::FciBuilder::WithDirectoryEntry(const DirectoryEntry &d)
 {
-    fProperties.fci._fciIssData[fProperties.fci._fciIssDataCount] = d;
-    fProperties.fci._fciIssDataCount++;
+    fProperties.fci._directoryEntry[fProperties.fci._directoryEntryCount] = d;
+    fProperties.fci._directoryEntryCount++;
     return *this;
 }
 

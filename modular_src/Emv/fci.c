@@ -21,31 +21,31 @@ int _clearFci(FciPtr r)
 
 //-----------------------------------------------------------------------
 
-int _setFciIssData(FciPtr r, int tag, const unsigned char* value, int size)
+int _setDirectoryEntry(FciPtr r, int tag, const unsigned char *value, int size)
 {
     if (!r || !value || size == 0) return NULL_PARAMETER;
-    if (r->_fciIssDataCount == 0) return INDEX_OUT_OF_RANGE;
+    if (r->_directoryEntryCount == 0) return INDEX_OUT_OF_RANGE;
 
     switch(tag) {
         case 0x4F:
             if (size > 16) return INCORRECT_DATA;
-            r->_fciIssData[r->_fciIssDataCount-1]._4F[0] = size;
-            memcpy(r->_fciIssData[r->_fciIssDataCount-1]._4F+1, value, size);
+            r->_directoryEntry[r->_directoryEntryCount -1]._4F[0] = size;
+            memcpy(r->_directoryEntry[r->_directoryEntryCount -1]._4F+1, value, size);
         break;
         case 0x50:
             if (size > 16) return INCORRECT_DATA;
-            r->_fciIssData[r->_fciIssDataCount-1]._50[0] = size;
-            memcpy(r->_fciIssData[r->_fciIssDataCount-1]._50+1, value, size);
+            r->_directoryEntry[r->_directoryEntryCount -1]._50[0] = size;
+            memcpy(r->_directoryEntry[r->_directoryEntryCount -1]._50+1, value, size);
         break;
         case 0x87:
             if (size > 1) return INCORRECT_DATA;
-            r->_fciIssData[r->_fciIssDataCount-1]._87[0] = size;
-            memcpy(r->_fciIssData[r->_fciIssDataCount-1]._87+1, value, size);
+            r->_directoryEntry[r->_directoryEntryCount -1]._87[0] = size;
+            memcpy(r->_directoryEntry[r->_directoryEntryCount -1]._87+1, value, size);
         break;
         case 0x9F2A:
             if (size > 1) return INCORRECT_DATA;
-            r->_fciIssData[r->_fciIssDataCount-1]._9F2A[0] = size;
-            memcpy(r->_fciIssData[r->_fciIssDataCount-1]._9F2A+1, value, size);
+            r->_directoryEntry[r->_directoryEntryCount -1]._9F2A[0] = size;
+            memcpy(r->_directoryEntry[r->_directoryEntryCount -1]._9F2A+1, value, size);
         break;
         default:
             return UNKNOWN_TAG;
@@ -65,87 +65,87 @@ int _set84(FciPtr r, const unsigned char* val, int size)
 
 //-----------------------------------------------------------------------
 
-int _incFciIssDataCounter(FciPtr r)
+int _incDirectoryEntryCounter(FciPtr r)
 {
     if (!r) return NULL_PARAMETER;
-    if (r->_fciIssDataCount >= 10) return INDEX_OUT_OF_RANGE;
-    r->_fciIssDataCount++;
+    if (r->_directoryEntryCount >= 10) return INDEX_OUT_OF_RANGE;
+    r->_directoryEntryCount++;
     return SUCCESS;
 }
 
 //-----------------------------------------------------------------------
 
-int getAdfNameLen(FciIssDataPtr p)
+int getAdfNameLen(DirectoryEntryPtr p)
 {
     return (int)(p->_4F[0]);
 }
 
 //-----------------------------------------------------------------------
 
-unsigned char* getAdfName(FciIssDataPtr p)
+unsigned char* getAdfName(DirectoryEntryPtr p)
 {
     return &(p->_4F[1]);
 }
 
 //-----------------------------------------------------------------------
 
-int getApplicationLabelLen(FciIssDataPtr p)
+int getApplicationLabelLen(DirectoryEntryPtr p)
 {
     return (int)(p->_50[0]);
 }
 
 //-----------------------------------------------------------------------
 
-unsigned char* getApplicationLabel(FciIssDataPtr p)
+unsigned char* getApplicationLabel(DirectoryEntryPtr p)
 {
     return &(p->_50[1]);
 }
 
 //-----------------------------------------------------------------------
 
-int getAPILen(FciIssDataPtr p)
+int getAPILen(DirectoryEntryPtr p)
 {
     return (int)(p->_87[0]);
 }
 
 //-----------------------------------------------------------------------
 
-int getAPI(FciIssDataPtr p)
+int getAPI(DirectoryEntryPtr p)
 {
     return (int)(p->_87[1]);
 }
 
 //-----------------------------------------------------------------------
 
-int getKernelIdLen(FciIssDataPtr p)
+int getKernelIdLen(DirectoryEntryPtr p)
 {
     return (int)(p->_9F2A[0]);
 }
 
 //-----------------------------------------------------------------------
 
-int getKernelId(FciIssDataPtr p)
+int getKernelId(DirectoryEntryPtr p)
 {
     return MAKEWORD(p->_9F2A[1], p->_9F2A[2]);
 }
 
 //-----------------------------------------------------------------------
 
-int isKernelIdExist(FciIssDataPtr p)
+int isKernelIdExist(DirectoryEntryPtr p)
 {
     return (p->_9F2A[0] != 0x00) ? TRUE : FALSE;
 }
 
 //-----------------------------------------------------------------------
 
-int isAdfNameExist(FciIssDataPtr p)
+int isAdfNameExist(DirectoryEntryPtr p)
 {
     return (p->_4F[0] != 0x00);
 }
 
 //-----------------------------------------------------------------------
 
-int isAdfNameValid(FciIssDataPtr p)
+int isAdfNameValid(DirectoryEntryPtr p)
 {
     // TODO
     // EMV 4.2 Book 1 12.2.1
@@ -154,7 +154,7 @@ int isAdfNameValid(FciIssDataPtr p)
 
 //-----------------------------------------------------------------------
 
-TypeOfKernels getKernelType(FciIssDataPtr p)
+TypeOfKernels getKernelType(DirectoryEntryPtr p)
 {
     /*
         Book B v2.5 p.23
@@ -176,11 +176,16 @@ TypeOfKernels getKernelType(FciIssDataPtr p)
 
 //-----------------------------------------------------------------------
 
-int getShortKernelId(FciIssDataPtr p)
+int getShortKernelId(DirectoryEntryPtr p)
 {
     /*
         Book B v2.5 p.23
         Table 3-4
     */
     return (int)(p->_9F2A[1] & 0xC0);
+}
+
+int foo(FciPtr r, int tag, const unsigned char *value, int size)
+{
+    return SUCCESS;
 }

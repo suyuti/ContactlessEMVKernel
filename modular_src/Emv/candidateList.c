@@ -32,7 +32,7 @@ int addCandidateList(CandidateListItemPtr   pList,
 
 //-----------------------------------------------------------------------------
 
-int fciToCandidateItem(FciIssDataPtr pFciData, CandidateListItemPtr pItem)
+int fciToCandidateItem(DirectoryEntryPtr pFciData, CandidateListItemPtr pItem)
 {
     if (!pFciData || !pItem) return NULL_PARAMETER;
 

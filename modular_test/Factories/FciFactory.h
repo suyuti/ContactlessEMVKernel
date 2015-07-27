@@ -29,7 +29,7 @@ public:
     class FciBuilder {
     public:
         FciBuilder() {}
-        FciBuilder& WithFciData(const FciIssData& d);
+        FciBuilder& WithDirectoryEntry(const DirectoryEntry& d);
 
         FciFactory Build();
 

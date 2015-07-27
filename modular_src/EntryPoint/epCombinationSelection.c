@@ -126,7 +126,7 @@ int _step2(EpPtr pEp)
         THEN    Entry Point shall add no Combinations to the Candidate List
                 and shall proceed to Step 3.
     */
-    if (pEp->fci._fciIssDataCount == 0) {
+    if (pEp->fci._directoryEntryCount == 0) {
         gsNextStep = Step3;
         return SUCCESS;
     }
@@ -206,7 +206,7 @@ int _3_3_2_5(EpPtr pEp)
     EpConfigPtr         pConfig          = NULL;
     int                 i                = 0;
     int                 j                = 0;
-    FciIssDataPtr       directoryEntry   = NULL;
+    DirectoryEntryPtr directoryEntry   = NULL;
     int                 requestedKernelId = 0xFF;
     unsigned char       matchingAid[30]  = {0x00};
     int                 matchingAidLen   = 0;
@@ -214,8 +214,8 @@ int _3_3_2_5(EpPtr pEp)
     for (i = 0; i < pEp->epConfigsCount; ++i) {
         pConfig = &(pEp->epConfigs[i]);
         if (!IS_EPIND_CLESS_APP_NOT_ALLOWED(pConfig->indicators)) {
-            for (j = 0; j < pEp->fci._fciIssDataCount; ++j) {
-                directoryEntry = &(pEp->fci._fciIssData[j]);
+            for (j = 0; j < pEp->fci._directoryEntryCount; ++j) {
+                directoryEntry = &(pEp->fci._directoryEntry[j]);
 
                 // 3.3.2.5 A
                 if (!isAdfNameExist(directoryEntry) ||

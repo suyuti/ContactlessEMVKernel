@@ -13,6 +13,7 @@ extern "C" {
     #include "Emv/select.h"
     #include "Common/err.h"
     #include "Common/general.h"
+    #include "Emv/fci.h"
 }
 
 class Test_Select : public BaseTest {
@@ -127,75 +128,81 @@ TEST_F(Test_Select, _clearFci)
 
 //-----------------------------------------------------------------------
 
-TEST_F(Test_Select, _setFciIssData_Negative)
+TEST_F(Test_Select, _setDirectoryEntry_Negative)
 {
     Fci fci;
     unsigned char value[] = {0xAB, 0xCD};
-    int actual = _setFciIssData(NULL,
+    int actual = _setDirectoryEntry(NULL,
                                 0x4F,
                                 value,
                                 sizeof(value));
     EXPECT_EQ(NULL_PARAMETER, actual);
 
-    fci._fciIssDataCount = 0;
-    actual = _setFciIssData(&fci,
+    fci._directoryEntryCount = 0;
+    actual = _setDirectoryEntry(&fci,
                             0x4F,
                             value,
                             sizeof(value));
     EXPECT_EQ(INDEX_OUT_OF_RANGE, actual);
 
-    fci._fciIssDataCount = 1;
-    actual = _setFciIssData(&fci,
+    fci._directoryEntryCount = 1;
+    actual = _setDirectoryEntry(&fci,
                             0x4F,
                             NULL,
                             sizeof(value));
     EXPECT_EQ(NULL_PARAMETER, actual);
 
-    actual = _setFciIssData(&fci,
+    actual = _setDirectoryEntry(&fci,
                             0x4F,
                             value,
                             0);
     EXPECT_EQ(NULL_PARAMETER, actual);
 
     unsigned char invalid4F[] = "12345678901234567890";
-    actual = _setFciIssData(&fci,
+    actual = _setDirectoryEntry(&fci,
                             0x4F,
                             invalid4F,
                             sizeof(invalid4F));
     EXPECT_EQ(INCORRECT_DATA, actual);
 
     unsigned char invalid50[] = "12345678901234567890";
-    actual = _setFciIssData(&fci,
+    actual = _setDirectoryEntry(&fci,
                             0x50,
                             invalid50,
                             sizeof(invalid50));
     EXPECT_EQ(INCORRECT_DATA, actual);
 
     unsigned char invalid87[] = "12345678901234567890";
-    actual = _setFciIssData(&fci,
+    actual = _setDirectoryEntry(&fci,
                             0x87,
                             invalid87,
                             sizeof(invalid87));
     EXPECT_EQ(INCORRECT_DATA, actual);
 
     unsigned char invalid9F2A[] = "12345678901234567890";
-    actual = _setFciIssData(&fci,
+    actual = _setDirectoryEntry(&fci,
                             0x9F2A,
                             invalid9F2A,
                             sizeof(invalid9F2A));
     EXPECT_EQ(INCORRECT_DATA, actual);
 
     unsigned char unknownData[] = "12345678901234567890";
-    actual = _setFciIssData(&fci,
+    actual = _setDirectoryEntry(&fci,
                             0xABCD,
                             unknownData,
                             sizeof(unknownData));
     EXPECT_EQ(UNKNOWN_TAG, actual);
+
+    actual = foo(&fci,
+                                0xABCD,
+                                unknownData,
+                                sizeof(unknownData));
+
 }
 
 //-----------------------------------------------------------------------
 
-TEST_F(Test_Select, _setFciIssData)
+TEST_F(Test_Select, _setDirectoryEntry)
 {
     Fci fci;
     memset(&fci, 0x00, sizeof(Fci));
@@ -209,38 +216,38 @@ TEST_F(Test_Select, _setFciIssData)
     unsigned char _9F2AData[]        = {0x9F};
     unsigned char expected9F2AData[] = {0x01, 0x9F};
 
-    _incFciIssDataCounter(&fci);
-    int actual = _setFciIssData(&fci,
+    _incDirectoryEntryCounter(&fci);
+    int actual = _setDirectoryEntry(&fci,
                                 0x4F,
                                 _4FData,
                                 sizeof(_4FData));
     EXPECT_EQ(SUCCESS, actual);
-    EXPECT_EQ(0, memcmp(fci._fciIssData[0]._4F, expected4FData, sizeof(expected4FData)));
+    EXPECT_EQ(0, memcmp(fci._directoryEntry[0]._4F, expected4FData, sizeof(expected4FData)));
 
-    actual = _setFciIssData(&fci,
+    actual = _setDirectoryEntry(&fci,
                             0x50,
                             _50Data,
                             sizeof(_50Data));
     EXPECT_EQ(SUCCESS, actual);
-    EXPECT_EQ(0, memcmp(fci._fciIssData[0]._50,
+    EXPECT_EQ(0, memcmp(fci._directoryEntry[0]._50,
                        expected50Data,
                        sizeof(expected50Data)));
 
-    actual = _setFciIssData(&fci,
+    actual = _setDirectoryEntry(&fci,
                             0x87,
                             _87Data,
                             sizeof(_87Data));
     EXPECT_EQ(SUCCESS, actual);
-    EXPECT_EQ(0, memcmp(fci._fciIssData[0]._87,
+    EXPECT_EQ(0, memcmp(fci._directoryEntry[0]._87,
                        expected87Data,
                        sizeof(expected87Data)));
 
-    actual = _setFciIssData(&fci,
+    actual = _setDirectoryEntry(&fci,
                             0x9F2A,
                             _9F2AData,
                             sizeof(_9F2AData));
     EXPECT_EQ(SUCCESS, actual);
-    EXPECT_EQ(0, memcmp(fci._fciIssData[0]._9F2A,
+    EXPECT_EQ(0, memcmp(fci._directoryEntry[0]._9F2A,
                        expected9F2AData,
                        sizeof(expected9F2AData)));
 }
@@ -248,7 +255,7 @@ TEST_F(Test_Select, _setFciIssData)
 
 TEST_F(Test_Select, _incFciIssDataCounter_Negative)
 {
-    int actual = _incFciIssDataCounter(NULL);
+    int actual = _incDirectoryEntryCounter(NULL);
     EXPECT_EQ(NULL_PARAMETER, actual);
 }
 
@@ -259,47 +266,47 @@ TEST_F(Test_Select, _incFciIssDataCounter)
     Fci fci;
     memset(&fci, 0x00, sizeof(Fci));
 
-    int actual = _incFciIssDataCounter(&fci);
+    int actual = _incDirectoryEntryCounter(&fci);
     EXPECT_EQ(SUCCESS, actual);
-    EXPECT_EQ(1, fci._fciIssDataCount);
+    EXPECT_EQ(1, fci._directoryEntryCount);
 
-    actual = _incFciIssDataCounter(&fci);
+    actual = _incDirectoryEntryCounter(&fci);
     EXPECT_EQ(SUCCESS, actual);
-    EXPECT_EQ(2, fci._fciIssDataCount);
+    EXPECT_EQ(2, fci._directoryEntryCount);
 
-    actual = _incFciIssDataCounter(&fci);
+    actual = _incDirectoryEntryCounter(&fci);
     EXPECT_EQ(SUCCESS, actual);
-    EXPECT_EQ(3, fci._fciIssDataCount);
+    EXPECT_EQ(3, fci._directoryEntryCount);
 
-    actual = _incFciIssDataCounter(&fci);
+    actual = _incDirectoryEntryCounter(&fci);
     EXPECT_EQ(SUCCESS, actual);
-    EXPECT_EQ(4, fci._fciIssDataCount);
+    EXPECT_EQ(4, fci._directoryEntryCount);
 
-    actual = _incFciIssDataCounter(&fci);
+    actual = _incDirectoryEntryCounter(&fci);
     EXPECT_EQ(SUCCESS, actual);
-    EXPECT_EQ(5, fci._fciIssDataCount);
+    EXPECT_EQ(5, fci._directoryEntryCount);
 
-    actual = _incFciIssDataCounter(&fci);
+    actual = _incDirectoryEntryCounter(&fci);
     EXPECT_EQ(SUCCESS, actual);
-    EXPECT_EQ(6, fci._fciIssDataCount);
+    EXPECT_EQ(6, fci._directoryEntryCount);
 
-    actual = _incFciIssDataCounter(&fci);
+    actual = _incDirectoryEntryCounter(&fci);
     EXPECT_EQ(SUCCESS, actual);
-    EXPECT_EQ(7, fci._fciIssDataCount);
+    EXPECT_EQ(7, fci._directoryEntryCount);
 
-    actual = _incFciIssDataCounter(&fci);
+    actual = _incDirectoryEntryCounter(&fci);
     EXPECT_EQ(SUCCESS, actual);
-    EXPECT_EQ(8, fci._fciIssDataCount);
+    EXPECT_EQ(8, fci._directoryEntryCount);
 
-    actual = _incFciIssDataCounter(&fci);
+    actual = _incDirectoryEntryCounter(&fci);
     EXPECT_EQ(SUCCESS, actual);
-    EXPECT_EQ(9, fci._fciIssDataCount);
+    EXPECT_EQ(9, fci._directoryEntryCount);
 
-    actual = _incFciIssDataCounter(&fci);
+    actual = _incDirectoryEntryCounter(&fci);
     EXPECT_EQ(SUCCESS, actual);
-    EXPECT_EQ(10, fci._fciIssDataCount);
+    EXPECT_EQ(10, fci._directoryEntryCount);
 
-    actual = _incFciIssDataCounter(&fci);
+    actual = _incDirectoryEntryCounter(&fci);
     EXPECT_EQ(INDEX_OUT_OF_RANGE, actual);
 }
 
@@ -317,7 +324,7 @@ TEST_F(Test_Select, OnTag_resolvePpse_Negative)
     actual = OnTag_resolvePpse(0x4F, 0, 0, value, &fci);
     EXPECT_EQ(NULL_PARAMETER, actual);
 
-    _incFciIssDataCounter(&fci);
+    _incDirectoryEntryCounter(&fci);
     actual = OnTag_resolvePpse(0xFF, sizeof(value), 0, value, &fci);
     EXPECT_EQ(UNKNOWN_TAG, actual);
 }
@@ -333,7 +340,7 @@ TEST_F(Test_Select, OnTag_resolvePpse)
     int actual = OnTag_resolvePpse(0x61, 1, 0, value, &fci);
 
     EXPECT_EQ(SUCCESS, actual);
-    EXPECT_EQ(1, fci._fciIssDataCount);
+    EXPECT_EQ(1, fci._directoryEntryCount);
 
     unsigned char value84[]         = {0xAB, 0xCD};
     unsigned char expectedValue84[] = {0x01, 0xAB, 0xCD};
@@ -380,16 +387,16 @@ TEST_F(Test_Select, _resolveSelectPpse)
     EXPECT_EQ(SUCCESS, actual);
 
     unsigned char expected4F[] = {0x07, 0xA0, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01};
-    EXPECT_EQ(0, memcmp(fci._fciIssData[0]._4F, expected4F, sizeof(expected4F)));
+    EXPECT_EQ(0, memcmp(fci._directoryEntry[0]._4F, expected4F, sizeof(expected4F)));
 
     unsigned char expected50[] = {0x04, 0x41, 0x50, 0x50, 0x31};
-    EXPECT_EQ(0, memcmp(fci._fciIssData[0]._50, expected50, sizeof(expected50)));
+    EXPECT_EQ(0, memcmp(fci._directoryEntry[0]._50, expected50, sizeof(expected50)));
 
     unsigned char expected9F2A[] = {0x01, 0x23};
-    EXPECT_EQ(0, memcmp(fci._fciIssData[0]._9F2A, expected9F2A, sizeof(expected9F2A)));
+    EXPECT_EQ(0, memcmp(fci._directoryEntry[0]._9F2A, expected9F2A, sizeof(expected9F2A)));
 
     unsigned char expected87[] = {0x01, 0x01};
-    EXPECT_EQ(0, memcmp(fci._fciIssData[0]._87, expected87, sizeof(expected87)));
+    EXPECT_EQ(0, memcmp(fci._directoryEntry[0]._87, expected87, sizeof(expected87)));
 }
 
 //-----------------------------------------------------------------------
@@ -430,16 +437,16 @@ TEST_F(Test_Select, selectPpse)
     EXPECT_EQ(SUCCESS, actual);
 
     unsigned char expected4F[] = {0x07, 0xA0, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01};
-    EXPECT_EQ(0, memcmp(fci._fciIssData[0]._4F, expected4F, sizeof(expected4F)));
+    EXPECT_EQ(0, memcmp(fci._directoryEntry[0]._4F, expected4F, sizeof(expected4F)));
 
     unsigned char expected50[] = {0x04, 0x41, 0x50, 0x50, 0x31};
-    EXPECT_EQ(0, memcmp(fci._fciIssData[0]._50, expected50, sizeof(expected50)));
+    EXPECT_EQ(0, memcmp(fci._directoryEntry[0]._50, expected50, sizeof(expected50)));
 
     unsigned char expected9F2A[] = {0x01, 0x23};
-    EXPECT_EQ(0, memcmp(fci._fciIssData[0]._9F2A, expected9F2A, sizeof(expected9F2A)));
+    EXPECT_EQ(0, memcmp(fci._directoryEntry[0]._9F2A, expected9F2A, sizeof(expected9F2A)));
 
     unsigned char expected87[] = {0x01, 0x01};
-    EXPECT_EQ(0, memcmp(fci._fciIssData[0]._87, expected87, sizeof(expected87)));
+    EXPECT_EQ(0, memcmp(fci._directoryEntry[0]._87, expected87, sizeof(expected87)));
 }
 
 //-----------------------------------------------------------------------

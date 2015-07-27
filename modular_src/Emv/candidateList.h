@@ -49,6 +49,6 @@ int addCandidateList(CandidateListItemPtr   pList,
                      int*                   pSize,
                      int                    maxSize,
                      CandidateListItemPtr   item);
-int fciToCandidateItem(FciIssDataPtr pFciData, CandidateListItemPtr pItem);
+int fciToCandidateItem(DirectoryEntryPtr pFciData, CandidateListItemPtr pItem);
 int getApplicationPriority(CandidateListItemPtr p);
 #endif  // MODULAR_SRC_EMV_CANDIDATELIST_H_

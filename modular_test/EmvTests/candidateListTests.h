@@ -84,7 +84,7 @@ TEST_F(Test_CandidateList, addCandidateList)
 
 TEST_F(Test_CandidateList, fciToCandidateItem_Negative)
 {
-    FciIssData          fci;
+    DirectoryEntry          fci;
     CandidateListItem   item;
 
     int actual = fciToCandidateItem(NULL, NULL);
@@ -115,21 +115,21 @@ TEST_F(Test_CandidateList, fciToCandidateItem)
     unsigned char _9F2AData[] = { 0x01};
 
     _clearFci(&fci);
-    _incFciIssDataCounter(&fci);
+    _incDirectoryEntryCounter(&fci);
 
-    int err = _setFciIssData(&fci, 0x4F,   _4FData, sizeof(_4FData));
+    int err = _setDirectoryEntry(&fci, 0x4F,   _4FData, sizeof(_4FData));
     EXPECT_EQ(SUCCESS, err);
-    err = _setFciIssData(&fci, 0x50,   _50Data, sizeof(_50Data));
+    err = _setDirectoryEntry(&fci, 0x50,   _50Data, sizeof(_50Data));
     EXPECT_EQ(SUCCESS, err);
-    err = _setFciIssData(&fci, 0x87,   _87Data, sizeof(_87Data));
+    err = _setDirectoryEntry(&fci, 0x87,   _87Data, sizeof(_87Data));
     EXPECT_EQ(SUCCESS, err);
-    err = _setFciIssData(&fci, 0x9F2A, _9F2AData, sizeof(_9F2AData));
+    err = _setDirectoryEntry(&fci, 0x9F2A, _9F2AData, sizeof(_9F2AData));
     EXPECT_EQ(SUCCESS, err);
 
     // printFci(&fci);
     // printCandidateListItem(&item);
 
-    int actual = fciToCandidateItem(&(fci._fciIssData[0]), &item);
+    int actual = fciToCandidateItem(&(fci._directoryEntry[0]), &item);
 
     // printFci(&fci);
     // printCandidateListItem(&item);

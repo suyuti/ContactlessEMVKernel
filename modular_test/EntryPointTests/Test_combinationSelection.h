@@ -10,7 +10,7 @@
 #include "../BaseTest.h"
 #include "../Factories/EntryPointConfigFactory.h"
 #include "../Factories/FciFactory.h"
-#include "../Factories/FciDataFactory.h"
+#include "../Factories/DirectoryEntryFactory.h"
 
 extern "C" {
     #include "Common/err.h"
@@ -167,24 +167,24 @@ TEST_F(Test_CombinationSelection, _3_3_2_5)
     ep.epConfigsCount++;
 
     FciFactory::FciBuilder()
-            .WithFciData(
-                    FciDataFactory::FciDataBuilder()
+            .WithDirectoryEntry(
+                    DirectoryEntryFactory::DirectoryEntryBuilder()
                             .WithADFName("A00001")
                             .WithKernelIdentifier(1)
                             .WithApplicationLabel("LABEL")
                             .Build()
                             .getData()
             )
-            .WithFciData(
-                    FciDataFactory::FciDataBuilder()
+            .WithDirectoryEntry(
+                    DirectoryEntryFactory::DirectoryEntryBuilder()
                             .WithADFName("A00002")
                             .WithKernelIdentifier(2)
                             .WithApplicationLabel("LABEL2")
                             .Build()
                             .getData()
             )
-            .WithFciData(
-                    FciDataFactory::FciDataBuilder()
+            .WithDirectoryEntry(
+                    DirectoryEntryFactory::DirectoryEntryBuilder()
                             .WithADFName("A00003")
                             .WithKernelIdentifier(3)
                             .WithApplicationLabel("LABEL2")

@@ -140,10 +140,10 @@ int OnTag_resolvePpse(int tag, int len, int constructed, const unsigned char* va
             err = SUCCESS;
         break;
         case 0x61:
-            err = _incFciIssDataCounter(target);
+            err = _incDirectoryEntryCounter(target);
         break;
         default:
-            err = _setFciIssData(target, tag, val, len);
+            err = _setDirectoryEntry(target, tag, val, len);
         break;
     }
     return err;

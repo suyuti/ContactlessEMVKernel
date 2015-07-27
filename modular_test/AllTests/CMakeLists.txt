@@ -8,7 +8,7 @@ set(allTestsSrc main.cpp
                 ../Factories/ConfigFactory.cpp
                 ../Factories/EntryPointConfigFactory.cpp
                 ../Factories/FciFactory.cpp
-                ../Factories/FciDataFactory.cpp)
+                ../Factories/DirectoryEntryFactory.cpp)
 
 
 add_executable(allTests ${allTestsSrc})
