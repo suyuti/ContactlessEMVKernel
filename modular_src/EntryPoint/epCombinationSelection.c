@@ -273,11 +273,11 @@ int _3_3_2_5(EpPtr pEp)
                 if (isKernelIdExist(directoryEntry) == FALSE) {
                     gsRequestedKernelId = useDefaultKernelId(gsMatchingAid+1, gsMatchingAidLen);
                 } else {
-                    if (getKernelIdLen(directoryEntry) == 0) {  // ? size = 0 means KernelId doesn't exist.
-                        gsRequestedKernelId = useDefaultKernelId(gsMatchingAid, gsMatchingAidLen);
-                        // return SUCCESS;
-                        // TODO
-                    }
+                    //if (getKernelIdLen(directoryEntry) == 0) {  // ? size = 0 means KernelId doesn't exist.
+                    //    gsRequestedKernelId = useDefaultKernelId(gsMatchingAid, gsMatchingAidLen);
+                    //    // return SUCCESS;
+                    //    // TODO
+                    //}
                     switch(getKernelType(directoryEntry)) {
                         case RfuKernel:
                         case InternationalKernel:

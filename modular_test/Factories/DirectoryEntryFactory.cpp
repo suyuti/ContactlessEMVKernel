@@ -48,7 +48,7 @@ DirectoryEntryFactory::DirectoryEntryBuilder& DirectoryEntryFactory::DirectoryEn
 
 DirectoryEntryFactory::DirectoryEntryBuilder& DirectoryEntryFactory::DirectoryEntryBuilder::WithKernelIdentifierWithZeroLen()
 {
-    fProperties.directoryEntry._9F2A[0] = 0;
+    fProperties.directoryEntry._9F2A[0] = 0x00;  // 0xFF means 9F2A exists but zero length.
 
     return *this;
 }
