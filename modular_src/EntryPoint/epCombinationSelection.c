@@ -153,6 +153,7 @@ int _step3(EpPtr pEp)
     // 3.3.2.6
     if (pEp->candidateListCount >= 1) {
         // TODO
+        err = epFinalCombinationSelection(pEp);
     } else {
         // 3.3.2.7
         // TODO
@@ -273,26 +274,26 @@ int _3_3_2_5(EpPtr pEp)
                 if (isKernelIdExist(directoryEntry) == FALSE) {
                     gsRequestedKernelId = useDefaultKernelId(gsMatchingAid+1, gsMatchingAidLen);
                 } else {
-                    //if (getKernelIdLen(directoryEntry) == 0) {  // ? size = 0 means KernelId doesn't exist.
-                    //    gsRequestedKernelId = useDefaultKernelId(gsMatchingAid, gsMatchingAidLen);
-                    //    // return SUCCESS;
-                    //    // TODO
-                    //}
-                    switch(getKernelType(directoryEntry)) {
-                        case RfuKernel:
-                        case InternationalKernel:
-                            gsRequestedKernelId = getShortKernelId(directoryEntry);
-                        break;
-                        case DomesticKernelEmvCoFormat:
-                        case DomesticKernelPropFormat: {
-                            // TODO p.29
-                            if (getShortKernelId(directoryEntry) != 0x00) {
-                                // TODO
-                            } else {
-                                // TODO
-                            }
+
+                    if ((CHECK_BIT(directoryEntry->_9F2A[1], BIT_8) == RESET &&
+                         CHECK_BIT(directoryEntry->_9F2A[1], BIT_7) == RESET) ||
+                        (CHECK_BIT(directoryEntry->_9F2A[1], BIT_8) == RESET &&
+                         CHECK_BIT(directoryEntry->_9F2A[1], BIT_7) == SET)) {
+                        gsRequestedKernelId = directoryEntry->_9F2A[1];
+                    }
+                    else if ((CHECK_BIT(directoryEntry->_9F2A[1], BIT_8) == SET &&
+                              CHECK_BIT(directoryEntry->_9F2A[1], BIT_7) == RESET) ||
+                             (CHECK_BIT(directoryEntry->_9F2A[1], BIT_8) == SET &&
+                              CHECK_BIT(directoryEntry->_9F2A[1], BIT_7) == SET)) {
+                        if (directoryEntry->_9F2A[0] < 3) {
+                            continue;
                         }
-                        break;
+                        if (getShortKernelId(directoryEntry) != 0x00) {
+                            // TODO
+                        }
+                        else {
+                            // TODO
+                        }
                     }
                 }
 

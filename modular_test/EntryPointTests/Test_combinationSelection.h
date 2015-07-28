@@ -563,7 +563,86 @@ TEST_F(Test_CombinationSelection, _3_3_2_5_C_9F2A_exists)
 }
 
 //-----------------------------------------------------------------------------
+
+TEST_F(Test_CombinationSelection, _3_3_2_5_C_9F2A_exists_b8b7_is_00b)
+{
+    Ep ep;
+
+    clearEntryPoint(&ep);
+
+    EntryPointConfigs::EntryPointConfigBuilder()
+            .WithAid("A000000152")
+            .Build()
+            .copy(&(ep.epConfigs[0]));
+    ep.epConfigsCount++;
+
+    KernelIdentifier kid;
+    Kid_Reset(&kid);
+    Kid_InternationalKernel(kid);
+
+
+    FciFactory::FciBuilder()
+            .WithDirectoryEntry(
+                    DirectoryEntryFactory::DirectoryEntryBuilder()
+                            .WithADFName("A0000001520101")
+                            .WithKernelIdentifier(kid)
+                            .WithApplicationLabel("DISCOVER")
+                            .Build()
+                            .getData()
+            )
+            .Build()
+            .copy(&ep.fci);
+
+
+    int actual = _3_3_2_5(&ep);
+    EXPECT_EQ(SUCCESS, actual);
+    EXPECT_EQ(5, t_getMatchingAidLen());
+    EXPECT_EQ(DiscoverDefaultKernelId, t_getRequestedKernelId());
+    // TODO step?
+    //EXPECT_EQ(Step3, t_getNextStep());
+    EXPECT_EQ(0, ep.candidateListCount);
+}
+
 //-----------------------------------------------------------------------------
+
+TEST_F(Test_CombinationSelection, _3_3_2_5_C_9F2A_exists_b8b7_is_01b)
+{
+    Ep ep;
+
+    clearEntryPoint(&ep);
+
+    EntryPointConfigs::EntryPointConfigBuilder()
+            .WithAid("A000000152")
+            .Build()
+            .copy(&(ep.epConfigs[0]));
+    ep.epConfigsCount++;
+
+    KernelIdentifier kid;
+    Kid_Reset(&kid);
+    SET_BIT(kid[0], BIT_7);
+
+
+    FciFactory::FciBuilder()
+            .WithDirectoryEntry(
+                    DirectoryEntryFactory::DirectoryEntryBuilder()
+                            .WithADFName("A0000001520101")
+                            .WithKernelIdentifier(kid)
+                            .WithApplicationLabel("DISCOVER")
+                            .Build()
+                            .getData()
+            )
+            .Build()
+            .copy(&ep.fci);
+
+
+    int actual = _3_3_2_5(&ep);
+    EXPECT_EQ(SUCCESS, actual);
+    EXPECT_EQ(5, t_getMatchingAidLen());
+    EXPECT_EQ(DiscoverDefaultKernelId, t_getRequestedKernelId());
+    // TODO step?
+    //EXPECT_EQ(Step3, t_getNextStep());
+    EXPECT_EQ(0, ep.candidateListCount);
+}
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 

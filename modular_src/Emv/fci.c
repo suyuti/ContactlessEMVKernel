@@ -171,15 +171,13 @@ TypeOfKernels getKernelType(DirectoryEntryPtr p)
         Book B v2.5 p.23
         Table 3-4
     */
-    printf("%d %d %d\n", CHECK_BIT(p->_9F2A[1], 8), CHECK_BIT(p->_9F2A[1], 7), CHECK_BIT(p->_9F2A[1], 6));
-
-    if (CHECK_BIT(p->_9F2A[1], 8) == RESET && CHECK_BIT(p->_9F2A[1], 7) == RESET) {
+    if (CHECK_BIT(p->_9F2A[1], BIT_8) == RESET && CHECK_BIT(p->_9F2A[1], BIT_7) == RESET) {
         // b8, b7: 00b
         return InternationalKernel;
-    } else if (CHECK_BIT(p->_9F2A[1], 8) == SET && CHECK_BIT(p->_9F2A[1], 7) == RESET) {
+    } else if (CHECK_BIT(p->_9F2A[1], BIT_8) == SET && CHECK_BIT(p->_9F2A[1], BIT_7) == RESET) {
         // b8, b7: 10b
         return DomesticKernelEmvCoFormat;
-    } else if (CHECK_BIT(p->_9F2A[1], 8) == SET && CHECK_BIT(p->_9F2A[1], 7) == SET) {
+    } else if (CHECK_BIT(p->_9F2A[1], BIT_8) == SET && CHECK_BIT(p->_9F2A[1], BIT_7) == SET) {
         // b8, b7: 11b
         return DomesticKernelPropFormat;
     }
