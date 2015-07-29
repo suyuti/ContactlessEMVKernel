@@ -55,3 +55,24 @@ void defaultRelease(void* p)
 {
     free(p);
 }
+
+int defaultRfOpen(void)
+{
+    return 0;
+}
+
+int defaultRfClose(void)
+{
+    return 0;
+}
+
+int defaultPoll(void)
+{
+    return 0;
+}
+
+int defaultDisplayMessage(const char* msg)
+{
+    printf("%s", msg);
+    return 0;
+}

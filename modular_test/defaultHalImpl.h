@@ -25,6 +25,8 @@ int defaultGetFileSize(int file);
 int defaultFileRead(int file, char* buffer, int size);
 void* defaultAllocate(int size);
 void defaultRelease(void* p);
-
-
+int defaultRfOpen(void);
+int defaultRfClose(void);
+int defaultPoll(void);
+int defaultDisplayMessage(const char* msg);
 #endif  // MODULAR_TEST_DEFAULTHALIMPL_H_
