@@ -44,6 +44,25 @@ void release(void* p)
     gHal.release(p);
 }
 
+int displayMessage(const char* msg)
+{
+    return gHal.displayMessage(msg);
+}
+
+int rf_open(void)
+{
+    return gHal.rfOpen();
+}
+
+int rf_close(void)
+{
+    return gHal.rfClose();
+}
+
+int poll(_on_card_detected hadler)
+{
+    return gHal.poll(hadler);
+}
 
 
 
@@ -136,6 +155,31 @@ int setGenUnPredNum(genUnPredNum f)
     SET_DELEGATE_GENUNPREDNUM(&gHal, f);
     return SUCCESS;
 }
+
+int setPoll(_poll f)
+{
+    gHal.poll = f;
+    return SUCCESS;
+}
+
+int setRfOpen(_rf_open f)
+{
+    gHal.rfOpen = f;
+    return SUCCESS;
+}
+
+int setRfClose(_rf_close f)
+{
+    gHal.rfClose = f;
+    return SUCCESS;
+}
+
+int setDisplayMessage(_displayMessage f)
+{
+    gHal.displayMessage = f;
+    return SUCCESS;
+}
+
 
 //------------------------------------------------------------------------------------
 

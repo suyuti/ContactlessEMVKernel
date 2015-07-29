@@ -5,6 +5,11 @@
 #ifndef MODULAR_SRC_COMMON_HAL_H_
 #define MODULAR_SRC_COMMON_HAL_H_
 
+//- RF
+typedef int (*_rf_open)(void);
+typedef int (*_rf_close)(void);
+typedef int (*_on_card_detected)(void);
+typedef int (*_poll)(_on_card_detected hadler);
 
 //- SmartCard IO
 typedef int     (*_card_open)(void);
@@ -32,6 +37,9 @@ typedef void    (*_release)(void* p);
 typedef int (*genUnPredNum)(unsigned char* pOut,
                             unsigned long* pOutSize);
 
+//- LCD
+typedef int     (*_displayMessage)(const char* msg);
+
 #define GENERATE_UNPREDICT_NUMBER(p, n, l)  (p)->_genUnPredNum((n), (l))
 
 typedef struct {
@@ -46,6 +54,10 @@ typedef struct {
     _allocate       allocate;
     _release        release;
     genUnPredNum    _genUnPredNum;
+    _displayMessage displayMessage;
+    _rf_open        rfOpen;
+    _rf_close       rfClose;
+    _poll           poll;
 } HalInterfaces, *HalInterfacesPtr;
 
 
@@ -97,6 +109,10 @@ int getFileSize(int file);
 int fileRead(int file, char* buffer, int size);
 void* allocate(int size);
 void release(void* p);
+int displayMessage(const char* msg);
+int rf_open(void);
+int rf_close(void);
+int poll(_on_card_detected hadler);
 
 
 
@@ -112,6 +128,9 @@ int setGetFileSize(_getFileSize f);
 int setAllocate(_allocate f);
 int setRelease(_release f);
 int setGenUnPredNum(genUnPredNum f);
-
+int setPoll(_poll f);
+int setRfOpen(_rf_open f);
+int setRfClose(_rf_close f);
+int setDisplayMessage(_displayMessage f);
 
 #endif  // MODULAR_SRC_COMMON_HAL_H_
