@@ -110,3 +110,32 @@ Getting information about binaries:
   bss: is the uninitialized or simply 0 initiailized section, int a; or double amount;
   dec: is the overall size, in this case 102134 + 1776 + 11272 = 115182
   hex: finally is also the overall size, as a hex value 1c1ee = 115182
+
+
+
+
+Modes:
+
+
+  - Stright
+  - Managed
+  - Intelligent
+
+  Straight:
+    Kütüphanedir.
+    Emv komutları dışarı servis edilir. Emv komutları 3rd party tarafından çağırılır.
+    En düşük seviyedir.
+
+  Managed:
+    kütüphanedir.
+    Managerın APIleri çağırılır.
+    senkron çalışır.
+    rf yönetimi, peripherals, rf polling 3rd party tarafından yönetilir.
+
+  Intelligent:
+    Application'dır.
+    Terminal ile haberleşme yapar. Asenkron haberleşir.
+    RF yönetir. Led, Buzzer, Lcd yönetir.
+    rf polling yapar.
+    API:
+      start()
