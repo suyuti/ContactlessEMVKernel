@@ -9,4 +9,7 @@
 int initialize(const char* path);
 int execute(int amount, int amountOther);
 
+
+typedef int (*_performKernel)(void);
+
 #endif  // MODULAR_SRC_KERNEL_KERNEL_H_
